@@ -21,21 +21,56 @@ import {
   Phone
 } from 'lucide-react';
 import Link from 'next/link';
-import { logInvestigationAction, addEvidenceAction } from './actions';
+import { logInvestigationAction, addEvidenceAction, updateCaseDetailsAction } from './actions';
 
 interface CaseDetailProps {
   c: any; // case details joined
   currentUser: any;
+  officers: any[];
+  stations: any[];
 }
 
-export default function CaseDetailClient({ c, currentUser }: CaseDetailProps) {
+export default function CaseDetailClient({ c, currentUser, officers = [], stations = [] }: CaseDetailProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'people' | 'investigations' | 'evidence' | 'timeline'>('overview');
   
   // Modals state
   const [logModalOpen, setLogModalOpen] = useState(false);
   const [evidenceModalOpen, setEvidenceModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Edit form state
+  const [priority, setPriority] = useState(c.priority);
+  const [status, setStatus] = useState(c.status);
+  const [description, setDescription] = useState(c.description || '');
+  const [location, setLocation] = useState(c.location || '');
+  const [assignedOfficerId, setAssignedOfficerId] = useState(c.assigned_officer_id || '');
+
+  const canWrite = currentUser?.role === 'admin' || currentUser?.role === 'officer';
+
+  const handleEditSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const res = await updateCaseDetailsAction(c.id, {
+      priority,
+      status,
+      description,
+      location,
+      assigned_officer_id: assignedOfficerId
+    });
+
+    if (res.success) {
+      setEditModalOpen(false);
+      setLoading(false);
+      window.location.reload();
+    } else {
+      setError(res.error || 'Failed to update case details');
+      setLoading(false);
+    }
+  };
 
   // Auto file suggestion for mock evidence
   const [evidenceFile, setEvidenceFile] = useState('doc_report_copy.pdf');
@@ -196,9 +231,19 @@ export default function CaseDetailClient({ c, currentUser }: CaseDetailProps) {
             {/* Left Case Narrative Card */}
             <div className="lg:col-span-2 space-y-6">
               <div className="bg-white border border-slate-200 p-5 rounded-xl shadow-sm space-y-4">
-                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-3">
-                  Incident Narrative Details
-                </h3>
+                <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                  <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest">
+                    Incident Narrative Details
+                  </h3>
+                  {canWrite && (
+                    <button
+                      onClick={() => setEditModalOpen(true)}
+                      className="text-indigo-650 hover:text-indigo-850 text-[10px] font-bold uppercase tracking-wider hover:underline"
+                    >
+                      Edit Case Details
+                    </button>
+                  )}
+                </div>
                 <p className="text-xs text-slate-600 leading-6 whitespace-pre-line font-medium">
                   {c.description || 'No descriptive statement has been logged for this case register.'}
                 </p>
@@ -688,6 +733,116 @@ export default function CaseDetailClient({ c, currentUser }: CaseDetailProps) {
                 </button>
               </div>
 
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Case Modal */}
+      {editModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-xl shadow-xl max-w-md w-full overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+              <div className="flex items-center space-x-2">
+                <Briefcase className="w-4 h-4 text-slate-555" />
+                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Modify Case Details</h3>
+              </div>
+              <button onClick={() => setEditModalOpen(false)} className="text-slate-400 hover:text-slate-655">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form onSubmit={handleEditSubmit} className="p-5 space-y-4 text-xs font-semibold text-slate-705 max-h-[80vh] overflow-y-auto">
+              {error && (
+                <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg font-bold">
+                  {error}
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="block text-[10px] text-slate-400 uppercase font-bold">Case Priority</label>
+                  <select
+                    value={priority}
+                    onChange={(e: any) => setPriority(e.target.value)}
+                    className="w-full px-3 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:border-indigo-600 cursor-pointer"
+                  >
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    <option value="critical">Critical</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block text-[10px] text-slate-400 uppercase font-bold">Case Status</label>
+                  <select
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                    className="w-full px-3 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:border-indigo-600 cursor-pointer"
+                  >
+                    <option value="registered">Registered</option>
+                    <option value="under_investigation">Under Investigation</option>
+                    <option value="suspect_identified">Suspect Identified</option>
+                    <option value="chargesheet_filed">Chargesheet Filed</option>
+                    <option value="solved">Solved</option>
+                    <option value="closed">Closed</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="block text-[10px] text-slate-400 uppercase font-bold">Incident Location</label>
+                <input
+                  type="text"
+                  required
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-600"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="block text-[10px] text-slate-400 uppercase font-bold">Assigned Investigator</label>
+                <select
+                  value={assignedOfficerId}
+                  onChange={(e) => setAssignedOfficerId(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:border-indigo-600 cursor-pointer"
+                >
+                  <option value="">Unassigned</option>
+                  {officers.map((o: any) => (
+                    <option key={o.id} value={o.id}>
+                      {o.profiles?.full_name} ({o.badge_number})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-1">
+                <label className="block text-[10px] text-slate-400 uppercase font-bold">Incident Description Narrative</label>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-600 h-28 resize-none font-sans font-medium"
+                />
+              </div>
+
+              <div className="flex space-x-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setEditModalOpen(false)}
+                  className="w-1/2 py-2 px-4 border border-slate-200 rounded-lg text-xs font-bold text-slate-550 hover:bg-slate-50 bg-white"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-1/2 py-2 px-4 rounded-lg shadow-sm text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 disabled:opacity-50 transition-all"
+                >
+                  {loading ? 'Saving...' : 'Save Changes'}
+                </button>
+              </div>
             </form>
           </div>
         </div>

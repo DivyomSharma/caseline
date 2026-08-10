@@ -1,6 +1,6 @@
 'use server';
 
-import { addInvestigationLog, addEvidence, getCurrentUser } from '@/lib/supabase/db';
+import { addInvestigationLog, addEvidence, getCurrentUser, updateCaseDetails } from '@/lib/supabase/db';
 import { revalidatePath } from 'next/cache';
 
 export async function logInvestigationAction(prevState: any, formData: FormData) {
@@ -62,6 +62,27 @@ export async function addEvidenceAction(prevState: any, formData: FormData) {
     return { success: true };
   } catch (error: any) {
     console.error('Failed to add evidence:', error);
+    return { success: false, error: error?.message || 'Database error occurred.' };
+  }
+}
+
+export async function updateCaseDetailsAction(
+  caseId: string,
+  data: {
+    priority: 'low' | 'medium' | 'high' | 'critical';
+    status: string;
+    description: string;
+    location: string;
+    assigned_officer_id: string;
+  }
+) {
+  try {
+    await updateCaseDetails(caseId, data);
+    revalidatePath(`/cases/${caseId}`);
+    revalidatePath('/cases');
+    return { success: true };
+  } catch (error: any) {
+    console.error('Failed to update case details:', error);
     return { success: false, error: error?.message || 'Database error occurred.' };
   }
 }

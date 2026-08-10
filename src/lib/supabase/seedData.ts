@@ -179,6 +179,22 @@ export const STATIONS: PoliceStation[] = [
 
 export const PROFILES: Profile[] = [
   {
+    id: "user-divyom",
+    full_name: "Commissioner Divyom",
+    email: "divyom@caseline.gov",
+    role: "admin",
+    avatar_url: "/avatars/officer-divyom.jpg",
+    created_at: "2024-01-11T08:00:00Z"
+  },
+  {
+    id: "user-samar",
+    full_name: "Additional Commissioner Samar",
+    email: "samar@caseline.gov",
+    role: "admin",
+    avatar_url: "/avatars/officer-samar.jpg",
+    created_at: "2024-01-11T08:30:00Z"
+  },
+  {
     id: "user-admin",
     full_name: "ACP Sunita Deshmukh",
     email: "admin@caseline.gov",
@@ -311,6 +327,28 @@ export const PROFILES: Profile[] = [
 ];
 
 export const OFFICERS: Officer[] = [
+  {
+    id: "officer-divyom",
+    profile_id: "user-divyom",
+    badge_number: "IPS-0001",
+    rank: "Commissioner",
+    station_id: "station-001",
+    phone: "+91-9999999901",
+    joining_date: "2010-01-01",
+    status: "active",
+    created_at: "2024-01-11T08:00:00Z"
+  },
+  {
+    id: "officer-samar",
+    profile_id: "user-samar",
+    badge_number: "IPS-0002",
+    rank: "Additional Commissioner",
+    station_id: "station-001",
+    phone: "+91-9999999902",
+    joining_date: "2012-05-15",
+    status: "active",
+    created_at: "2024-01-11T08:30:00Z"
+  },
   {
     id: "officer-admin",
     profile_id: "user-admin",

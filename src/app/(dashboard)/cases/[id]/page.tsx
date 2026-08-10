@@ -1,4 +1,4 @@
-import { getCaseById, getCurrentUser } from '@/lib/supabase/db';
+import { getCaseById, getCurrentUser, getOfficers, getPoliceStations } from '@/lib/supabase/db';
 import { notFound } from 'next/navigation';
 import CaseDetailClient from './case-detail-client';
 
@@ -10,6 +10,8 @@ export default async function CaseDetailPage({ params }: PageProps) {
   const { id } = await params;
   const caseObj = await getCaseById(id);
   const user = await getCurrentUser();
+  const officers = await getOfficers();
+  const stations = await getPoliceStations();
 
   if (!caseObj) {
     notFound();
@@ -19,6 +21,8 @@ export default async function CaseDetailPage({ params }: PageProps) {
     <CaseDetailClient 
       c={caseObj} 
       currentUser={user} 
+      officers={officers}
+      stations={stations}
     />
   );
 }

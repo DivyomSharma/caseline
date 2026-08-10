@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { loginAction } from './actions';
+import React, { useState, useEffect } from 'react';
+import { loginAction, toggleDatabaseSlateAction, getDatabaseSlateModeAction } from './actions';
 import { Shield, Eye, EyeOff, AlertCircle } from 'lucide-react';
 
 export default function LoginPage() {
@@ -11,6 +11,15 @@ export default function LoginPage() {
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [dbSlate, setDbSlate] = useState<'seeded' | 'empty'>('seeded');
+
+  useEffect(() => {
+    async function loadSlate() {
+      const mode = await getDatabaseSlateModeAction();
+      setDbSlate(mode);
+    }
+    loadSlate();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,6 +42,11 @@ export default function LoginPage() {
     }
   };
 
+  const handleSlateToggle = async (mode: 'seeded' | 'empty') => {
+    setDbSlate(mode);
+    await toggleDatabaseSlateAction(mode);
+  };
+
   const handleSelectDemoUser = (demoEmail: string) => {
     setEmail(demoEmail);
     setPassword('password123');
@@ -53,7 +67,39 @@ export default function LoginPage() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 border border-slate-200 shadow-sm sm:rounded-xl sm:px-10">
+        <div className="bg-white py-8 px-4 border border-slate-200 shadow-sm sm:rounded-xl sm:px-10 space-y-6">
+          
+          {/* Database slate switcher */}
+          <div className="space-y-1">
+            <span className="block text-xs font-bold uppercase tracking-wider text-slate-500">
+              Database Mode
+            </span>
+            <div className="grid grid-cols-2 gap-2 mt-1">
+              <button
+                type="button"
+                onClick={() => handleSlateToggle('seeded')}
+                className={`py-2 px-3 border rounded-lg text-xs font-extrabold transition-all text-center ${
+                  dbSlate === 'seeded'
+                    ? 'bg-slate-900 border-slate-900 text-white shadow-sm'
+                    : 'bg-slate-50 border-slate-200 text-slate-650 hover:bg-slate-100'
+                }`}
+              >
+                Seeded Data (40 Cases)
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSlateToggle('empty')}
+                className={`py-2 px-3 border rounded-lg text-xs font-extrabold transition-all text-center ${
+                  dbSlate === 'empty'
+                    ? 'bg-slate-900 border-slate-900 text-white shadow-sm'
+                    : 'bg-slate-50 border-slate-200 text-slate-650 hover:bg-slate-100'
+                }`}
+              >
+                Clean Slate (Empty DB)
+              </button>
+            </div>
+          </div>
+
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
               <div className="rounded-md bg-red-50 p-4 border border-red-200 flex items-start space-x-3">
@@ -134,50 +180,84 @@ export default function LoginPage() {
           </form>
 
           {/* Fictional Demo Accounts info */}
-          <div className="mt-8 border-t border-slate-200 pt-6">
+          <div className="border-t border-slate-200 pt-5">
             <h3 className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-3">
               Fictional Demo Profiles
             </h3>
-            <div className="space-y-2">
-              <button
-                onClick={() => handleSelectDemoUser('admin@caseline.gov')}
-                className="w-full text-left p-3 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
-              >
-                <div>
-                  <div className="text-xs font-bold text-slate-700 group-hover:text-indigo-900">ADMIN ROLE</div>
-                  <div className="text-xs text-slate-500">ACP Sunita Deshmukh</div>
-                </div>
-                <div className="text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-full">
-                  admin@caseline.gov
-                </div>
-              </button>
+            
+            {dbSlate === 'empty' ? (
+              <div className="space-y-2">
+                <button
+                  onClick={() => handleSelectDemoUser('divyom@caseline.gov')}
+                  className="w-full text-left p-3 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
+                >
+                  <div>
+                    <div className="text-xs font-bold text-slate-700 group-hover:text-indigo-900">COMMISSIONER (ADMIN)</div>
+                    <div className="text-xs text-slate-500">Divyom</div>
+                  </div>
+                  <div className="text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-full">
+                    divyom@caseline.gov
+                  </div>
+                </button>
 
-              <button
-                onClick={() => handleSelectDemoUser('arjun.mehta@caseline.gov')}
-                className="w-full text-left p-3 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
-              >
-                <div>
-                  <div className="text-xs font-bold text-slate-700 group-hover:text-indigo-900">OFFICER ROLE</div>
-                  <div className="text-xs text-slate-500">Inspector Arjun Mehta</div>
-                </div>
-                <div className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">
-                  arjun.mehta@caseline.gov
-                </div>
-              </button>
+                <button
+                  onClick={() => handleSelectDemoUser('samar@caseline.gov')}
+                  className="w-full text-left p-3 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
+                >
+                  <div>
+                    <div className="text-xs font-bold text-slate-700 group-hover:text-indigo-900">ADDITIONAL COMMISSIONER</div>
+                    <div className="text-xs text-slate-500">Samar</div>
+                  </div>
+                  <div className="text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-full">
+                    samar@caseline.gov
+                  </div>
+                </button>
+                <p className="text-[10px] text-slate-400 mt-2 italic text-center">
+                  In Clean Slate mode, log in as Divyom or Samar to register stations and create officer accounts.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                <button
+                  onClick={() => handleSelectDemoUser('divyom@caseline.gov')}
+                  className="w-full text-left p-2.5 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
+                >
+                  <div>
+                    <div className="text-[10px] font-extrabold text-slate-650">COMMISSIONER (ADMIN)</div>
+                    <div className="text-[11px] text-slate-500">Divyom</div>
+                  </div>
+                  <div className="text-[9px] bg-indigo-50 text-indigo-800 font-bold px-2 py-0.5 rounded-full">
+                    divyom@caseline.gov
+                  </div>
+                </button>
 
-              <button
-                onClick={() => handleSelectDemoUser('viewer@caseline.gov')}
-                className="w-full text-left p-3 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
-              >
-                <div>
-                  <div className="text-xs font-bold text-slate-700 group-hover:text-indigo-900">VIEWER ROLE</div>
-                  <div className="text-xs text-slate-500">DG R. K. Sen</div>
-                </div>
-                <div className="text-[10px] bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded-full">
-                  viewer@caseline.gov
-                </div>
-              </button>
-            </div>
+                <button
+                  onClick={() => handleSelectDemoUser('arjun.mehta@caseline.gov')}
+                  className="w-full text-left p-2.5 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
+                >
+                  <div>
+                    <div className="text-[10px] font-extrabold text-slate-650">OFFICER ROLE</div>
+                    <div className="text-[11px] text-slate-500">Inspector Arjun Mehta</div>
+                  </div>
+                  <div className="text-[9px] bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full">
+                    arjun.mehta@caseline.gov
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => handleSelectDemoUser('viewer@caseline.gov')}
+                  className="w-full text-left p-2.5 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
+                >
+                  <div>
+                    <div className="text-[10px] font-extrabold text-slate-650">VIEWER ROLE</div>
+                    <div className="text-[11px] text-slate-500">DG R. K. Sen</div>
+                  </div>
+                  <div className="text-[9px] bg-slate-50 text-slate-600 font-bold px-2 py-0.5 rounded-full">
+                    viewer@caseline.gov
+                  </div>
+                </button>
+              </div>
+            )}
           </div>
 
         </div>

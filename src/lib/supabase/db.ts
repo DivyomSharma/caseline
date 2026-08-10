@@ -33,7 +33,94 @@ if (!globalStore.mockDb) {
   };
 }
 
-const mockDb = globalStore.mockDb;
+export async function getDatabaseSlateMode(): Promise<'seeded' | 'empty'> {
+  if (typeof window === 'undefined') {
+    try {
+      const { cookies } = await import('next/headers');
+      const cookieStore = await cookies();
+      const mode = cookieStore.get('caseline_db_slate')?.value || 'seeded';
+      globalStore.mockDbMode = mode;
+      return mode as 'seeded' | 'empty';
+    } catch {
+      return (globalStore.mockDbMode || 'seeded') as 'seeded' | 'empty';
+    }
+  } else {
+    const match = document.cookie.match(new RegExp('(^| )caseline_db_slate=([^;]*)'));
+    const mode = (match ? decodeURIComponent(match[2]) : 'seeded') as 'seeded' | 'empty';
+    globalStore.mockDbMode = mode;
+    return mode;
+  }
+}
+
+export async function setDatabaseSlateMode(mode: 'seeded' | 'empty') {
+  globalStore.mockDbMode = mode;
+  if (typeof window === 'undefined') {
+    try {
+      const { cookies } = await import('next/headers');
+      const cookieStore = await cookies();
+      cookieStore.set('caseline_db_slate', mode, { path: '/' });
+    } catch (e) {
+      console.error("Failed to set slate mode cookie:", e);
+    }
+  } else {
+    document.cookie = `caseline_db_slate=${mode}; path=/; max-age=${60 * 60 * 24 * 365}`;
+  }
+}
+
+export async function resetEmptySlate() {
+  globalStore.mockDbEmpty = null;
+}
+
+const mockDb = new Proxy({} as any, {
+  get(target, prop) {
+    const mode = globalStore.mockDbMode || 'seeded';
+    if (mode === 'empty') {
+      if (!globalStore.mockDbEmpty) {
+        globalStore.mockDbEmpty = {
+          stations: [],
+          profiles: JSON.parse(JSON.stringify(seedData.PROFILES)),
+          officers: JSON.parse(JSON.stringify(seedData.OFFICERS.filter((o: any) => o.profile_id === 'user-divyom' || o.profile_id === 'user-samar'))),
+          victims: [],
+          cases: [],
+          firs: [],
+          criminals: [],
+          case_criminals: [],
+          case_victims: [],
+          investigations: [],
+          evidence: [],
+          case_updates: []
+        };
+      }
+      return globalStore.mockDbEmpty[prop];
+    }
+    return globalStore.mockDb[prop];
+  },
+  set(target, prop, value) {
+    const mode = globalStore.mockDbMode || 'seeded';
+    if (mode === 'empty') {
+      if (!globalStore.mockDbEmpty) {
+        globalStore.mockDbEmpty = {
+          stations: [],
+          profiles: JSON.parse(JSON.stringify(seedData.PROFILES)),
+          officers: JSON.parse(JSON.stringify(seedData.OFFICERS.filter((o: any) => o.profile_id === 'user-divyom' || o.profile_id === 'user-samar'))),
+          victims: [],
+          cases: [],
+          firs: [],
+          criminals: [],
+          case_criminals: [],
+          case_victims: [],
+          investigations: [],
+          evidence: [],
+          case_updates: []
+        };
+      }
+      globalStore.mockDbEmpty[prop] = value;
+      return true;
+    }
+    globalStore.mockDb[prop] = value;
+    return true;
+  }
+});
 
 // Helper to get cookies in server actions/components safely
 const getSessionCookie = async () => {
@@ -53,6 +140,7 @@ const getSessionCookie = async () => {
 // -------------------------------------------------------------------------
 
 export async function getCurrentUser() {
+  await getDatabaseSlateMode();
   if (!isSupabaseConfigured()) {
     const sessionEmail = await getSessionCookie();
     if (!sessionEmail) return null;
@@ -1010,3 +1098,167 @@ export async function getAllEvidence() {
     .order('created_at', { ascending: false });
   return data || [];
 }
+
+export async function createPoliceStation(data: { name: string; station_code: string; district: string; address: string; contact: string }) {
+  if (!isSupabaseConfigured()) {
+    const newStation = {
+      id: `station-${Date.now()}`,
+      ...data,
+      created_at: new Date().toISOString()
+    };
+    mockDb.stations.push(newStation);
+    return newStation;
+  }
+
+  const supabase = typeof window === 'undefined' ? await createServerSupabase() : createBrowserSupabase();
+  const { data: res, error } = await supabase
+    .from('police_stations')
+    .insert([data])
+    .select()
+    .single();
+
+  if (error) throw error;
+  return res;
+}
+
+export async function createOfficer(data: {
+  full_name: string;
+  email: string;
+  badge_number: string;
+  rank: string;
+  station_id: string;
+  phone: string;
+}) {
+  if (!isSupabaseConfigured()) {
+    const profileId = `user-officer-${Date.now()}`;
+    const newProfile = {
+      id: profileId,
+      full_name: data.full_name,
+      email: data.email,
+      role: 'officer',
+      avatar_url: `/avatars/default.jpg`,
+      created_at: new Date().toISOString()
+    };
+
+    const officerId = `officer-${Date.now()}`;
+    const newOfficer = {
+      id: officerId,
+      profile_id: profileId,
+      badge_number: data.badge_number,
+      rank: data.rank,
+      station_id: data.station_id,
+      phone: data.phone,
+      joining_date: new Date().toISOString().split('T')[0],
+      status: 'active',
+      created_at: new Date().toISOString()
+    };
+
+    mockDb.profiles.push(newProfile);
+    mockDb.officers.push(newOfficer);
+    return { profile: newProfile, officer: newOfficer };
+  }
+
+  const supabase = typeof window === 'undefined' ? await createServerSupabase() : createBrowserSupabase();
+  
+  const { data: newProfile, error: profileError } = await supabase
+    .from('profiles')
+    .insert([{
+      full_name: data.full_name,
+      email: data.email,
+      role: 'officer',
+    }])
+    .select()
+    .single();
+
+  if (profileError) throw profileError;
+
+  const { data: newOfficer, error: officerError } = await supabase
+    .from('officers')
+    .insert([{
+      profile_id: newProfile.id,
+      badge_number: data.badge_number,
+      rank: data.rank,
+      station_id: data.station_id,
+      phone: data.phone,
+      status: 'active'
+    }])
+    .select()
+    .single();
+
+  if (officerError) throw officerError;
+
+  return { profile: newProfile, officer: newOfficer };
+}
+
+export async function updateCaseDetails(id: string, data: { priority: 'low' | 'medium' | 'high' | 'critical'; status: string; description: string; location: string; assigned_officer_id: string }) {
+  if (!isSupabaseConfigured()) {
+    const idx = mockDb.cases.findIndex((c: any) => c.id === id);
+    if (idx !== -1) {
+      const prevStatus = mockDb.cases[idx].status;
+      mockDb.cases[idx] = {
+        ...mockDb.cases[idx],
+        priority: data.priority,
+        status: data.status,
+        description: data.description,
+        location: data.location,
+        assigned_officer_id: data.assigned_officer_id,
+        updated_at: new Date().toISOString()
+      };
+
+      if (prevStatus !== data.status) {
+        mockDb.case_updates.push({
+          id: `update-${Date.now()}`,
+          case_id: id,
+          user_id: 'user-divyom',
+          title: 'Case Details Updated',
+          description: `Case status changed from ${prevStatus.replace(/_/g, ' ')} to ${data.status.replace(/_/g, ' ')}. Location and assignment updated.`,
+          created_at: new Date().toISOString()
+        });
+      }
+      return mockDb.cases[idx];
+    }
+    throw new Error('Case not found');
+  }
+
+  const supabase = typeof window === 'undefined' ? await createServerSupabase() : createBrowserSupabase();
+  const { data: res, error } = await supabase
+    .from('cases')
+    .update({
+      priority: data.priority,
+      status: data.status,
+      description: data.description,
+      location: data.location,
+      assigned_officer_id: data.assigned_officer_id,
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return res;
+}
+
+export async function createVictim(data: { full_name: string; contact: string; address: string; notes: string }) {
+  if (!isSupabaseConfigured()) {
+    const newVictim = {
+      id: `victim-${Date.now()}`,
+      ...data,
+      created_at: new Date().toISOString()
+    };
+    mockDb.victims.push(newVictim);
+    return newVictim;
+  }
+
+  const supabase = typeof window === 'undefined' ? await createServerSupabase() : createBrowserSupabase();
+  const { data: res, error } = await supabase
+    .from('victims')
+    .insert([data])
+    .select()
+    .single();
+
+  if (error) throw error;
+  return res;
+}
+
+

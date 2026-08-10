@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { PROFILES } from '@/lib/supabase/seedData';
+import { setDatabaseSlateMode, getDatabaseSlateMode, resetEmptySlate, getCurrentUser } from '@/lib/supabase/db';
 
 export async function loginAction(formData: FormData) {
   const email = formData.get('email') as string;
@@ -77,4 +78,19 @@ export async function logoutAction() {
   }
 
   redirect('/login');
+}
+
+export async function toggleDatabaseSlateAction(mode: 'seeded' | 'empty') {
+  await setDatabaseSlateMode(mode);
+  if (mode === 'empty') {
+    await resetEmptySlate();
+  }
+}
+
+export async function getDatabaseSlateModeAction() {
+  return await getDatabaseSlateMode();
+}
+
+export async function getCurrentUserAction() {
+  return await getCurrentUser();
 }
