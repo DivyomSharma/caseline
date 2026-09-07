@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Sidebar from '@/components/layout/Sidebar';
 import TopHeader from '@/components/layout/TopHeader';
+import AIChatWidget from '@/components/shared/AIChatWidget';
 import { X, Shield } from 'lucide-react';
 import Link from 'next/link';
 
@@ -72,6 +73,8 @@ export default function LayoutClient({ children, user }: LayoutClientProps) {
           {children}
         </main>
       </div>
+
+      <AIChatWidget />
 
     </div>
   );
