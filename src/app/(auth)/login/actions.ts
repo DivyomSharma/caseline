@@ -21,7 +21,7 @@ export async function loginAction(formData: FormData) {
     // Offline mock mode
     const matchedProfile = PROFILES.find(p => p.email.toLowerCase() === email.toLowerCase());
     if (!matchedProfile) {
-      return { error: 'Invalid email address. Choose from admin@caseline.gov, arjun.mehta@caseline.gov, or viewer@caseline.gov for demo.' };
+      return { error: 'Invalid email address. Please check your credentials or select an account from the Authorized Access list.' };
     }
 
     const cookieStore = await cookies();

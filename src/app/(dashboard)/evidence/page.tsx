@@ -12,7 +12,7 @@ export default async function EvidenceListPage() {
       <div>
         <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">Evidence depository Vault</h1>
         <p className="text-slate-500 text-[11px] mt-0.5">
-          Fictional registry of files, photographs, digital elements, and physical objects logged under custody.
+          Registry of files, digital elements, and physical exhibits logged under department custody.
         </p>
       </div>
 

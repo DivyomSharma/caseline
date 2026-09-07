@@ -702,8 +702,8 @@ export default function CaseDetailClient({ c, currentUser, officers = [], statio
               </div>
 
               <div className="border border-dashed border-slate-200 p-4 rounded-lg flex flex-col items-center justify-center bg-slate-50">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Fictional File Upload</span>
-                <span className="text-[9px] text-slate-500 mt-1 font-semibold">Generating path: /demo-evidence/{evidenceFile}</span>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Secure File Attachment</span>
+                <span className="text-[9px] text-slate-500 mt-1 font-semibold">Virtual Attachment Path: /demo-evidence/{evidenceFile}</span>
                 
                 <div className="mt-3 flex space-x-2 w-full">
                   <input

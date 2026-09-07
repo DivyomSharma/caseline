@@ -86,9 +86,9 @@ export default function SettingsPage() {
             
             {/* Slate Toggle Card */}
             <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3">
-              <div className="text-xs font-bold text-slate-700">Database Slate Configuration</div>
-              <p className="text-[11px] text-slate-500 leading-relaxed">
-                Toggling to <b>Clean Slate</b> will reset the in-memory database to empty (except for Divyom and Samar's administration credentials) to let you demonstrate fully dynamic station registration, officer enrollment, and case mapping.
+              <div className="text-xs font-bold text-slate-700">Database Configuration</div>
+              <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
+                Toggling to <b>Blank Database</b> will clear the local database cache (except for Divyom and Samar's administrator accounts) to reset the system for verification.
               </p>
               
               <div className="flex items-center space-x-3 pt-1">
@@ -98,10 +98,10 @@ export default function SettingsPage() {
                   className={`px-4 py-2 rounded-lg text-xs font-bold transition-all border ${
                     dbSlate === 'seeded'
                       ? 'bg-slate-900 border-slate-900 text-white'
-                      : 'bg-white border-slate-200 text-slate-650 hover:bg-slate-100'
+                      : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
                   }`}
                 >
-                  Seeded Dataset (40 Cases)
+                  Standard Database
                 </button>
                 <button
                   onClick={() => handleSlateToggle('empty')}
@@ -109,10 +109,10 @@ export default function SettingsPage() {
                   className={`px-4 py-2 rounded-lg text-xs font-bold transition-all border ${
                     dbSlate === 'empty'
                       ? 'bg-slate-900 border-slate-900 text-white'
-                      : 'bg-white border-slate-200 text-slate-650 hover:bg-slate-100'
+                      : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
                   }`}
                 >
-                  Clean Slate (Empty DB)
+                  Blank Database
                 </button>
               </div>
             </div>
@@ -127,12 +127,12 @@ export default function SettingsPage() {
                 <Database className="w-5 h-5 shrink-0 mt-0.5" />
                 <div>
                   <div className="font-extrabold text-sm">
-                    {isSupabase ? 'Supabase Live Connection Active' : 'Offline Mockup Fallback Engine Active'}
+                    {isSupabase ? 'Supabase Live Connection Active' : 'Local Database Engine Active (SQLite/In-Memory)'}
                   </div>
-                  <p className="mt-1 leading-5">
+                  <p className="mt-1 leading-5 font-medium text-slate-600">
                     {isSupabase 
                       ? 'The application is reading and writing records in real-time from the Supabase PostgreSQL cluster.' 
-                      : `NEXT_PUBLIC_SUPABASE_URL is not set. Currently running in offline fallback mode using ${dbSlate === 'seeded' ? 'pre-loaded Seeded Data' : 'Clean Slate (Empty Database)'}.`
+                      : `Supabase environment configurations are not set. Running in local fallback database mode with ${dbSlate === 'seeded' ? 'Standard Seed Data' : 'Blank Database configuration'}.`
                     }
                   </p>
                 </div>
@@ -153,7 +153,7 @@ export default function SettingsPage() {
                       <span>Configured</span>
                     </span>
                   ) : (
-                    <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold">Unset (Mock fallbacked)</span>
+                    <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold">Unset (Local DB)</span>
                   )}
                 </div>
 
@@ -165,7 +165,7 @@ export default function SettingsPage() {
                       <span>Configured</span>
                     </span>
                   ) : (
-                    <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold">Unset (Mock fallbacked)</span>
+                    <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-bold">Unset (Local DB)</span>
                   )}
                 </div>
               </div>

@@ -26,7 +26,7 @@ export default function CriminalsClient({ criminals, search, user }: { criminals
         <div>
           <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">Criminal Records Index</h1>
           <p className="text-slate-500 text-[11px] mt-0.5">
-            Fictional offender database including aliases, statuses, and identifiers.
+            Master index of registered offender profiles, aliases, physical markers, and legal statuses.
           </p>
         </div>
         {canWrite && (

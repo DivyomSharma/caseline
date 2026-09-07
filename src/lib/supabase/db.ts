@@ -4,7 +4,7 @@ import * as seedData from './seedData';
 import { Case, Criminal } from './seedData';
 
 // -------------------------------------------------------------------------
-// DUAL-MODE CHECK & STATE IN-MEMORY FOR OFFLINE MOCK MODE
+// DUAL-MODE CHECK & STATE IN-MEMORY FOR LOCAL DATABASE CACHE ENGINE
 // -------------------------------------------------------------------------
 
 const isSupabaseConfigured = () => {
@@ -14,7 +14,7 @@ const isSupabaseConfigured = () => {
   );
 };
 
-// Global server memory store for offline mockup database
+// Global server memory store for local memory database cache
 const globalStore = globalThis as any;
 if (!globalStore.mockDb) {
   globalStore.mockDb = {

@@ -1,5 +1,5 @@
 // Caseline Seed Data
-// Fictional Indian-style records for database seeding and offline-mode fallback
+// Pre-loaded seed records for database initialization and local engine configuration
 
 export interface Profile {
   id: string;

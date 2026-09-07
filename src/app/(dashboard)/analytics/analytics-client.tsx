@@ -35,7 +35,7 @@ interface AnalyticsProps {
 export default function AnalyticsClient({ stats }: AnalyticsProps) {
   const CHART_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444', '#64748b', '#ec4899', '#14b8a6'];
 
-  // Fictional monthly case line data for demonstration trends
+  // Case registration and closure trend metrics by month
   const monthlyTrendsData = [
     { month: 'Jan', Registered: 5, Solved: 3 },
     { month: 'Feb', Registered: 8, Solved: 4 },

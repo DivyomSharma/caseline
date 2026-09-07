@@ -77,7 +77,7 @@ export default function CriminalProfileClient({ criminal, user }: { criminal: an
                 <span className="text-slate-800">{new Date(criminal.date_of_birth).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-450 block uppercase">Fictional Residence Address</span>
+                <span className="text-[10px] text-slate-450 block uppercase">Last Known Residential Address</span>
                 <span className="text-slate-800 leading-5">{criminal.address}</span>
               </div>
             </div>

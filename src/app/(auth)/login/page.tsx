@@ -71,8 +71,8 @@ export default function LoginPage() {
           
           {/* Database slate switcher */}
           <div className="space-y-1">
-            <span className="block text-xs font-bold uppercase tracking-wider text-slate-500">
-              Database Mode
+            <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              Database Configuration
             </span>
             <div className="grid grid-cols-2 gap-2 mt-1">
               <button
@@ -81,10 +81,10 @@ export default function LoginPage() {
                 className={`py-2 px-3 border rounded-lg text-xs font-extrabold transition-all text-center ${
                   dbSlate === 'seeded'
                     ? 'bg-slate-900 border-slate-900 text-white shadow-sm'
-                    : 'bg-slate-50 border-slate-200 text-slate-650 hover:bg-slate-100'
+                    : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
                 }`}
               >
-                Seeded Data (40 Cases)
+                Standard Database
               </button>
               <button
                 type="button"
@@ -92,10 +92,10 @@ export default function LoginPage() {
                 className={`py-2 px-3 border rounded-lg text-xs font-extrabold transition-all text-center ${
                   dbSlate === 'empty'
                     ? 'bg-slate-900 border-slate-900 text-white shadow-sm'
-                    : 'bg-slate-50 border-slate-200 text-slate-650 hover:bg-slate-100'
+                    : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
                 }`}
               >
-                Clean Slate (Empty DB)
+                Blank Database
               </button>
             </div>
           </div>
@@ -179,21 +179,21 @@ export default function LoginPage() {
             </div>
           </form>
 
-          {/* Fictional Demo Accounts info */}
+          {/* Personnel Authorized Roster info */}
           <div className="border-t border-slate-200 pt-5">
-            <h3 className="text-xs font-semibold text-slate-600 uppercase tracking-wider mb-3">
-              Fictional Demo Profiles
+            <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">
+              Authorized Access Gateways
             </h3>
             
             {dbSlate === 'empty' ? (
               <div className="space-y-2">
                 <button
                   onClick={() => handleSelectDemoUser('divyom@caseline.gov')}
-                  className="w-full text-left p-3 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
+                  className="w-full text-left p-3 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group font-sans"
                 >
                   <div>
-                    <div className="text-xs font-bold text-slate-700 group-hover:text-indigo-900">COMMISSIONER (ADMIN)</div>
-                    <div className="text-xs text-slate-500">Divyom</div>
+                    <div className="text-xs font-bold text-slate-700 group-hover:text-indigo-900">COMMISSIONER OF POLICE</div>
+                    <div className="text-xs text-slate-500 font-medium">Divyom</div>
                   </div>
                   <div className="text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-full">
                     divyom@caseline.gov
@@ -202,29 +202,29 @@ export default function LoginPage() {
 
                 <button
                   onClick={() => handleSelectDemoUser('samar@caseline.gov')}
-                  className="w-full text-left p-3 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
+                  className="w-full text-left p-3 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group font-sans"
                 >
                   <div>
                     <div className="text-xs font-bold text-slate-700 group-hover:text-indigo-900">ADDITIONAL COMMISSIONER</div>
-                    <div className="text-xs text-slate-500">Samar</div>
+                    <div className="text-xs text-slate-500 font-medium">Samar</div>
                   </div>
                   <div className="text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-full">
                     samar@caseline.gov
                   </div>
                 </button>
-                <p className="text-[10px] text-slate-400 mt-2 italic text-center">
-                  In Clean Slate mode, log in as Divyom or Samar to register stations and create officer accounts.
+                <p className="text-[10px] text-slate-400 mt-2 italic text-center font-medium">
+                  Under a blank database configuration, log in as Commissioner Divyom or Additional Commissioner Samar to register stations and enroll officers.
                 </p>
               </div>
             ) : (
               <div className="space-y-2">
                 <button
                   onClick={() => handleSelectDemoUser('divyom@caseline.gov')}
-                  className="w-full text-left p-2.5 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
+                  className="w-full text-left p-2.5 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group font-sans"
                 >
                   <div>
-                    <div className="text-[10px] font-extrabold text-slate-650">COMMISSIONER (ADMIN)</div>
-                    <div className="text-[11px] text-slate-500">Divyom</div>
+                    <div className="text-[10px] font-extrabold text-slate-650">COMMISSIONER OF POLICE</div>
+                    <div className="text-[11px] text-slate-500 font-medium">Divyom</div>
                   </div>
                   <div className="text-[9px] bg-indigo-50 text-indigo-800 font-bold px-2 py-0.5 rounded-full">
                     divyom@caseline.gov
@@ -233,11 +233,11 @@ export default function LoginPage() {
 
                 <button
                   onClick={() => handleSelectDemoUser('arjun.mehta@caseline.gov')}
-                  className="w-full text-left p-2.5 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
+                  className="w-full text-left p-2.5 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group font-sans"
                 >
                   <div>
-                    <div className="text-[10px] font-extrabold text-slate-650">OFFICER ROLE</div>
-                    <div className="text-[11px] text-slate-500">Inspector Arjun Mehta</div>
+                    <div className="text-[10px] font-extrabold text-slate-650">STATION HOUSE OFFICER (SHO)</div>
+                    <div className="text-[11px] text-slate-500 font-medium">Inspector Arjun Mehta</div>
                   </div>
                   <div className="text-[9px] bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full">
                     arjun.mehta@caseline.gov
@@ -246,11 +246,11 @@ export default function LoginPage() {
 
                 <button
                   onClick={() => handleSelectDemoUser('viewer@caseline.gov')}
-                  className="w-full text-left p-2.5 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group"
+                  className="w-full text-left p-2.5 rounded-lg border border-slate-100 hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex justify-between items-center group font-sans"
                 >
                   <div>
-                    <div className="text-[10px] font-extrabold text-slate-650">VIEWER ROLE</div>
-                    <div className="text-[11px] text-slate-500">DG R. K. Sen</div>
+                    <div className="text-[10px] font-extrabold text-slate-650">DIRECTOR GENERAL</div>
+                    <div className="text-[11px] text-slate-500 font-medium">DG R. K. Sen</div>
                   </div>
                   <div className="text-[9px] bg-slate-50 text-slate-600 font-bold px-2 py-0.5 rounded-full">
                     viewer@caseline.gov
