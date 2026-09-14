@@ -47,11 +47,6 @@ export default function LoginPage() {
     await toggleDatabaseSlateAction(mode);
   };
 
-  const handleSelectDemoUser = (demoEmail: string) => {
-    setEmail(demoEmail);
-    setPassword('password123');
-  };
-
   return (
     <div className="min-h-screen bg-stone-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center">
@@ -178,87 +173,6 @@ export default function LoginPage() {
               </button>
             </div>
           </form>
-
-          {/* Personnel Authorized Roster info */}
-          <div className="border-t border-stone-200 pt-5">
-            <h3 className="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-3">
-              Authorized Access Gateways
-            </h3>
-            
-            {dbSlate === 'empty' ? (
-              <div className="space-y-2">
-                <button
-                  onClick={() => handleSelectDemoUser('divyom@caseline.gov')}
-                  className="w-full text-left p-3 rounded-lg border border-stone-100 hover:border-amber-100 hover:bg-amber-50/50 transition-all flex justify-between items-center group font-sans"
-                >
-                  <div>
-                    <div className="text-xs font-bold text-stone-700 group-hover:text-amber-900">COMMISSIONER OF POLICE</div>
-                    <div className="text-xs text-stone-500 font-medium">Divyom</div>
-                  </div>
-                  <div className="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">
-                    divyom@caseline.gov
-                  </div>
-                </button>
-
-                <button
-                  onClick={() => handleSelectDemoUser('samar@caseline.gov')}
-                  className="w-full text-left p-3 rounded-lg border border-stone-100 hover:border-amber-100 hover:bg-amber-50/50 transition-all flex justify-between items-center group font-sans"
-                >
-                  <div>
-                    <div className="text-xs font-bold text-stone-700 group-hover:text-amber-900">ADDITIONAL COMMISSIONER</div>
-                    <div className="text-xs text-stone-500 font-medium">Samar</div>
-                  </div>
-                  <div className="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">
-                    samar@caseline.gov
-                  </div>
-                </button>
-                <p className="text-[10px] text-stone-400 mt-2 italic text-center font-medium">
-                  Under a blank database configuration, log in as Commissioner Divyom or Additional Commissioner Samar to register stations and enroll officers.
-                </p>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                <button
-                  onClick={() => handleSelectDemoUser('divyom@caseline.gov')}
-                  className="w-full text-left p-2.5 rounded-lg border border-stone-100 hover:border-amber-100 hover:bg-amber-50/50 transition-all flex justify-between items-center group font-sans"
-                >
-                  <div>
-                    <div className="text-[10px] font-extrabold text-stone-600">COMMISSIONER OF POLICE</div>
-                    <div className="text-[11px] text-stone-500 font-medium">Divyom</div>
-                  </div>
-                  <div className="text-[9px] bg-amber-50 text-amber-800 font-bold px-2 py-0.5 rounded-full">
-                    divyom@caseline.gov
-                  </div>
-                </button>
-
-                <button
-                  onClick={() => handleSelectDemoUser('arjun.mehta@caseline.gov')}
-                  className="w-full text-left p-2.5 rounded-lg border border-stone-100 hover:border-amber-100 hover:bg-amber-50/50 transition-all flex justify-between items-center group font-sans"
-                >
-                  <div>
-                    <div className="text-[10px] font-extrabold text-stone-600">STATION HOUSE OFFICER (SHO)</div>
-                    <div className="text-[11px] text-stone-500 font-medium">Inspector Arjun Mehta</div>
-                  </div>
-                  <div className="text-[9px] bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full">
-                    arjun.mehta@caseline.gov
-                  </div>
-                </button>
-
-                <button
-                  onClick={() => handleSelectDemoUser('viewer@caseline.gov')}
-                  className="w-full text-left p-2.5 rounded-lg border border-stone-100 hover:border-amber-100 hover:bg-amber-50/50 transition-all flex justify-between items-center group font-sans"
-                >
-                  <div>
-                    <div className="text-[10px] font-extrabold text-stone-600">DIRECTOR GENERAL</div>
-                    <div className="text-[11px] text-stone-500 font-medium">DG R. K. Sen</div>
-                  </div>
-                  <div className="text-[9px] bg-stone-50 text-stone-600 font-bold px-2 py-0.5 rounded-full">
-                    viewer@caseline.gov
-                  </div>
-                </button>
-              </div>
-            )}
-          </div>
 
         </div>
       </div>
