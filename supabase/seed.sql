@@ -630,3 +630,20 @@ INSERT INTO public.case_updates (id, case_id, user_id, title, description, updat
 INSERT INTO public.case_updates (id, case_id, user_id, title, description, update_type) VALUES ('case-update-500-58', 'case-118', 'e6f8ef1d-72fb-40c2-901b-9f9e160a0002', 'Case Opened', 'System audited event: case opened.', 'Case Opened') ON CONFLICT DO NOTHING;
 INSERT INTO public.case_updates (id, case_id, user_id, title, description, update_type) VALUES ('case-update-500-59', 'case-119', 'e6f8ef1d-72fb-40c2-901b-9f9e160a0002', 'Status Updated', 'System audited event: status updated.', 'Status Updated') ON CONFLICT DO NOTHING;
 
+-- Court Tracker, Statement Intelligence, Legal Section demo data (mirrors src/lib/supabase/seedData.ts)
+INSERT INTO public.court_cases (id, case_id, court_complex, cnr_number, judge_name, next_hearing_date, case_status) VALUES ('court-100', 'case-100', 'Tis Hazari Courts', 'DLCT01-002481-2026', 'Justice A. Malhotra', '2026-10-14', 'trial') ON CONFLICT DO NOTHING;
+INSERT INTO public.court_cases (id, case_id, court_complex, cnr_number, judge_name, next_hearing_date, case_status) VALUES ('court-105', 'case-105', 'Karkardooma Courts', 'DLCT03-001192-2026', 'Justice R. Sethi', '2026-09-30', 'judgment') ON CONFLICT DO NOTHING;
+
+INSERT INTO public.hearings (id, court_case_id, hearing_date, purpose, order_summary) VALUES ('hearing-100-1', 'court-100', '2026-08-20', 'Framing of charges', 'Charges framed under BNS Section 303. Next hearing scheduled for prosecution evidence.') ON CONFLICT DO NOTHING;
+INSERT INTO public.hearings (id, court_case_id, hearing_date, purpose, order_summary) VALUES ('hearing-100-2', 'court-100', '2026-09-14', 'Prosecution evidence', 'Two prosecution witnesses examined. Cross-examination adjourned.') ON CONFLICT DO NOTHING;
+INSERT INTO public.hearings (id, court_case_id, hearing_date, purpose, order_summary) VALUES ('hearing-105-1', 'court-105', '2026-08-25', 'Final arguments', 'Arguments concluded on both sides. Matter reserved for judgment.') ON CONFLICT DO NOTHING;
+
+INSERT INTO public.statements (id, case_id, witness_name, statement_text, recorded_date) VALUES ('statement-100-1', 'case-100', 'Rakesh Kumar (Shopkeeper)', 'I saw the two men enter the shop at around 8:15 PM. One of them was carrying a bag. A white car, plate DL 8C 4521, was parked outside with the engine running.', '2026-07-03') ON CONFLICT DO NOTHING;
+INSERT INTO public.statements (id, case_id, witness_name, statement_text, recorded_date) VALUES ('statement-100-2', 'case-100', 'Sunita Devi (Neighbour)', 'I noticed some commotion near the shop close to 9:30 PM. There was a white vehicle, I think the number was DL 8C 4529, parked a little further down the road.', '2026-07-04') ON CONFLICT DO NOTHING;
+INSERT INTO public.statements (id, case_id, witness_name, statement_text, recorded_date) VALUES ('statement-105-1', 'case-105', 'Vikram Singh (Complainant)', 'The missing person was last seen leaving the residence at 7 PM on foot, heading towards the market.', '2026-07-08') ON CONFLICT DO NOTHING;
+
+INSERT INTO public.case_sections (case_id, section_id) VALUES ('case-100', 'bns-303') ON CONFLICT DO NOTHING;
+INSERT INTO public.case_sections (case_id, section_id) VALUES ('case-101', 'bns-331') ON CONFLICT DO NOTHING;
+INSERT INTO public.case_sections (case_id, section_id) VALUES ('case-102', 'bns-318') ON CONFLICT DO NOTHING;
+INSERT INTO public.case_sections (case_id, section_id) VALUES ('case-105', 'bns-303') ON CONFLICT DO NOTHING;
+

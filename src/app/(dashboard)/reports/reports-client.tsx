@@ -95,8 +95,8 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
       {/* Header (Hidden in Print) */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0 print:hidden">
         <div>
-          <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">Reports Generation Engine</h1>
-          <p className="text-slate-500 text-[11px] mt-0.5">
+          <h1 className="text-xl font-extrabold text-stone-900 tracking-tight">Reports Generation Engine</h1>
+          <p className="text-stone-500 text-[11px] mt-0.5">
             Compile customized case logs, officer workload sheets, or precinct summaries.
           </p>
         </div>
@@ -104,14 +104,14 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
         <div className="flex space-x-2">
           <button
             onClick={handleExportJSON}
-            className="inline-flex items-center space-x-1.5 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-xs px-3.5 py-2.5 rounded-lg shadow-sm bg-white transition-all"
+            className="inline-flex items-center space-x-1.5 border border-stone-200 hover:border-stone-300 hover:bg-stone-50 text-stone-700 font-bold text-xs px-3.5 py-2.5 rounded-lg shadow-sm bg-white transition-all"
           >
             <Download className="w-4 h-4" />
             <span>Export Data</span>
           </button>
           <button
             onClick={handlePrint}
-            className="inline-flex items-center space-x-1.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4 py-2.5 rounded-lg shadow-sm transition-all"
+            className="inline-flex items-center space-x-1.5 bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs px-4 py-2.5 rounded-lg shadow-sm transition-all"
           >
             <Printer className="w-4 h-4" />
             <span>Print Report (PDF)</span>
@@ -120,11 +120,11 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
       </div>
 
       {/* Filters Form Card (Hidden in Print) */}
-      <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-5 print:hidden">
+      <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm space-y-5 print:hidden">
         
         {/* Report Type Selector */}
         <div>
-          <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">
+          <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-2">
             Select Report Template
           </label>
           <div className="flex space-x-2">
@@ -138,8 +138,8 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
                 onClick={() => setReportType(t.id as any)}
                 className={`text-xs font-bold px-4 py-2 rounded-lg border transition-all ${
                   reportType === t.id 
-                    ? 'bg-slate-900 border-slate-950 text-white shadow-sm' 
-                    : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                    ? 'bg-stone-900 border-stone-950 text-white shadow-sm' 
+                    : 'bg-white border-stone-200 text-stone-600 hover:bg-stone-50'
                 }`}
               >
                 {t.label}
@@ -152,8 +152,8 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
         {reportType === 'cases' && (
           <div className="grid grid-cols-2 md:grid-cols-6 gap-3 pt-2">
             <div>
-              <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1">Status</label>
-              <select value={status} onChange={e => setStatus(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none">
+              <label className="block text-[9px] font-bold text-stone-400 uppercase tracking-wide mb-1">Status</label>
+              <select value={status} onChange={e => setStatus(e.target.value)} className="w-full bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-1.5 text-xs text-stone-700 focus:outline-none">
                 <option value="">All Statuses</option>
                 <option value="registered">Registered</option>
                 <option value="under_investigation">Under Investigation</option>
@@ -164,8 +164,8 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
               </select>
             </div>
             <div>
-              <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1">Priority</label>
-              <select value={priority} onChange={e => setPriority(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none">
+              <label className="block text-[9px] font-bold text-stone-400 uppercase tracking-wide mb-1">Priority</label>
+              <select value={priority} onChange={e => setPriority(e.target.value)} className="w-full bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-1.5 text-xs text-stone-700 focus:outline-none">
                 <option value="">All Priorities</option>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -174,8 +174,8 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
               </select>
             </div>
             <div>
-              <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1">Station</label>
-              <select value={stationId} onChange={e => setStationId(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none">
+              <label className="block text-[9px] font-bold text-stone-400 uppercase tracking-wide mb-1">Station</label>
+              <select value={stationId} onChange={e => setStationId(e.target.value)} className="w-full bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-1.5 text-xs text-stone-700 focus:outline-none">
                 <option value="">All Stations</option>
                 {stations.map(st => (
                   <option key={st.id} value={st.id}>{st.station_code}</option>
@@ -183,8 +183,8 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
               </select>
             </div>
             <div>
-              <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1">Officer</label>
-              <select value={officerId} onChange={e => setOfficerId(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none">
+              <label className="block text-[9px] font-bold text-stone-400 uppercase tracking-wide mb-1">Officer</label>
+              <select value={officerId} onChange={e => setOfficerId(e.target.value)} className="w-full bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-1.5 text-xs text-stone-700 focus:outline-none">
                 <option value="">All Officers</option>
                 {officers.map(o => (
                   <option key={o.id} value={o.id}>{o.profiles?.full_name.split(' ').pop()}</option>
@@ -192,29 +192,29 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
               </select>
             </div>
             <div>
-              <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1">Start Date</label>
-              <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none" />
+              <label className="block text-[9px] font-bold text-stone-400 uppercase tracking-wide mb-1">Start Date</label>
+              <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="w-full bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-1.5 text-xs text-stone-700 focus:outline-none" />
             </div>
             <div>
-              <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1">End Date</label>
-              <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none" />
+              <label className="block text-[9px] font-bold text-stone-400 uppercase tracking-wide mb-1">End Date</label>
+              <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="w-full bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-1.5 text-xs text-stone-700 focus:outline-none" />
             </div>
           </div>
         )}
       </div>
 
       {/* PRINT SHEET SHEET CARD (Visible in print) */}
-      <div className="bg-white border border-slate-300 rounded-xl p-8 shadow-sm space-y-6 print:border-none print:shadow-none print:p-0">
+      <div className="bg-white border border-stone-300 rounded-xl p-8 shadow-sm space-y-6 print:border-none print:shadow-none print:p-0">
         
         {/* Official Letterhead Header */}
-        <div className="text-center pb-6 border-b border-slate-200">
+        <div className="text-center pb-6 border-b border-stone-200">
           <div className="flex justify-center items-center space-x-2">
-            <span className="font-extrabold text-slate-900 text-lg tracking-widest font-mono">CASELINE CRMS NETWORK</span>
+            <span className="font-extrabold text-stone-900 text-lg tracking-widest font-mono">CASELINE CRMS NETWORK</span>
           </div>
-          <p className="text-[10px] text-slate-400 uppercase tracking-wider font-extrabold mt-1">
+          <p className="text-[10px] text-stone-400 uppercase tracking-wider font-extrabold mt-1">
             Official Case Registry Compiled File System • Confidential Report
           </p>
-          <div className="text-[9px] text-slate-400 font-bold mt-2">
+          <div className="text-[9px] text-stone-400 font-bold mt-2">
             Generated: {new Date().toLocaleString()} | Operator: Caseline Network
           </div>
         </div>
@@ -224,21 +224,21 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
           <div className="space-y-6">
             
             {/* Stats Overview */}
-            <div className="grid grid-cols-4 gap-4 text-center py-3 bg-slate-50/50 border border-slate-200 rounded-lg text-xs font-bold text-slate-500">
+            <div className="grid grid-cols-4 gap-4 text-center py-3 bg-stone-50/50 border border-stone-200 rounded-lg text-xs font-bold text-stone-500">
               <div>
-                <span className="text-[9px] text-slate-400 uppercase block tracking-wider">Total Records</span>
-                <span className="text-slate-800 font-extrabold text-base mt-0.5 block">{reportStats.total}</span>
+                <span className="text-[9px] text-stone-400 uppercase block tracking-wider">Total Records</span>
+                <span className="text-stone-800 font-extrabold text-base mt-0.5 block">{reportStats.total}</span>
               </div>
               <div>
-                <span className="text-[9px] text-slate-400 uppercase block tracking-wider">Active</span>
+                <span className="text-[9px] text-stone-400 uppercase block tracking-wider">Active</span>
                 <span className="text-amber-700 font-extrabold text-base mt-0.5 block">{reportStats.active}</span>
               </div>
               <div>
-                <span className="text-[9px] text-slate-400 uppercase block tracking-wider">Solved</span>
+                <span className="text-[9px] text-stone-400 uppercase block tracking-wider">Solved</span>
                 <span className="text-emerald-700 font-extrabold text-base mt-0.5 block">{reportStats.solved}</span>
               </div>
               <div>
-                <span className="text-[9px] text-slate-400 uppercase block tracking-wider">Closed</span>
+                <span className="text-[9px] text-stone-400 uppercase block tracking-wider">Closed</span>
                 <span className="text-purple-700 font-extrabold text-base mt-0.5 block">{reportStats.closed}</span>
               </div>
             </div>
@@ -247,7 +247,7 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="border-b border-slate-300 font-extrabold text-slate-800 bg-slate-50/70 text-[9px] uppercase tracking-wider">
+                  <tr className="border-b border-stone-300 font-extrabold text-stone-800 bg-stone-50/70 text-[9px] uppercase tracking-wider">
                     <th className="py-2.5 px-3">Case ID</th>
                     <th className="py-2.5 px-3">Crime Category</th>
                     <th className="py-2.5 px-3">Date</th>
@@ -257,20 +257,20 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
                     <th className="py-2.5 px-3">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-stone-100">
                   {reportCases.length === 0 ? (
                     <tr>
-                      <td colSpan={7} className="py-6 text-center text-slate-400 font-medium">No records match criteria.</td>
+                      <td colSpan={7} className="py-6 text-center text-stone-400 font-medium">No records match criteria.</td>
                     </tr>
                   ) : (
                     reportCases.map((c: any) => (
-                      <tr key={c.id} className="hover:bg-slate-50/20">
-                        <td className="py-2 px-3 font-bold text-slate-800 font-mono">{c.case_number}</td>
-                        <td className="py-2 px-3 font-bold text-slate-800">{c.crime_type}</td>
-                        <td className="py-2 px-3 text-slate-500 font-medium">{new Date(c.incident_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
-                        <td className="py-2 px-3 text-slate-600 font-medium">{c.location}</td>
-                        <td className="py-2 px-3 text-slate-600 font-semibold">{c.officers?.profiles?.full_name || 'Unassigned'}</td>
-                        <td className="py-2 px-3 text-slate-500 font-bold uppercase">{c.police_stations?.station_code || 'N/A'}</td>
+                      <tr key={c.id} className="hover:bg-stone-50/20">
+                        <td className="py-2 px-3 font-bold text-stone-800 font-mono">{c.case_number}</td>
+                        <td className="py-2 px-3 font-bold text-stone-800">{c.crime_type}</td>
+                        <td className="py-2 px-3 text-stone-500 font-medium">{new Date(c.incident_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                        <td className="py-2 px-3 text-stone-600 font-medium">{c.location}</td>
+                        <td className="py-2 px-3 text-stone-600 font-semibold">{c.officers?.profiles?.full_name || 'Unassigned'}</td>
+                        <td className="py-2 px-3 text-stone-500 font-bold uppercase">{c.police_stations?.station_code || 'N/A'}</td>
                         <td className="py-2 px-3 font-bold uppercase text-[9px]">{c.status.replace(/_/g, ' ')}</td>
                       </tr>
                     ))
@@ -288,7 +288,7 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="border-b border-slate-300 font-extrabold text-slate-800 bg-slate-50/70 text-[9px] uppercase tracking-wider">
+                  <tr className="border-b border-stone-300 font-extrabold text-stone-800 bg-stone-50/70 text-[9px] uppercase tracking-wider">
                     <th className="py-2.5 px-3">Badge ID</th>
                     <th className="py-2.5 px-3">Officer Name</th>
                     <th className="py-2.5 px-3">Rank Designation</th>
@@ -298,14 +298,14 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
                     <th className="py-2.5 px-3 text-center">Solved Cases</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-stone-100">
                   {reportList.map((o: any, idx: number) => (
-                    <tr key={o.badge || idx} className="hover:bg-slate-50/20">
-                      <td className="py-2 px-3 font-bold text-slate-800 font-mono">{o.badge}</td>
-                      <td className="py-2 px-3 font-bold text-slate-800">{o.name}</td>
-                      <td className="py-2 px-3 font-semibold text-slate-650">{o.rank}</td>
-                      <td className="py-2 px-3 text-slate-500 font-bold uppercase">{o.station}</td>
-                      <td className="py-2 px-3 text-center font-bold text-slate-800">{o.total}</td>
+                    <tr key={o.badge || idx} className="hover:bg-stone-50/20">
+                      <td className="py-2 px-3 font-bold text-stone-800 font-mono">{o.badge}</td>
+                      <td className="py-2 px-3 font-bold text-stone-800">{o.name}</td>
+                      <td className="py-2 px-3 font-semibold text-stone-600">{o.rank}</td>
+                      <td className="py-2 px-3 text-stone-500 font-bold uppercase">{o.station}</td>
+                      <td className="py-2 px-3 text-center font-bold text-stone-800">{o.total}</td>
                       <td className="py-2 px-3 text-center font-bold text-amber-700">{o.active}</td>
                       <td className="py-2 px-3 text-center font-bold text-emerald-700">{o.solved}</td>
                     </tr>
@@ -322,7 +322,7 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="border-b border-slate-300 font-extrabold text-slate-800 bg-slate-50/70 text-[9px] uppercase tracking-wider">
+                  <tr className="border-b border-stone-300 font-extrabold text-stone-800 bg-stone-50/70 text-[9px] uppercase tracking-wider">
                     <th className="py-2.5 px-3">Precinct Code</th>
                     <th className="py-2.5 px-3">Precinct name</th>
                     <th className="py-2.5 px-3">District Region</th>
@@ -332,14 +332,14 @@ export default function ReportsClient({ cases, stations, officers }: ReportsProp
                     <th className="py-2.5 px-3 text-center">Solved cases</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-stone-100">
                   {reportList.map((s: any, idx: number) => (
-                    <tr key={s.code || idx} className="hover:bg-slate-50/20">
-                      <td className="py-2 px-3 font-bold text-slate-800 font-mono">{s.code}</td>
-                      <td className="py-2 px-3 font-bold text-slate-800">{s.name}</td>
-                      <td className="py-2 px-3 font-semibold text-slate-650">{s.district}</td>
-                      <td className="py-2 px-3 text-center font-bold text-slate-700">{s.officerCount}</td>
-                      <td className="py-2 px-3 text-center font-bold text-slate-800">{s.totalCases}</td>
+                    <tr key={s.code || idx} className="hover:bg-stone-50/20">
+                      <td className="py-2 px-3 font-bold text-stone-800 font-mono">{s.code}</td>
+                      <td className="py-2 px-3 font-bold text-stone-800">{s.name}</td>
+                      <td className="py-2 px-3 font-semibold text-stone-600">{s.district}</td>
+                      <td className="py-2 px-3 text-center font-bold text-stone-700">{s.officerCount}</td>
+                      <td className="py-2 px-3 text-center font-bold text-stone-800">{s.totalCases}</td>
                       <td className="py-2 px-3 text-center font-bold text-amber-700">{s.activeCases}</td>
                       <td className="py-2 px-3 text-center font-bold text-emerald-700">{s.solvedCases}</td>
                     </tr>

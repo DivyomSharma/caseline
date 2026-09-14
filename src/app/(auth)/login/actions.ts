@@ -5,6 +5,11 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { PROFILES } from '@/lib/supabase/seedData';
 import { setDatabaseSlateMode, getDatabaseSlateMode, resetEmptySlate, getCurrentUser } from '@/lib/supabase/db';
+import { signSession } from '@/lib/supabase/session';
+
+// Demo-only shared password for the offline mock-auth mode. Never used when
+// Supabase env vars are configured (real Supabase Auth handles passwords then).
+const OFFLINE_DEMO_PASSWORD = 'password123';
 
 export async function loginAction(formData: FormData) {
   const email = formData.get('email') as string;
@@ -20,12 +25,12 @@ export async function loginAction(formData: FormData) {
   if (!supabaseUrl || !supabaseAnonKey) {
     // Offline mock mode
     const matchedProfile = PROFILES.find(p => p.email.toLowerCase() === email.toLowerCase());
-    if (!matchedProfile) {
-      return { error: 'Invalid email address. Please check your credentials or select an account from the Authorized Access list.' };
+    if (!matchedProfile || password !== OFFLINE_DEMO_PASSWORD) {
+      return { error: 'Invalid email or password. Please check your credentials or select an account from the Authorized Access list.' };
     }
 
     const cookieStore = await cookies();
-    cookieStore.set('caseline_session', email, {
+    cookieStore.set('caseline_session', await signSession(matchedProfile.email), {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       maxAge: 60 * 60 * 24 * 7, // 1 week

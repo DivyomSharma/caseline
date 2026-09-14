@@ -13,7 +13,10 @@ import {
   getAllEvidence,
   getAllInvestigations,
   getDashboardStats,
+  getLegalSections,
+  getCaseSections,
 } from '@/lib/supabase/db';
+import { groupByRangeAndDistrict } from '@/lib/delhi-org';
 
 export const AI_TOOLS: Groq.Chat.Completions.ChatCompletionTool[] = [
   {
@@ -151,6 +154,37 @@ export const AI_TOOLS: Groq.Chat.Completions.ChatCompletionTool[] = [
       parameters: { type: 'object', properties: {} },
     },
   },
+  {
+    type: 'function',
+    function: {
+      name: 'searchLegalSections',
+      description: 'Search the Bharatiya Nyaya Sanhita (BNS) legal corpus by keyword, title, or IPC-equivalent section number. Always use this before answering any question about applicable law or section numbers — never invent a section number or its text.',
+      parameters: {
+        type: 'object',
+        properties: { query: { type: 'string', description: 'Keyword, offence name, or section number to search for' } },
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'getCaseSections',
+      description: 'Get the BNS legal sections already linked to a specific case by its UUID.',
+      parameters: {
+        type: 'object',
+        properties: { caseId: { type: 'string', description: 'Case UUID' } },
+        required: ['caseId'],
+      },
+    },
+  },
+  {
+    type: 'function',
+    function: {
+      name: 'getOrgHierarchy',
+      description: 'Get the Delhi Police organisational hierarchy (Range -> District -> Police Station) for the currently registered stations.',
+      parameters: { type: 'object', properties: {} },
+    },
+  },
 ];
 
 type ToolFn = (args: any) => Promise<unknown>;
@@ -169,6 +203,12 @@ const TOOL_MAP: Record<string, ToolFn> = {
   getAllEvidence: () => getAllEvidence(),
   getAllInvestigations: () => getAllInvestigations(),
   getDashboardStats: () => getDashboardStats(),
+  searchLegalSections: (args) => getLegalSections(args.query),
+  getCaseSections: (args) => getCaseSections(args.caseId),
+  getOrgHierarchy: async () => {
+    const stations = await getPoliceStations();
+    return groupByRangeAndDistrict(stations);
+  },
 };
 
 export async function executeTool(name: string, args: Record<string, unknown>): Promise<string> {

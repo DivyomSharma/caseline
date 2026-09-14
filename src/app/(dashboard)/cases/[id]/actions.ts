@@ -1,6 +1,6 @@
 'use server';
 
-import { addInvestigationLog, addEvidence, getCurrentUser, updateCaseDetails } from '@/lib/supabase/db';
+import { addInvestigationLog, addEvidence, getCurrentUser, updateCaseDetails, linkCaseSection, createCourtCase, addHearing, addStatement } from '@/lib/supabase/db';
 import { revalidatePath } from 'next/cache';
 
 export async function logInvestigationAction(prevState: any, formData: FormData) {
@@ -62,6 +62,51 @@ export async function addEvidenceAction(prevState: any, formData: FormData) {
     return { success: true };
   } catch (error: any) {
     console.error('Failed to add evidence:', error);
+    return { success: false, error: error?.message || 'Database error occurred.' };
+  }
+}
+
+export async function linkCaseSectionAction(caseId: string, sectionId: string) {
+  try {
+    await linkCaseSection(caseId, sectionId);
+    revalidatePath(`/cases/${caseId}`);
+    return { success: true };
+  } catch (error: any) {
+    console.error('Failed to link legal section:', error);
+    return { success: false, error: error?.message || 'Database error occurred.' };
+  }
+}
+
+export async function createCourtCaseAction(data: { case_id: string; court_complex: string; cnr_number: string; judge_name: string; next_hearing_date: string; case_status: string }) {
+  try {
+    await createCourtCase(data);
+    revalidatePath(`/cases/${data.case_id}`);
+    return { success: true };
+  } catch (error: any) {
+    console.error('Failed to create court case:', error);
+    return { success: false, error: error?.message || 'Database error occurred.' };
+  }
+}
+
+export async function addHearingAction(data: { court_case_id: string; case_id: string; hearing_date: string; purpose: string; order_summary: string; next_hearing_date?: string }) {
+  try {
+    const { case_id, ...hearingData } = data;
+    await addHearing(hearingData);
+    revalidatePath(`/cases/${case_id}`);
+    return { success: true };
+  } catch (error: any) {
+    console.error('Failed to log hearing:', error);
+    return { success: false, error: error?.message || 'Database error occurred.' };
+  }
+}
+
+export async function addStatementAction(data: { case_id: string; witness_name: string; statement_text: string; recorded_date: string }) {
+  try {
+    await addStatement(data);
+    revalidatePath(`/cases/${data.case_id}`);
+    return { success: true };
+  } catch (error: any) {
+    console.error('Failed to add statement:', error);
     return { success: false, error: error?.message || 'Database error occurred.' };
   }
 }

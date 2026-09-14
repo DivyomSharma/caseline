@@ -734,3 +734,94 @@ export const CASE_UPDATES: CaseUpdate[] = Array.from({ length: 60 }).map((_, ind
     created_at: new Date(2026, 6, 1 + (index % 28), 9, index % 60).toISOString()
   };
 });
+
+// -------------------------------------------------------------------------
+// Demo data for Court Tracker, Statement Intelligence, and Legal Sections
+// -------------------------------------------------------------------------
+
+export const COURT_CASES = [
+  {
+    id: "court-100",
+    case_id: "case-100",
+    court_complex: "Tis Hazari Courts",
+    cnr_number: "DLCT01-002481-2026",
+    judge_name: "Justice A. Malhotra",
+    next_hearing_date: "2026-10-14",
+    case_status: "trial",
+    created_at: "2026-08-02T10:00:00Z"
+  },
+  {
+    id: "court-105",
+    case_id: "case-105",
+    court_complex: "Karkardooma Courts",
+    cnr_number: "DLCT03-001192-2026",
+    judge_name: "Justice R. Sethi",
+    next_hearing_date: "2026-09-30",
+    case_status: "judgment",
+    created_at: "2026-08-10T10:00:00Z"
+  }
+];
+
+export const HEARINGS = [
+  {
+    id: "hearing-100-1",
+    court_case_id: "court-100",
+    hearing_date: "2026-08-20",
+    purpose: "Framing of charges",
+    order_summary: "Charges framed under BNS Section 303. Next hearing scheduled for prosecution evidence.",
+    created_at: "2026-08-20T11:00:00Z"
+  },
+  {
+    id: "hearing-100-2",
+    court_case_id: "court-100",
+    hearing_date: "2026-09-14",
+    purpose: "Prosecution evidence",
+    order_summary: "Two prosecution witnesses examined. Cross-examination adjourned.",
+    created_at: "2026-09-14T11:00:00Z"
+  },
+  {
+    id: "hearing-105-1",
+    court_case_id: "court-105",
+    hearing_date: "2026-08-25",
+    purpose: "Final arguments",
+    order_summary: "Arguments concluded on both sides. Matter reserved for judgment.",
+    created_at: "2026-08-25T11:00:00Z"
+  }
+];
+
+// Two witness statements with a deliberate ~1 hour timeline conflict and a
+// vehicle plate mismatch, so the Statement Intelligence tab has something to
+// flag out of the box.
+export const STATEMENTS = [
+  {
+    id: "statement-100-1",
+    case_id: "case-100",
+    witness_name: "Rakesh Kumar (Shopkeeper)",
+    statement_text: "I saw the two men enter the shop at around 8:15 PM. One of them was carrying a bag. A white car, plate DL 8C 4521, was parked outside with the engine running.",
+    recorded_date: "2026-07-03",
+    created_at: "2026-07-03T20:45:00Z"
+  },
+  {
+    id: "statement-100-2",
+    case_id: "case-100",
+    witness_name: "Sunita Devi (Neighbour)",
+    statement_text: "I noticed some commotion near the shop close to 9:30 PM. There was a white vehicle, I think the number was DL 8C 4529, parked a little further down the road.",
+    recorded_date: "2026-07-04",
+    created_at: "2026-07-04T09:15:00Z"
+  },
+  {
+    id: "statement-105-1",
+    case_id: "case-105",
+    witness_name: "Vikram Singh (Complainant)",
+    statement_text: "The missing person was last seen leaving the residence at 7 PM on foot, heading towards the market.",
+    recorded_date: "2026-07-08",
+    created_at: "2026-07-08T18:00:00Z"
+  }
+];
+
+export const CASE_SECTIONS_SEED = [
+  { case_id: "case-100", section_id: "bns-303" },
+  { case_id: "case-101", section_id: "bns-331" },
+  { case_id: "case-102", section_id: "bns-318" },
+  { case_id: "case-105", section_id: "bns-303" }
+];

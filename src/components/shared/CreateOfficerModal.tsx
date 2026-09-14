@@ -46,22 +46,22 @@ export default function CreateOfficerModal({ isOpen, onClose, stations }: { isOp
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white border border-slate-200 rounded-xl shadow-xl max-w-md w-full overflow-hidden">
+    <div className="fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white border border-stone-200 rounded-xl shadow-xl max-w-md w-full overflow-hidden">
         
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-stone-100">
           <div className="flex items-center space-x-2">
-            <UserCheck className="w-4 h-4 text-slate-500" />
-            <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Enroll Officer Account</h3>
+            <UserCheck className="w-4 h-4 text-stone-500" />
+            <h3 className="text-xs font-bold text-stone-800 uppercase tracking-wider">Enroll Officer Account</h3>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-650">
+          <button onClick={onClose} className="text-stone-400 hover:text-stone-600">
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-5 space-y-4 text-xs font-semibold text-slate-700">
+        <form onSubmit={handleSubmit} className="p-5 space-y-4 text-xs font-semibold text-stone-700">
           {error && (
             <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg font-bold">
               {error}
@@ -69,50 +69,50 @@ export default function CreateOfficerModal({ isOpen, onClose, stations }: { isOp
           )}
 
           <div className="space-y-1">
-            <label className="block text-[10px] text-slate-400 uppercase">Officer Full name</label>
+            <label className="block text-[10px] text-stone-400 uppercase">Officer Full name</label>
             <input
               type="text"
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="e.g. Sub-Inspector Rohit Sharma"
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-600"
+              className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-600"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="block text-[10px] text-slate-400 uppercase">Email Address</label>
+              <label className="block text-[10px] text-stone-400 uppercase">Email Address</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="e.g. rohit.sharma@caseline.gov"
-                className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-600"
+                className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-600"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="block text-[10px] text-slate-400 uppercase">Badge Number</label>
+              <label className="block text-[10px] text-stone-400 uppercase">Badge Number</label>
               <input
                 type="text"
                 required
                 value={badge}
                 onChange={(e) => setBadge(e.target.value)}
                 placeholder="e.g. PS-INS-205"
-                className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-600"
+                className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-600"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="block text-[10px] text-slate-400 uppercase">Rank Designation</label>
+              <label className="block text-[10px] text-stone-400 uppercase">Rank Designation</label>
               <select
                 value={rank}
                 onChange={(e) => setRank(e.target.value)}
-                className="w-full px-3 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:border-indigo-600 cursor-pointer"
+                className="w-full px-3 py-2 border border-stone-200 bg-white rounded-lg focus:outline-none focus:border-amber-600 cursor-pointer"
               >
                 <option value="Inspector">Inspector</option>
                 <option value="Sub-Inspector">Sub-Inspector</option>
@@ -123,7 +123,7 @@ export default function CreateOfficerModal({ isOpen, onClose, stations }: { isOp
             </div>
 
             <div className="space-y-1">
-              <label className="block text-[10px] text-slate-400 uppercase">Assigned Precinct</label>
+              <label className="block text-[10px] text-stone-400 uppercase">Assigned Precinct</label>
               {stations.length === 0 ? (
                 <div className="py-2 text-[11px] text-amber-600 italic">Please create a station first!</div>
               ) : (
@@ -131,7 +131,7 @@ export default function CreateOfficerModal({ isOpen, onClose, stations }: { isOp
                   required
                   value={stationId}
                   onChange={(e) => setStationId(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:border-indigo-600 cursor-pointer"
+                  className="w-full px-3 py-2 border border-stone-200 bg-white rounded-lg focus:outline-none focus:border-amber-600 cursor-pointer"
                 >
                   {stations.map((s) => (
                     <option key={s.id} value={s.id}>{s.station_code} - {s.name}</option>
@@ -142,34 +142,34 @@ export default function CreateOfficerModal({ isOpen, onClose, stations }: { isOp
           </div>
 
           <div className="space-y-1">
-            <label className="block text-[10px] text-slate-400 uppercase">Contact Phone</label>
+            <label className="block text-[10px] text-stone-400 uppercase">Contact Phone</label>
             <input
               type="text"
               required
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="e.g. +91-9988776655"
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-600 font-mono"
+              className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-600 font-mono"
             />
           </div>
 
-          <p className="text-[10px] text-slate-400 italic">
+          <p className="text-[10px] text-stone-400 italic">
             Note: Enrolling an officer automatically grants login access with password <b>password123</b>.
           </p>
 
           {/* Footer Actions */}
-          <div className="flex justify-end space-x-3 pt-3 border-t border-slate-100">
+          <div className="flex justify-end space-x-3 pt-3 border-t border-stone-100">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-650 rounded-lg font-bold"
+              className="px-4 py-2 border border-stone-200 hover:bg-stone-50 text-stone-600 rounded-lg font-bold"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading || stations.length === 0}
-              className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg font-bold disabled:opacity-50"
+              className="px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white rounded-lg font-bold disabled:opacity-50"
             >
               {loading ? 'Enrolling...' : 'Enroll Officer'}
             </button>

@@ -12,9 +12,9 @@ export default function CriminalProfileClient({ criminal, user }: { criminal: an
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'wanted': return 'bg-red-50 text-red-700 border-red-200';
-      case 'convicted': return 'bg-slate-900 text-white border-slate-950';
+      case 'convicted': return 'bg-stone-900 text-white border-stone-950';
       case 'accused': return 'bg-amber-50 text-amber-700 border-amber-200';
-      default: return 'bg-slate-50 text-slate-700 border-slate-200';
+      default: return 'bg-stone-50 text-stone-700 border-stone-200';
     }
   };
 
@@ -25,7 +25,7 @@ export default function CriminalProfileClient({ criminal, user }: { criminal: an
       <div className="flex justify-between items-center">
         <Link
           href="/criminals"
-          className="inline-flex items-center space-x-1.5 text-xs font-bold text-slate-500 hover:text-slate-800 transition-all"
+          className="inline-flex items-center space-x-1.5 text-xs font-bold text-stone-500 hover:text-stone-800 transition-all"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Criminal Index</span>
@@ -33,7 +33,7 @@ export default function CriminalProfileClient({ criminal, user }: { criminal: an
         {canWrite && (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center space-x-1.5 px-3 py-1.5 border border-slate-250 bg-white hover:bg-slate-50 text-slate-700 rounded-lg text-xs font-bold shadow-sm transition-all"
+            className="flex items-center space-x-1.5 px-3 py-1.5 border border-stone-250 bg-white hover:bg-stone-50 text-stone-700 rounded-lg text-xs font-bold shadow-sm transition-all"
           >
             <Edit3 className="w-3.5 h-3.5" />
             <span>Edit Profile</span>
@@ -46,15 +46,15 @@ export default function CriminalProfileClient({ criminal, user }: { criminal: an
         
         {/* Left column: Booking Photo & Personal info */}
         <div className="space-y-6">
-          <div className="bg-white border border-slate-200 p-5 rounded-xl shadow-sm text-center space-y-4">
-            <div className="w-32 h-32 rounded-xl bg-slate-100 mx-auto flex items-center justify-center border border-slate-200 overflow-hidden relative">
-              <User className="w-16 h-16 text-slate-350" />
+          <div className="bg-white border border-stone-200 p-5 rounded-xl shadow-sm text-center space-y-4">
+            <div className="w-32 h-32 rounded-xl bg-stone-100 mx-auto flex items-center justify-center border border-stone-200 overflow-hidden relative">
+              <User className="w-16 h-16 text-stone-350" />
             </div>
             
             <div>
-              <h2 className="text-sm font-extrabold text-slate-800">{criminal.full_name}</h2>
+              <h2 className="text-sm font-extrabold text-stone-800">{criminal.full_name}</h2>
               {criminal.alias && (
-                <p className="text-xs font-semibold text-slate-450 italic">Alias: {criminal.alias}</p>
+                <p className="text-xs font-semibold text-stone-450 italic">Alias: {criminal.alias}</p>
               )}
             </div>
 
@@ -63,22 +63,22 @@ export default function CriminalProfileClient({ criminal, user }: { criminal: an
             </span>
           </div>
 
-          <div className="bg-white border border-slate-200 p-5 rounded-xl shadow-sm space-y-3">
-            <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-2">
+          <div className="bg-white border border-stone-200 p-5 rounded-xl shadow-sm space-y-3">
+            <h3 className="text-xs font-bold text-stone-800 uppercase tracking-widest border-b border-stone-100 pb-2">
               Personal Information
             </h3>
             <div className="space-y-3 text-xs font-semibold">
               <div>
-                <span className="text-[10px] text-slate-450 block uppercase">Gender</span>
-                <span className="text-slate-800 capitalize">{criminal.gender}</span>
+                <span className="text-[10px] text-stone-450 block uppercase">Gender</span>
+                <span className="text-stone-800 capitalize">{criminal.gender}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-450 block uppercase">Date of Birth</span>
-                <span className="text-slate-800">{new Date(criminal.date_of_birth).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                <span className="text-[10px] text-stone-450 block uppercase">Date of Birth</span>
+                <span className="text-stone-800">{new Date(criminal.date_of_birth).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-450 block uppercase">Last Known Residential Address</span>
-                <span className="text-slate-800 leading-5">{criminal.address}</span>
+                <span className="text-[10px] text-stone-450 block uppercase">Last Known Residential Address</span>
+                <span className="text-stone-800 leading-5">{criminal.address}</span>
               </div>
             </div>
           </div>
@@ -87,44 +87,44 @@ export default function CriminalProfileClient({ criminal, user }: { criminal: an
         {/* Right column: Case list history & Identifiers */}
         <div className="lg:col-span-2 space-y-6">
           
-          <div className="bg-white border border-slate-200 p-5 rounded-xl shadow-sm space-y-4">
-            <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-3">
+          <div className="bg-white border border-stone-200 p-5 rounded-xl shadow-sm space-y-4">
+            <h3 className="text-xs font-bold text-stone-800 uppercase tracking-widest border-b border-stone-100 pb-3">
               Identification Marks & Priors
             </h3>
             <div className="space-y-3.5 text-xs">
               <div>
-                <span className="text-[10px] text-slate-450 block uppercase font-bold tracking-wider mb-0.5">Physical Identifiers</span>
-                <p className="text-slate-700 font-medium leading-5">{criminal.identification_details || 'No specific physical identification marks logged.'}</p>
+                <span className="text-[10px] text-stone-450 block uppercase font-bold tracking-wider mb-0.5">Physical Identifiers</span>
+                <p className="text-stone-700 font-medium leading-5">{criminal.identification_details || 'No specific physical identification marks logged.'}</p>
               </div>
               <div>
-                <span className="text-[10px] text-slate-450 block uppercase font-bold tracking-wider mb-0.5">Case History Notes</span>
-                <p className="text-slate-700 font-medium leading-5">{criminal.notes || 'No general notes compiled.'}</p>
+                <span className="text-[10px] text-stone-450 block uppercase font-bold tracking-wider mb-0.5">Case History Notes</span>
+                <p className="text-stone-700 font-medium leading-5">{criminal.notes || 'No general notes compiled.'}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white border border-slate-200 p-5 rounded-xl shadow-sm space-y-4">
-            <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest border-b border-slate-100 pb-3">
+          <div className="bg-white border border-stone-200 p-5 rounded-xl shadow-sm space-y-4">
+            <h3 className="text-xs font-bold text-stone-800 uppercase tracking-widest border-b border-stone-100 pb-3">
               Linked Case History Files
             </h3>
             
             <div className="space-y-3">
               {criminal.cases?.length === 0 ? (
-                <div className="text-center py-6 text-slate-400 text-xs font-medium">
+                <div className="text-center py-6 text-stone-400 text-xs font-medium">
                   No cases linked to this criminal in the registry database.
                 </div>
               ) : (
                 criminal.cases.map((c: any) => (
-                  <div key={c.id} className="p-4 rounded-xl border border-slate-100 bg-slate-50/50 flex justify-between items-center">
+                  <div key={c.id} className="p-4 rounded-xl border border-stone-100 bg-stone-50/50 flex justify-between items-center">
                     <div>
                       <div className="flex items-center space-x-2">
-                        <Link href={`/cases/${c.id}`} className="font-bold text-indigo-650 hover:text-indigo-850 hover:underline text-xs font-mono">
+                        <Link href={`/cases/${c.id}`} className="font-bold text-amber-600 hover:text-amber-800 hover:underline text-xs font-mono">
                           {c.case_number}
                         </Link>
-                        <span className="text-slate-400 text-[10px]">•</span>
-                        <span className="text-xs font-bold text-slate-700">{c.crime_type}</span>
+                        <span className="text-stone-400 text-[10px]">•</span>
+                        <span className="text-xs font-bold text-stone-700">{c.crime_type}</span>
                       </div>
-                      <div className="text-[10px] font-semibold text-slate-400 mt-1 flex items-center space-x-1">
+                      <div className="text-[10px] font-semibold text-stone-400 mt-1 flex items-center space-x-1">
                         <Calendar className="w-3.5 h-3.5 shrink-0" />
                         <span>Incident: {new Date(c.incident_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                       </div>

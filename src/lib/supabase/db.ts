@@ -2,6 +2,8 @@ import { createClient as createServerSupabase } from './server';
 import { createClient as createBrowserSupabase } from './client';
 import * as seedData from './seedData';
 import { Case, Criminal } from './seedData';
+import { verifySession } from './session';
+import { LEGAL_SECTIONS, searchLegalSections as searchLegalSectionsStatic } from '../legal-sections';
 
 // -------------------------------------------------------------------------
 // DUAL-MODE CHECK & STATE IN-MEMORY FOR LOCAL DATABASE CACHE ENGINE
@@ -29,7 +31,11 @@ if (!globalStore.mockDb) {
     case_victims: JSON.parse(JSON.stringify(seedData.CASE_VICTIMS)),
     investigations: JSON.parse(JSON.stringify(seedData.INVESTIGATIONS)),
     evidence: JSON.parse(JSON.stringify(seedData.EVIDENCE)),
-    case_updates: JSON.parse(JSON.stringify(seedData.CASE_UPDATES))
+    case_updates: JSON.parse(JSON.stringify(seedData.CASE_UPDATES)),
+    case_sections: JSON.parse(JSON.stringify(seedData.CASE_SECTIONS_SEED)),
+    court_cases: JSON.parse(JSON.stringify(seedData.COURT_CASES)),
+    hearings: JSON.parse(JSON.stringify(seedData.HEARINGS)),
+    statements: JSON.parse(JSON.stringify(seedData.STATEMENTS))
   };
 }
 
@@ -88,7 +94,11 @@ const mockDb = new Proxy({} as any, {
           case_victims: [],
           investigations: [],
           evidence: [],
-          case_updates: []
+          case_updates: [],
+          case_sections: [],
+          court_cases: [],
+          hearings: [],
+          statements: []
         };
       }
       return globalStore.mockDbEmpty[prop];
@@ -111,7 +121,11 @@ const mockDb = new Proxy({} as any, {
           case_victims: [],
           investigations: [],
           evidence: [],
-          case_updates: []
+          case_updates: [],
+          case_sections: [],
+          court_cases: [],
+          hearings: [],
+          statements: []
         };
       }
       globalStore.mockDbEmpty[prop] = value;
@@ -124,15 +138,20 @@ const mockDb = new Proxy({} as any, {
 
 // Helper to get cookies in server actions/components safely
 const getSessionCookie = async () => {
+  let raw: string | undefined;
   if (typeof window === 'undefined') {
     const { cookies } = await import('next/headers');
     const cookieStore = await cookies();
-    return cookieStore.get('caseline_session')?.value;
+    raw = cookieStore.get('caseline_session')?.value;
   } else {
     // Basic client cookies parser
     const match = document.cookie.match(new RegExp('(^| )caseline_session=([^;]*)'));
-    return match ? decodeURIComponent(match[2]) : undefined;
+    raw = match ? decodeURIComponent(match[2]) : undefined;
   }
+  // caseline_session is httpOnly, but a signed value still guards against
+  // someone editing the raw cookie (e.g. via devtools) to impersonate another
+  // demo profile without ever going through loginAction's password check.
+  return (await verifySession(raw)) ?? undefined;
 };
 
 // -------------------------------------------------------------------------
@@ -1257,6 +1276,135 @@ export async function createVictim(data: { full_name: string; contact: string; a
     .select()
     .single();
 
+  if (error) throw error;
+  return res;
+}
+
+// -------------------------------------------------------------------------
+// LEGAL SECTIONS (BNS) — case-section linkage
+// -------------------------------------------------------------------------
+
+export async function getLegalSections(query?: string) {
+  // Reference data is served from the curated constants module in both
+  // modes; only the case<->section linkage below is mode-dependent.
+  return searchLegalSectionsStatic(query);
+}
+
+export async function getCaseSections(caseId: string) {
+  if (!isSupabaseConfigured()) {
+    const links = mockDb.case_sections.filter((cs: any) => cs.case_id === caseId);
+    return links
+      .map((l: any) => LEGAL_SECTIONS.find((s) => s.id === l.section_id))
+      .filter(Boolean);
+  }
+  const supabase = typeof window === 'undefined' ? await createServerSupabase() : createBrowserSupabase();
+  const { data } = await supabase.from('case_sections').select('section_id').eq('case_id', caseId);
+  const ids = new Set((data || []).map((d: any) => d.section_id));
+  return LEGAL_SECTIONS.filter((s) => ids.has(s.id));
+}
+
+export async function linkCaseSection(caseId: string, sectionId: string) {
+  if (!isSupabaseConfigured()) {
+    const exists = mockDb.case_sections.some((cs: any) => cs.case_id === caseId && cs.section_id === sectionId);
+    if (!exists) mockDb.case_sections.push({ case_id: caseId, section_id: sectionId });
+    return { case_id: caseId, section_id: sectionId };
+  }
+  const supabase = typeof window === 'undefined' ? await createServerSupabase() : createBrowserSupabase();
+  const { error } = await supabase.from('case_sections').upsert({ case_id: caseId, section_id: sectionId });
+  if (error) throw error;
+  return { case_id: caseId, section_id: sectionId };
+}
+
+// -------------------------------------------------------------------------
+// COURT TRACKER
+// -------------------------------------------------------------------------
+
+export async function getCourtCaseByCase(caseId: string) {
+  if (!isSupabaseConfigured()) {
+    const cc = mockDb.court_cases.find((c: any) => c.case_id === caseId);
+    if (!cc) return null;
+    const hearings = mockDb.hearings
+      .filter((h: any) => h.court_case_id === cc.id)
+      .sort((a: any, b: any) => new Date(b.hearing_date).getTime() - new Date(a.hearing_date).getTime());
+    return { ...cc, hearings };
+  }
+  const supabase = typeof window === 'undefined' ? await createServerSupabase() : createBrowserSupabase();
+  const { data: cc } = await supabase.from('court_cases').select('*').eq('case_id', caseId).maybeSingle();
+  if (!cc) return null;
+  const { data: hearings } = await supabase
+    .from('hearings')
+    .select('*')
+    .eq('court_case_id', cc.id)
+    .order('hearing_date', { ascending: false });
+  return { ...cc, hearings: hearings || [] };
+}
+
+export async function createCourtCase(data: { case_id: string; court_complex: string; cnr_number: string; judge_name: string; next_hearing_date: string; case_status: string }) {
+  if (!isSupabaseConfigured()) {
+    const newCourtCase = { id: `court-${Date.now()}`, ...data, created_at: new Date().toISOString() };
+    mockDb.court_cases.push(newCourtCase);
+    return newCourtCase;
+  }
+  const supabase = typeof window === 'undefined' ? await createServerSupabase() : createBrowserSupabase();
+  const { data: res, error } = await supabase.from('court_cases').insert(data).select().single();
+  if (error) throw error;
+  return res;
+}
+
+export async function addHearing(data: { court_case_id: string; hearing_date: string; purpose: string; order_summary: string; next_hearing_date?: string }) {
+  if (!isSupabaseConfigured()) {
+    const newHearing = { id: `hearing-${Date.now()}`, ...data, created_at: new Date().toISOString() };
+    mockDb.hearings.push(newHearing);
+    if (data.next_hearing_date) {
+      const idx = mockDb.court_cases.findIndex((c: any) => c.id === data.court_case_id);
+      if (idx !== -1) mockDb.court_cases[idx].next_hearing_date = data.next_hearing_date;
+    }
+    return newHearing;
+  }
+  const supabase = typeof window === 'undefined' ? await createServerSupabase() : createBrowserSupabase();
+  const { data: res, error } = await supabase.from('hearings').insert(data).select().single();
+  if (error) throw error;
+  if (data.next_hearing_date) {
+    await supabase.from('court_cases').update({ next_hearing_date: data.next_hearing_date }).eq('id', data.court_case_id);
+  }
+  return res;
+}
+
+export async function getAllCourtCases() {
+  if (!isSupabaseConfigured()) {
+    return mockDb.court_cases.map((cc: any) => {
+      const c = mockDb.cases.find((x: any) => x.id === cc.case_id);
+      return { ...cc, cases: c };
+    }).sort((a: any, b: any) => new Date(a.next_hearing_date).getTime() - new Date(b.next_hearing_date).getTime());
+  }
+  const supabase = typeof window === 'undefined' ? await createServerSupabase() : createBrowserSupabase();
+  const { data } = await supabase.from('court_cases').select('*, cases(*)').order('next_hearing_date');
+  return data || [];
+}
+
+// -------------------------------------------------------------------------
+// STATEMENT INTELLIGENCE
+// -------------------------------------------------------------------------
+
+export async function getCaseStatements(caseId: string) {
+  if (!isSupabaseConfigured()) {
+    return mockDb.statements
+      .filter((s: any) => s.case_id === caseId)
+      .sort((a: any, b: any) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+  }
+  const supabase = typeof window === 'undefined' ? await createServerSupabase() : createBrowserSupabase();
+  const { data } = await supabase.from('statements').select('*').eq('case_id', caseId).order('created_at');
+  return data || [];
+}
+
+export async function addStatement(data: { case_id: string; witness_name: string; statement_text: string; recorded_date: string }) {
+  if (!isSupabaseConfigured()) {
+    const newStatement = { id: `statement-${Date.now()}`, ...data, created_at: new Date().toISOString() };
+    mockDb.statements.push(newStatement);
+    return newStatement;
+  }
+  const supabase = typeof window === 'undefined' ? await createServerSupabase() : createBrowserSupabase();
+  const { data: res, error } = await supabase.from('statements').insert(data).select().single();
   if (error) throw error;
   return res;
 }

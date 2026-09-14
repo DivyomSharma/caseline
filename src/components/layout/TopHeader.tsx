@@ -30,23 +30,23 @@ export default function TopHeader({ user, onMobileMenuToggle }: TopHeaderProps) 
   }, []);
 
   return (
-    <header className="bg-white border-b border-slate-200 h-16 px-4 flex items-center justify-between sticky top-0 z-30">
+    <header className="bg-white border-b border-stone-200 h-16 px-4 flex items-center justify-between sticky top-0 z-30">
       
       {/* Left side: Mobile Toggle & Breadcrumbs */}
       <div className="flex items-center space-x-3">
         <button
           onClick={onMobileMenuToggle}
-          className="text-slate-500 hover:text-slate-800 p-1.5 rounded-lg hover:bg-slate-100 md:hidden"
+          className="text-stone-500 hover:text-stone-800 p-1.5 rounded-lg hover:bg-stone-100 md:hidden"
         >
           <Menu className="w-5 h-5" />
         </button>
         
-        <div className="flex items-center space-x-2 text-xs font-semibold text-slate-500">
-          <Link href="/dashboard" className="hover:text-slate-800">
+        <div className="flex items-center space-x-2 text-xs font-semibold text-stone-500">
+          <Link href="/dashboard" className="hover:text-stone-800">
             Caseline
           </Link>
           <span>/</span>
-          <span className="text-slate-800 font-bold">Workspace</span>
+          <span className="text-stone-800 font-bold">Workspace</span>
         </div>
       </div>
 
@@ -54,8 +54,8 @@ export default function TopHeader({ user, onMobileMenuToggle }: TopHeaderProps) 
       <div className="flex items-center space-x-4">
         
         {/* Date Display */}
-        <div className="hidden sm:flex items-center space-x-1.5 text-xs text-slate-500 font-medium bg-slate-50 border border-slate-100 rounded-lg py-1.5 px-3">
-          <Calendar className="w-3.5 h-3.5 text-slate-400" />
+        <div className="hidden sm:flex items-center space-x-1.5 text-xs text-stone-500 font-medium bg-stone-50 border border-stone-100 rounded-lg py-1.5 px-3">
+          <Calendar className="w-3.5 h-3.5 text-stone-400" />
           <span>{formattedDate || 'Loading date...'}</span>
         </div>
 
@@ -63,12 +63,12 @@ export default function TopHeader({ user, onMobileMenuToggle }: TopHeaderProps) 
         {user && (
           <div className="flex items-center space-x-2.5">
             <div className="text-right hidden md:block">
-              <div className="text-xs font-bold text-slate-800 leading-3">{user.full_name}</div>
-              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+              <div className="text-xs font-bold text-stone-800 leading-3">{user.full_name}</div>
+              <span className="text-[9px] font-bold text-stone-400 uppercase tracking-wider">
                 {user.role} Account
               </span>
             </div>
-            <div className="w-8.5 h-8.5 rounded-lg bg-slate-900 border border-slate-800 text-white flex items-center justify-center font-bold text-xs">
+            <div className="w-8.5 h-8.5 rounded-lg bg-stone-900 border border-stone-800 text-white flex items-center justify-center font-bold text-xs">
               {user.full_name.charAt(0)}
             </div>
           </div>

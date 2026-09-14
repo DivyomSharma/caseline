@@ -85,24 +85,24 @@ export default function CreateCriminalModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white border border-slate-200 rounded-xl shadow-xl max-w-md w-full overflow-hidden">
+    <div className="fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white border border-stone-200 rounded-xl shadow-xl max-w-md w-full overflow-hidden">
         
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-stone-100">
           <div className="flex items-center space-x-2">
-            <ShieldAlert className="w-4 h-4 text-slate-500" />
-            <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+            <ShieldAlert className="w-4 h-4 text-stone-500" />
+            <h3 className="text-xs font-bold text-stone-800 uppercase tracking-wider">
               {initialData ? 'Update Criminal Profile' : 'Create Criminal Profile'}
             </h3>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-650">
+          <button onClick={onClose} className="text-stone-400 hover:text-stone-600">
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-5 space-y-4 text-xs font-semibold text-slate-700 max-h-[80vh] overflow-y-auto">
+        <form onSubmit={handleSubmit} className="p-5 space-y-4 text-xs font-semibold text-stone-700 max-h-[80vh] overflow-y-auto">
           {error && (
             <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg font-bold">
               {error}
@@ -111,36 +111,36 @@ export default function CreateCriminalModal({
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="block text-[10px] text-slate-400 uppercase font-bold">Full name</label>
+              <label className="block text-[10px] text-stone-400 uppercase font-bold">Full name</label>
               <input
                 type="text"
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="e.g. Ramesh Kumar"
-                className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-600"
+                className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-600"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="block text-[10px] text-slate-400 uppercase font-bold">Alias / Moniker</label>
+              <label className="block text-[10px] text-stone-400 uppercase font-bold">Alias / Moniker</label>
               <input
                 type="text"
                 value={alias}
                 onChange={(e) => setAlias(e.target.value)}
                 placeholder="e.g. Chhotu"
-                className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-600"
+                className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-600"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="block text-[10px] text-slate-400 uppercase font-bold">Gender</label>
+              <label className="block text-[10px] text-stone-400 uppercase font-bold">Gender</label>
               <select
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
-                className="w-full px-3 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:border-indigo-600 cursor-pointer"
+                className="w-full px-3 py-2 border border-stone-200 bg-white rounded-lg focus:outline-none focus:border-amber-600 cursor-pointer"
               >
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -149,23 +149,23 @@ export default function CreateCriminalModal({
             </div>
 
             <div className="space-y-1">
-              <label className="block text-[10px] text-slate-400 uppercase font-bold">Date of Birth</label>
+              <label className="block text-[10px] text-stone-400 uppercase font-bold">Date of Birth</label>
               <input
                 type="date"
                 required
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
-                className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-600"
+                className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-600"
               />
             </div>
           </div>
 
           <div className="space-y-1">
-            <label className="block text-[10px] text-slate-400 uppercase font-bold">Status</label>
+            <label className="block text-[10px] text-stone-400 uppercase font-bold">Status</label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="w-full px-3 py-2 border border-slate-200 bg-white rounded-lg focus:outline-none focus:border-indigo-600 cursor-pointer"
+              className="w-full px-3 py-2 border border-stone-200 bg-white rounded-lg focus:outline-none focus:border-amber-600 cursor-pointer"
             >
               <option value="suspect">Suspect</option>
               <option value="accused">Accused</option>
@@ -175,50 +175,50 @@ export default function CreateCriminalModal({
           </div>
 
           <div className="space-y-1">
-            <label className="block text-[10px] text-slate-400 uppercase font-bold">Last Known Address</label>
+            <label className="block text-[10px] text-stone-400 uppercase font-bold">Last Known Address</label>
             <input
               type="text"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               placeholder="e.g. Block C, Sector-12, Noida, UP"
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-600"
+              className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-600"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="block text-[10px] text-slate-400 uppercase font-bold">Identification Details</label>
+            <label className="block text-[10px] text-stone-400 uppercase font-bold">Identification Details</label>
             <input
               type="text"
               value={identifiers}
               onChange={(e) => setIdentifiers(e.target.value)}
               placeholder="e.g. Burn scar on left forearm, height 5ft 9in"
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-600"
+              className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-600"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="block text-[10px] text-slate-400 uppercase font-bold">Narrative Profile Notes</label>
+            <label className="block text-[10px] text-stone-400 uppercase font-bold">Narrative Profile Notes</label>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Add key notes or case histories..."
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-600 h-20 resize-none"
+              className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-600 h-20 resize-none"
             />
           </div>
 
           {/* Footer Actions */}
-          <div className="flex justify-end space-x-3 pt-3 border-t border-slate-100">
+          <div className="flex justify-end space-x-3 pt-3 border-t border-stone-100">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-650 rounded-lg font-bold"
+              className="px-4 py-2 border border-stone-200 hover:bg-stone-50 text-stone-600 rounded-lg font-bold"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg font-bold disabled:opacity-50"
+              className="px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white rounded-lg font-bold disabled:opacity-50"
             >
               {loading ? 'Saving...' : initialData ? 'Update Profile' : 'Create Profile'}
             </button>

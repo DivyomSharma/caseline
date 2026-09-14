@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
+import { verifySession } from './session';
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
@@ -13,26 +14,29 @@ export async function updateSession(request: NextRequest) {
 
   // Offline mock mode: pass through. We will handle local cookies or localStorage for session.
   if (!supabaseUrl || !supabaseAnonKey) {
-    const isProtectedRoute = request.nextUrl.pathname.startsWith('/dashboard') || 
+    const isProtectedRoute = request.nextUrl.pathname.startsWith('/dashboard') ||
                             request.nextUrl.pathname === '/' ||
-                            request.nextUrl.pathname.match(/^\/(cases|fir|criminals|victims|officers|stations|reports|analytics|settings|investigations|evidence)/);
+                            request.nextUrl.pathname.match(/^\/(cases|fir|criminals|victims|officers|stations|reports|analytics|settings|investigations|evidence|laws|courts|map)/);
     
-    // Check if offline_session cookie exists
+    // Verify the session cookie's signature, not merely its presence — a raw
+    // presence check let anyone reach every protected route by hand-setting
+    // any cookie value in devtools, bypassing loginAction's password check.
     const sessionCookie = request.cookies.get('caseline_session');
-    
-    if (!sessionCookie && isProtectedRoute && request.nextUrl.pathname !== '/login') {
+    const verifiedEmail = await verifySession(sessionCookie?.value);
+
+    if (!verifiedEmail && isProtectedRoute && request.nextUrl.pathname !== '/login') {
       const url = request.nextUrl.clone();
       url.pathname = '/login';
       return NextResponse.redirect(url);
     }
-    
+
     // Redirect / to /dashboard if logged in
-    if (sessionCookie && request.nextUrl.pathname === '/') {
+    if (verifiedEmail && request.nextUrl.pathname === '/') {
       const url = request.nextUrl.clone();
       url.pathname = '/dashboard';
       return NextResponse.redirect(url);
     }
-    
+
     return response;
   }
 
@@ -69,7 +73,10 @@ export async function updateSession(request: NextRequest) {
                           path.startsWith('/analytics') ||
                           path.startsWith('/settings') ||
                           path.startsWith('/investigations') ||
-                          path.startsWith('/evidence');
+                          path.startsWith('/evidence') ||
+                          path.startsWith('/laws') ||
+                          path.startsWith('/courts') ||
+                          path.startsWith('/map');
 
   if (!user && isProtectedRoute && path !== '/login') {
     const url = request.nextUrl.clone();
