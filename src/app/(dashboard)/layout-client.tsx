@@ -21,8 +21,8 @@ export default function LayoutClient({ children, user }: LayoutClientProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-stone-50 flex">
-      
+    <div className="min-h-screen bg-[var(--background)] flex">
+
       {/* Desktop Sidebar (hidden on mobile) */}
       <div className="hidden md:block">
         <Sidebar user={user} />
@@ -30,9 +30,9 @@ export default function LayoutClient({ children, user }: LayoutClientProps) {
 
       {/* Mobile Drawer Backdrop */}
       {mobileMenuOpen && (
-        <div 
+        <div
           onClick={() => setMobileMenuOpen(false)}
-          className="fixed inset-0 bg-stone-900/40 z-40 md:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-[var(--color-ink)]/40 z-40 md:hidden transition-opacity duration-300"
         />
       )}
 
@@ -40,22 +40,23 @@ export default function LayoutClient({ children, user }: LayoutClientProps) {
       <div className={`fixed inset-y-0 left-0 w-64 bg-white z-50 transform md:hidden transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="h-full flex flex-col justify-between">
           <div>
-            <div className="p-4 border-b border-stone-200 flex items-center justify-between">
+            <div className="p-4 flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-stone-900 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-[var(--color-primary)] rounded-lg flex items-center justify-center">
                   <Shield className="w-4 h-4 text-white" />
                 </div>
-                <span className="font-bold text-stone-800 text-xs tracking-widest font-mono">
-                  CASELINE
+                <span className="font-display font-semibold text-[var(--color-ink)] text-sm tracking-tight">
+                  CaseLine
                 </span>
               </div>
-              <button 
+              <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-stone-400 hover:text-stone-600 p-1.5 rounded-lg hover:bg-stone-100"
+                className="text-[var(--color-ink-soft)] hover:text-[var(--color-ink)] p-1.5 rounded-lg hover:bg-[var(--color-lavender)]"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
+            <div className="tricolor-hairline" />
             {/* Sidebar nav inside drawer */}
             <div className="py-2" onClick={() => setMobileMenuOpen(false)}>
               <Sidebar user={user} />

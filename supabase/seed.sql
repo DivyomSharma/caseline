@@ -27,11 +27,13 @@ DECLARE
   uid_13 uuid := 'e6f8ef1d-72fb-40c2-901b-9f9e160a0014';
   uid_14 uuid := 'e6f8ef1d-72fb-40c2-901b-9f9e160a0015';
   uid_15 uuid := 'e6f8ef1d-72fb-40c2-901b-9f9e160a0016';
+  uid_16 uuid := 'e6f8ef1d-72fb-40c2-901b-9f9e160a0017';
+  uid_17 uuid := 'e6f8ef1d-72fb-40c2-901b-9f9e160a0018';
 BEGIN
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_0) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_0, 'admin@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "ACP Sunita Deshmukh", "role": "admin"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_0, 'authenticated', 'admin@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "ACP Sunita Deshmukh", "role": "admin"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -41,8 +43,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_1) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_1, 'arjun.mehta@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Arjun Mehta", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_1, 'authenticated', 'arjun.mehta@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Arjun Mehta", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -52,8 +54,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_2) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_2, 'vikram.rathore@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Vikram Rathore", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_2, 'authenticated', 'vikram.rathore@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Vikram Rathore", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -63,8 +65,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_3) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_3, 'rajesh.kumar@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Rajesh Kumar", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_3, 'authenticated', 'rajesh.kumar@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Rajesh Kumar", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -74,8 +76,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_4) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_4, 'priya.sharma@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Priya Sharma", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_4, 'authenticated', 'priya.sharma@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Priya Sharma", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -85,8 +87,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_5) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_5, 'kabir.khan@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Kabir Khan", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_5, 'authenticated', 'kabir.khan@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Kabir Khan", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -96,8 +98,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_6) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_6, 'amit.verma@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Amit Verma", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_6, 'authenticated', 'amit.verma@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Amit Verma", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -107,8 +109,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_7) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_7, 'sneha.patil@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Sneha Patil", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_7, 'authenticated', 'sneha.patil@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Sneha Patil", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -118,8 +120,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_8) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_8, 'devendra.singh@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Devendra Singh", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_8, 'authenticated', 'devendra.singh@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Devendra Singh", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -129,8 +131,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_9) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_9, 'rahul.joshi@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Rahul Joshi", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_9, 'authenticated', 'rahul.joshi@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Rahul Joshi", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -140,8 +142,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_10) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_10, 'neha.gupta@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Neha Gupta", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_10, 'authenticated', 'neha.gupta@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Neha Gupta", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -151,8 +153,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_11) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_11, 'sanjay.dutt@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Sanjay Dutt", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_11, 'authenticated', 'sanjay.dutt@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Sanjay Dutt", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -162,8 +164,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_12) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_12, 'meera.bai@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Meera Bai", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_12, 'authenticated', 'meera.bai@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Meera Bai", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -173,8 +175,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_13) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_13, 'kiran.bedi@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Kiran Bedi", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_13, 'authenticated', 'kiran.bedi@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Sub-Inspector Kiran Bedi", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -184,8 +186,8 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_14) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_14, 'alok.nath@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Alok Nath", "role": "officer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_14, 'authenticated', 'alok.nath@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Inspector Alok Nath", "role": "officer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
@@ -195,13 +197,35 @@ BEGIN
 
   -- Create auth user if not exists
   IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_15) THEN
-    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at) 
-    VALUES (uid_15, 'viewer@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Director General R. K. Sen", "role": "viewer"}', now(), now(), 'authenticated', now());
+    INSERT INTO auth.users (instance_id, id, aud, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at, confirmation_token, recovery_token, email_change, email_change_token_new, email_change_token_current, phone_change, phone_change_token, reauthentication_token)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_15, 'authenticated', 'viewer@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Director General R. K. Sen", "role": "viewer"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
   END IF;
   
   -- Update/Insert public.profile
-  INSERT INTO public.profiles (id, full_name, email, role, avatar_url) 
+  INSERT INTO public.profiles (id, full_name, email, role, avatar_url)
   VALUES (uid_15, 'Director General R. K. Sen', 'viewer@caseline.gov', 'viewer', '')
+  ON CONFLICT (id) DO UPDATE SET role = EXCLUDED.role, full_name = EXCLUDED.full_name;
+
+  -- Create auth user if not exists
+  IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_16) THEN
+    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_16, 'authenticated', 'divyom@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Commissioner Divyom", "role": "admin"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
+  END IF;
+
+  -- Update/Insert public.profile
+  INSERT INTO public.profiles (id, full_name, email, role, avatar_url)
+  VALUES (uid_16, 'Commissioner Divyom', 'divyom@caseline.gov', 'admin', '')
+  ON CONFLICT (id) DO UPDATE SET role = EXCLUDED.role, full_name = EXCLUDED.full_name;
+
+  -- Create auth user if not exists
+  IF NOT EXISTS (SELECT 1 FROM auth.users WHERE id = uid_17) THEN
+    INSERT INTO auth.users (id, email, encrypted_password, raw_user_meta_data, created_at, updated_at, role, email_confirmed_at)
+    VALUES ('00000000-0000-0000-0000-000000000000', uid_17, 'authenticated', 'samar@caseline.gov', crypt('password123', gen_salt('bf')), '{"full_name": "Additional Commissioner Samar", "role": "admin"}', now(), now(), 'authenticated', now(), '', '', '', '', '', '', '', '');
+  END IF;
+
+  -- Update/Insert public.profile
+  INSERT INTO public.profiles (id, full_name, email, role, avatar_url)
+  VALUES (uid_17, 'Additional Commissioner Samar', 'samar@caseline.gov', 'admin', '')
   ON CONFLICT (id) DO UPDATE SET role = EXCLUDED.role, full_name = EXCLUDED.full_name;
 
 END $$;
@@ -251,36 +275,36 @@ INSERT INTO public.victims (id, full_name, contact, address, notes) VALUES ('vic
 INSERT INTO public.victims (id, full_name, contact, address, notes) VALUES ('victim-25', 'Kartik Aaryan', '+91-9988771024', 'Patparganj, India', 'Complainant/Victim registered under index 25') ON CONFLICT DO NOTHING;
 
 -- Criminals
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-01', 'Vijay Mallya', 'The Baron', '1975-01-10', 'male', 'Fictional Hideout 1, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including theft.', 'suspect') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-2', 'Ramesh Kumar', 'Laddoo', '1976-02-10', 'male', 'Fictional Hideout 2, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including burglary.', 'accused') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-03', 'Sanjay Dutt', 'Sanju Baba', '1977-03-10', 'male', 'Fictional Hideout 3, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including fraud.', 'convicted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-04', 'Vikram Singh', 'Ranger', '1978-04-10', 'male', 'Fictional Hideout 4, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including theft.', 'wanted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-05', 'Ajay Sharma', 'Silent Thief', '1979-05-10', 'male', 'Fictional Hideout 5, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including burglary.', 'acquitted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-06', 'Rajesh Yadav', 'Anna', '1980-06-10', 'male', 'Fictional Hideout 6, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including fraud.', 'suspect') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-07', 'anil Kapoor', 'Computer', '1981-07-10', 'male', 'Fictional Hideout 7, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including theft.', 'accused') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-08', 'Sunil Joshi', 'Speedy', '1982-08-10', 'male', 'Fictional Hideout 8, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including burglary.', 'convicted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-09', 'Karan Verma', 'Don', '1983-09-10', 'male', 'Fictional Hideout 9, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including fraud.', 'wanted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-010', 'Arjun Rathore', 'Falcon', '1984-010-10', 'male', 'Fictional Hideout 10, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including theft.', 'acquitted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-011', 'Chhota Rajan', 'Chhota Rajan', '1985-011-10', 'male', 'Fictional Hideout 11, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including burglary.', 'suspect') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-012', 'Bada Shakeel', 'Bada Shakeel', '1986-01-10', 'male', 'Fictional Hideout 12, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including fraud.', 'accused') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-013', 'Bunty Chor', 'Slick Bunty', '1987-02-10', 'male', 'Fictional Hideout 13, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including theft.', 'convicted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-014', 'Babli Singh', 'Smart Babli', '1988-03-10', 'female', 'Fictional Hideout 14, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including burglary.', 'wanted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-015', 'Jaggu Dada', 'Jaggu Dada', '1989-04-10', 'male', 'Fictional Hideout 15, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including fraud.', 'acquitted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-016', 'Raju Srivastava', 'Raju Guide', '1990-05-10', 'male', 'Fictional Hideout 16, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including theft.', 'suspect') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-017', 'Shera Khan', 'Sher Khan', '1991-06-10', 'male', 'Fictional Hideout 17, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including burglary.', 'accused') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-018', 'Kalia Pathan', 'Kalia', '1992-07-10', 'male', 'Fictional Hideout 18, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including fraud.', 'convicted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-019', 'Gabbar Gujjar', 'Gabbar', '1993-08-10', 'male', 'Fictional Hideout 19, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including theft.', 'wanted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-20', 'Mogambo Bhai', 'Mogambo', '1994-09-10', 'male', 'Fictional Hideout 20, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including burglary.', 'acquitted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-21', 'Munna Bhaiya', 'Munna Bhai', '1995-010-10', 'male', 'Fictional Hideout 21, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including fraud.', 'suspect') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-22', 'Circuit Bhai', 'Circuit', '1996-011-10', 'male', 'Fictional Hideout 22, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including theft.', 'accused') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-23', 'Pappu Yadav', 'Pappu Can't Dance', '1997-01-10', 'male', 'Fictional Hideout 23, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including burglary.', 'convicted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-24', 'Kanti Shah', 'Kanti Shah', '1998-02-10', 'male', 'Fictional Hideout 24, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including fraud.', 'wanted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-25', 'Billa Pandey', 'Billa', '1999-03-10', 'male', 'Fictional Hideout 25, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including theft.', 'acquitted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-26', 'Lallan Prasad', 'Lallan Daku', '1975-04-10', 'male', 'Fictional Hideout 26, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including burglary.', 'suspect') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-27', 'Mangal Pandey', 'Mangal Pandey', '1976-05-10', 'male', 'Fictional Hideout 27, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including fraud.', 'accused') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-28', 'Sardar Khan', 'Sardar Khan', '1977-06-10', 'male', 'Fictional Hideout 28, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including theft.', 'convicted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-29', 'Goli Sena', 'Goli', '1978-07-10', 'male', 'Fictional Hideout 29, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including burglary.', 'wanted') ON CONFLICT DO NOTHING;
-INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-030', 'Sunder Soni', 'Sunder Bhai', '1979-08-10', 'male', 'Fictional Hideout 30, National Capital Region, India', 'Scar on cheek, height approx 5''10', tattoo.', 'Subject has multiple priors including fraud.', 'acquitted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-01', 'Vijay Mallya', 'The Baron', '1975-01-10', 'male', 'Fictional Hideout 1, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including theft.', 'suspect') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-2', 'Ramesh Kumar', 'Laddoo', '1976-02-10', 'male', 'Fictional Hideout 2, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including burglary.', 'accused') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-03', 'Sanjay Dutt', 'Sanju Baba', '1977-03-10', 'male', 'Fictional Hideout 3, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including fraud.', 'convicted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-04', 'Vikram Singh', 'Ranger', '1978-04-10', 'male', 'Fictional Hideout 4, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including theft.', 'wanted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-05', 'Ajay Sharma', 'Silent Thief', '1979-05-10', 'male', 'Fictional Hideout 5, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including burglary.', 'acquitted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-06', 'Rajesh Yadav', 'Anna', '1980-06-10', 'male', 'Fictional Hideout 6, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including fraud.', 'suspect') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-07', 'anil Kapoor', 'Computer', '1981-07-10', 'male', 'Fictional Hideout 7, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including theft.', 'accused') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-08', 'Sunil Joshi', 'Speedy', '1982-08-10', 'male', 'Fictional Hideout 8, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including burglary.', 'convicted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-09', 'Karan Verma', 'Don', '1983-09-10', 'male', 'Fictional Hideout 9, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including fraud.', 'wanted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-010', 'Arjun Rathore', 'Falcon', '1984-10-10', 'male', 'Fictional Hideout 10, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including theft.', 'acquitted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-011', 'Chhota Rajan', 'Chhota Rajan', '1985-11-10', 'male', 'Fictional Hideout 11, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including burglary.', 'suspect') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-012', 'Bada Shakeel', 'Bada Shakeel', '1986-01-10', 'male', 'Fictional Hideout 12, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including fraud.', 'accused') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-013', 'Bunty Chor', 'Slick Bunty', '1987-02-10', 'male', 'Fictional Hideout 13, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including theft.', 'convicted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-014', 'Babli Singh', 'Smart Babli', '1988-03-10', 'female', 'Fictional Hideout 14, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including burglary.', 'wanted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-015', 'Jaggu Dada', 'Jaggu Dada', '1989-04-10', 'male', 'Fictional Hideout 15, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including fraud.', 'acquitted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-016', 'Raju Srivastava', 'Raju Guide', '1990-05-10', 'male', 'Fictional Hideout 16, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including theft.', 'suspect') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-017', 'Shera Khan', 'Sher Khan', '1991-06-10', 'male', 'Fictional Hideout 17, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including burglary.', 'accused') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-018', 'Kalia Pathan', 'Kalia', '1992-07-10', 'male', 'Fictional Hideout 18, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including fraud.', 'convicted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-019', 'Gabbar Gujjar', 'Gabbar', '1993-08-10', 'male', 'Fictional Hideout 19, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including theft.', 'wanted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-20', 'Mogambo Bhai', 'Mogambo', '1994-09-10', 'male', 'Fictional Hideout 20, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including burglary.', 'acquitted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-21', 'Munna Bhaiya', 'Munna Bhai', '1995-10-10', 'male', 'Fictional Hideout 21, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including fraud.', 'suspect') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-22', 'Circuit Bhai', 'Circuit', '1996-11-10', 'male', 'Fictional Hideout 22, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including theft.', 'accused') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-23', 'Pappu Yadav', 'Pappu Can''t Dance', '1997-01-10', 'male', 'Fictional Hideout 23, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including burglary.', 'convicted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-24', 'Kanti Shah', 'Kanti Shah', '1998-02-10', 'male', 'Fictional Hideout 24, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including fraud.', 'wanted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-25', 'Billa Pandey', 'Billa', '1999-03-10', 'male', 'Fictional Hideout 25, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including theft.', 'acquitted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-26', 'Lallan Prasad', 'Lallan Daku', '1975-04-10', 'male', 'Fictional Hideout 26, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including burglary.', 'suspect') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-27', 'Mangal Pandey', 'Mangal Pandey', '1976-05-10', 'male', 'Fictional Hideout 27, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including fraud.', 'accused') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-28', 'Sardar Khan', 'Sardar Khan', '1977-06-10', 'male', 'Fictional Hideout 28, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including theft.', 'convicted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-29', 'Goli Sena', 'Goli', '1978-07-10', 'male', 'Fictional Hideout 29, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including burglary.', 'wanted') ON CONFLICT DO NOTHING;
+INSERT INTO public.criminals (id, full_name, alias, date_of_birth, gender, address, identification_details, notes, status) VALUES ('criminal-030', 'Sunder Soni', 'Sunder Bhai', '1979-08-10', 'male', 'Fictional Hideout 30, National Capital Region, India', 'Scar on cheek, height approx 5''10", tattoo.', 'Subject has multiple priors including fraud.', 'acquitted') ON CONFLICT DO NOTHING;
 
 -- Cases
 INSERT INTO public.cases (id, case_number, crime_type, description, incident_date, incident_time, location, station_id, assigned_officer_id, priority, status) VALUES ('case-100', 'CR-2026-1001', 'Theft', 'Fictional case report regarding incident of theft reported at Central District Police Station. Details contain investigative logs, evidence files, and suspect list.', '2026-07-1', '10:0:00', 'Sector 1, Central District', 'station-001', 'officer-admin', 'low', 'under_investigation') ON CONFLICT DO NOTHING;
@@ -408,8 +432,8 @@ INSERT INTO public.case_criminals (case_id, criminal_id, relationship_status) VA
 INSERT INTO public.case_criminals (case_id, criminal_id, relationship_status) VALUES ('case-138', 'criminal-09', 'accused') ON CONFLICT ON CONSTRAINT case_criminals_pkey DO NOTHING;
 INSERT INTO public.case_criminals (case_id, criminal_id, relationship_status) VALUES ('case-139', 'criminal-010', 'suspect') ON CONFLICT ON CONSTRAINT case_criminals_pkey DO NOTHING;
 INSERT INTO public.case_criminals (case_id, criminal_id, relationship_status) VALUES ('case-100', 'criminal-2', 'suspect') ON CONFLICT ON CONSTRAINT case_criminals_pkey DO NOTHING;
-INSERT INTO public.case_criminals (case_id, criminal_id, relationship_status) VALUES ('case-100', 'criminal-3', 'accused') ON CONFLICT ON CONSTRAINT case_criminals_pkey DO NOTHING;
-INSERT INTO public.case_criminals (case_id, criminal_id, relationship_status) VALUES ('case-102', 'criminal-5', 'suspect') ON CONFLICT ON CONSTRAINT case_criminals_pkey DO NOTHING;
+INSERT INTO public.case_criminals (case_id, criminal_id, relationship_status) VALUES ('case-100', 'criminal-03', 'accused') ON CONFLICT ON CONSTRAINT case_criminals_pkey DO NOTHING;
+INSERT INTO public.case_criminals (case_id, criminal_id, relationship_status) VALUES ('case-102', 'criminal-05', 'suspect') ON CONFLICT ON CONSTRAINT case_criminals_pkey DO NOTHING;
 INSERT INTO public.case_criminals (case_id, criminal_id, relationship_status) VALUES ('case-105', 'criminal-01', 'convicted') ON CONFLICT ON CONSTRAINT case_criminals_pkey DO NOTHING;
 
 -- Case Victims (Joins)
@@ -517,55 +541,55 @@ INSERT INTO public.investigations (id, case_id, officer_id, update_type, notes, 
 INSERT INTO public.investigations (id, case_id, officer_id, update_type, notes, next_action) VALUES ('investigation-300-59', 'case-119', 'officer-010', 'Suspect Identification', 'Identified a suspect matching witness descriptions. Profile cross-checked in records repository. Case updates details.', 'Follow-up planned.') ON CONFLICT DO NOTHING;
 
 -- Evidence
-INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-0', 'case-100', 'Document', 'CCTV footage backup from the main gate camera showing the suspect's vehicle.', '2026-07-1', 'officer-admin', 'Vault Room A, Locker 1', '/demo-evidence/evidence-1.jpg', 'collected') ON CONFLICT DO NOTHING;
+INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-0', 'case-100', 'Document', 'CCTV footage backup from the main gate camera showing the suspect''s vehicle.', '2026-07-1', 'officer-admin', 'Vault Room A, Locker 1', '/demo-evidence/evidence-1.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-1', 'case-101', 'Photograph', 'Fictional forensic fingerprints report extracted from the main locker door handles.', '2026-07-2', 'officer-006', 'Vault Room A, Locker 2', '/demo-evidence/evidence-2.jpg', 'analyzing') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-2', 'case-102', 'Video', 'Audio recording of initial complaint statement logged under badge supervision.', '2026-07-3', 'officer-013', 'Vault Room A, Locker 3', '/demo-evidence/evidence-3.jpg', 'verified') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-3', 'case-103', 'Physical Evidence', 'Physical item (broken lock latch) retrieved from the rear door of the facility.', '2026-07-4', 'officer-007', 'Vault Room A, Locker 4', '/demo-evidence/evidence-4.jpg', 'disposed') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-4', 'case-104', 'Digital Evidence', 'Fictional banking ledger sheets showing suspicious transactions from the accused.', '2026-07-5', 'officer-009', 'Vault Room A, Locker 5', '/demo-evidence/evidence-5.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-5', 'case-105', 'Other', 'A DSLR photograph of the crime scene location detailing entry points.', '2026-07-6', 'officer-001', 'Vault Room A, Locker 6', '/demo-evidence/evidence-6.jpg', 'analyzing') ON CONFLICT DO NOTHING;
-INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-6', 'case-106', 'Document', 'CCTV footage backup from the main gate camera showing the suspect's vehicle.', '2026-07-7', 'officer-002', 'Vault Room A, Locker 7', '/demo-evidence/evidence-1.jpg', 'verified') ON CONFLICT DO NOTHING;
+INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-6', 'case-106', 'Document', 'CCTV footage backup from the main gate camera showing the suspect''s vehicle.', '2026-07-7', 'officer-002', 'Vault Room A, Locker 7', '/demo-evidence/evidence-1.jpg', 'verified') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-7', 'case-107', 'Photograph', 'Fictional forensic fingerprints report extracted from the main locker door handles.', '2026-07-8', 'officer-005', 'Vault Room A, Locker 8', '/demo-evidence/evidence-2.jpg', 'disposed') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-8', 'case-108', 'Video', 'Audio recording of initial complaint statement logged under badge supervision.', '2026-07-9', 'officer-014', 'Vault Room A, Locker 9', '/demo-evidence/evidence-3.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-9', 'case-109', 'Physical Evidence', 'Physical item (broken lock latch) retrieved from the rear door of the facility.', '2026-07-10', 'officer-010', 'Vault Room A, Locker 10', '/demo-evidence/evidence-4.jpg', 'analyzing') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-10', 'case-110', 'Digital Evidence', 'Fictional banking ledger sheets showing suspicious transactions from the accused.', '2026-07-11', 'officer-003', 'Vault Room A, Locker 11', '/demo-evidence/evidence-5.jpg', 'verified') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-11', 'case-111', 'Other', 'A DSLR photograph of the crime scene location detailing entry points.', '2026-07-12', 'officer-012', 'Vault Room A, Locker 12', '/demo-evidence/evidence-6.jpg', 'disposed') ON CONFLICT DO NOTHING;
-INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-12', 'case-112', 'Document', 'CCTV footage backup from the main gate camera showing the suspect's vehicle.', '2026-07-13', 'officer-004', 'Vault Room A, Locker 13', '/demo-evidence/evidence-1.jpg', 'collected') ON CONFLICT DO NOTHING;
+INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-12', 'case-112', 'Document', 'CCTV footage backup from the main gate camera showing the suspect''s vehicle.', '2026-07-13', 'officer-004', 'Vault Room A, Locker 13', '/demo-evidence/evidence-1.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-13', 'case-113', 'Photograph', 'Fictional forensic fingerprints report extracted from the main locker door handles.', '2026-07-14', 'officer-008', 'Vault Room A, Locker 14', '/demo-evidence/evidence-2.jpg', 'analyzing') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-14', 'case-114', 'Video', 'Audio recording of initial complaint statement logged under badge supervision.', '2026-07-15', 'officer-009', 'Vault Room A, Locker 15', '/demo-evidence/evidence-3.jpg', 'verified') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-15', 'case-115', 'Physical Evidence', 'Physical item (broken lock latch) retrieved from the rear door of the facility.', '2026-07-16', 'officer-011', 'Vault Room A, Locker 16', '/demo-evidence/evidence-4.jpg', 'disposed') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-16', 'case-116', 'Digital Evidence', 'Fictional banking ledger sheets showing suspicious transactions from the accused.', '2026-07-17', 'officer-006', 'Vault Room A, Locker 17', '/demo-evidence/evidence-5.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-17', 'case-117', 'Other', 'A DSLR photograph of the crime scene location detailing entry points.', '2026-07-18', 'officer-013', 'Vault Room A, Locker 18', '/demo-evidence/evidence-6.jpg', 'analyzing') ON CONFLICT DO NOTHING;
-INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-18', 'case-118', 'Document', 'CCTV footage backup from the main gate camera showing the suspect's vehicle.', '2026-07-19', 'officer-007', 'Vault Room A, Locker 19', '/demo-evidence/evidence-1.jpg', 'verified') ON CONFLICT DO NOTHING;
+INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-18', 'case-118', 'Document', 'CCTV footage backup from the main gate camera showing the suspect''s vehicle.', '2026-07-19', 'officer-007', 'Vault Room A, Locker 19', '/demo-evidence/evidence-1.jpg', 'verified') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-19', 'case-119', 'Photograph', 'Fictional forensic fingerprints report extracted from the main locker door handles.', '2026-07-20', 'officer-010', 'Vault Room A, Locker 20', '/demo-evidence/evidence-2.jpg', 'disposed') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-20', 'case-120', 'Video', 'Audio recording of initial complaint statement logged under badge supervision.', '2026-07-21', 'officer-admin', 'Vault Room A, Locker 21', '/demo-evidence/evidence-3.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-21', 'case-121', 'Physical Evidence', 'Physical item (broken lock latch) retrieved from the rear door of the facility.', '2026-07-22', 'officer-002', 'Vault Room A, Locker 22', '/demo-evidence/evidence-4.jpg', 'analyzing') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-22', 'case-122', 'Digital Evidence', 'Fictional banking ledger sheets showing suspicious transactions from the accused.', '2026-07-23', 'officer-005', 'Vault Room A, Locker 23', '/demo-evidence/evidence-5.jpg', 'verified') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-23', 'case-123', 'Other', 'A DSLR photograph of the crime scene location detailing entry points.', '2026-07-24', 'officer-014', 'Vault Room A, Locker 24', '/demo-evidence/evidence-6.jpg', 'disposed') ON CONFLICT DO NOTHING;
-INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-24', 'case-124', 'Document', 'CCTV footage backup from the main gate camera showing the suspect's vehicle.', '2026-07-25', 'officer-009', 'Vault Room A, Locker 25', '/demo-evidence/evidence-1.jpg', 'collected') ON CONFLICT DO NOTHING;
+INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-24', 'case-124', 'Document', 'CCTV footage backup from the main gate camera showing the suspect''s vehicle.', '2026-07-25', 'officer-009', 'Vault Room A, Locker 25', '/demo-evidence/evidence-1.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-25', 'case-125', 'Photograph', 'Fictional forensic fingerprints report extracted from the main locker door handles.', '2026-07-26', 'officer-001', 'Vault Room A, Locker 26', '/demo-evidence/evidence-2.jpg', 'analyzing') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-26', 'case-126', 'Video', 'Audio recording of initial complaint statement logged under badge supervision.', '2026-07-27', 'officer-012', 'Vault Room A, Locker 27', '/demo-evidence/evidence-3.jpg', 'verified') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-27', 'case-127', 'Physical Evidence', 'Physical item (broken lock latch) retrieved from the rear door of the facility.', '2026-07-28', 'officer-004', 'Vault Room A, Locker 28', '/demo-evidence/evidence-4.jpg', 'disposed') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-28', 'case-128', 'Digital Evidence', 'Fictional banking ledger sheets showing suspicious transactions from the accused.', '2026-07-1', 'officer-008', 'Vault Room A, Locker 29', '/demo-evidence/evidence-5.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-29', 'case-129', 'Other', 'A DSLR photograph of the crime scene location detailing entry points.', '2026-07-2', 'officer-010', 'Vault Room A, Locker 30', '/demo-evidence/evidence-6.jpg', 'analyzing') ON CONFLICT DO NOTHING;
-INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-30', 'case-130', 'Document', 'CCTV footage backup from the main gate camera showing the suspect's vehicle.', '2026-07-3', 'officer-003', 'Vault Room A, Locker 31', '/demo-evidence/evidence-1.jpg', 'verified') ON CONFLICT DO NOTHING;
+INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-30', 'case-130', 'Document', 'CCTV footage backup from the main gate camera showing the suspect''s vehicle.', '2026-07-3', 'officer-003', 'Vault Room A, Locker 31', '/demo-evidence/evidence-1.jpg', 'verified') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-31', 'case-131', 'Photograph', 'Fictional forensic fingerprints report extracted from the main locker door handles.', '2026-07-4', 'officer-006', 'Vault Room A, Locker 32', '/demo-evidence/evidence-2.jpg', 'disposed') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-32', 'case-132', 'Video', 'Audio recording of initial complaint statement logged under badge supervision.', '2026-07-5', 'officer-013', 'Vault Room A, Locker 33', '/demo-evidence/evidence-3.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-33', 'case-133', 'Physical Evidence', 'Physical item (broken lock latch) retrieved from the rear door of the facility.', '2026-07-6', 'officer-007', 'Vault Room A, Locker 34', '/demo-evidence/evidence-4.jpg', 'analyzing') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-34', 'case-134', 'Digital Evidence', 'Fictional banking ledger sheets showing suspicious transactions from the accused.', '2026-07-7', 'officer-009', 'Vault Room A, Locker 35', '/demo-evidence/evidence-5.jpg', 'verified') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-35', 'case-135', 'Other', 'A DSLR photograph of the crime scene location detailing entry points.', '2026-07-8', 'officer-011', 'Vault Room A, Locker 36', '/demo-evidence/evidence-6.jpg', 'disposed') ON CONFLICT DO NOTHING;
-INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-36', 'case-136', 'Document', 'CCTV footage backup from the main gate camera showing the suspect's vehicle.', '2026-07-9', 'officer-002', 'Vault Room A, Locker 37', '/demo-evidence/evidence-1.jpg', 'collected') ON CONFLICT DO NOTHING;
+INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-36', 'case-136', 'Document', 'CCTV footage backup from the main gate camera showing the suspect''s vehicle.', '2026-07-9', 'officer-002', 'Vault Room A, Locker 37', '/demo-evidence/evidence-1.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-37', 'case-137', 'Photograph', 'Fictional forensic fingerprints report extracted from the main locker door handles.', '2026-07-10', 'officer-005', 'Vault Room A, Locker 38', '/demo-evidence/evidence-2.jpg', 'analyzing') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-38', 'case-138', 'Video', 'Audio recording of initial complaint statement logged under badge supervision.', '2026-07-11', 'officer-014', 'Vault Room A, Locker 39', '/demo-evidence/evidence-3.jpg', 'verified') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-39', 'case-139', 'Physical Evidence', 'Physical item (broken lock latch) retrieved from the rear door of the facility.', '2026-07-12', 'officer-010', 'Vault Room A, Locker 40', '/demo-evidence/evidence-4.jpg', 'disposed') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-40', 'case-100', 'Digital Evidence', 'Fictional banking ledger sheets showing suspicious transactions from the accused.', '2026-07-1', 'officer-admin', 'Vault Room A, Locker 41', '/demo-evidence/evidence-5.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-41', 'case-101', 'Other', 'A DSLR photograph of the crime scene location detailing entry points.', '2026-07-2', 'officer-006', 'Vault Room A, Locker 42', '/demo-evidence/evidence-6.jpg', 'analyzing') ON CONFLICT DO NOTHING;
-INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-42', 'case-102', 'Document', 'CCTV footage backup from the main gate camera showing the suspect's vehicle.', '2026-07-3', 'officer-013', 'Vault Room A, Locker 43', '/demo-evidence/evidence-1.jpg', 'verified') ON CONFLICT DO NOTHING;
+INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-42', 'case-102', 'Document', 'CCTV footage backup from the main gate camera showing the suspect''s vehicle.', '2026-07-3', 'officer-013', 'Vault Room A, Locker 43', '/demo-evidence/evidence-1.jpg', 'verified') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-43', 'case-103', 'Photograph', 'Fictional forensic fingerprints report extracted from the main locker door handles.', '2026-07-4', 'officer-007', 'Vault Room A, Locker 44', '/demo-evidence/evidence-2.jpg', 'disposed') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-44', 'case-104', 'Video', 'Audio recording of initial complaint statement logged under badge supervision.', '2026-07-5', 'officer-009', 'Vault Room A, Locker 45', '/demo-evidence/evidence-3.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-45', 'case-105', 'Physical Evidence', 'Physical item (broken lock latch) retrieved from the rear door of the facility.', '2026-07-6', 'officer-001', 'Vault Room A, Locker 46', '/demo-evidence/evidence-4.jpg', 'analyzing') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-46', 'case-106', 'Digital Evidence', 'Fictional banking ledger sheets showing suspicious transactions from the accused.', '2026-07-7', 'officer-002', 'Vault Room A, Locker 47', '/demo-evidence/evidence-5.jpg', 'verified') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-47', 'case-107', 'Other', 'A DSLR photograph of the crime scene location detailing entry points.', '2026-07-8', 'officer-005', 'Vault Room A, Locker 48', '/demo-evidence/evidence-6.jpg', 'disposed') ON CONFLICT DO NOTHING;
-INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-48', 'case-108', 'Document', 'CCTV footage backup from the main gate camera showing the suspect's vehicle.', '2026-07-9', 'officer-014', 'Vault Room A, Locker 49', '/demo-evidence/evidence-1.jpg', 'collected') ON CONFLICT DO NOTHING;
+INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-48', 'case-108', 'Document', 'CCTV footage backup from the main gate camera showing the suspect''s vehicle.', '2026-07-9', 'officer-014', 'Vault Room A, Locker 49', '/demo-evidence/evidence-1.jpg', 'collected') ON CONFLICT DO NOTHING;
 INSERT INTO public.evidence (id, case_id, evidence_type, description, collected_date, collected_by, storage_location, file_url, status) VALUES ('evidence-400-49', 'case-109', 'Photograph', 'Fictional forensic fingerprints report extracted from the main locker door handles.', '2026-07-10', 'officer-010', 'Vault Room A, Locker 50', '/demo-evidence/evidence-2.jpg', 'analyzing') ON CONFLICT DO NOTHING;
 
 -- Case Updates

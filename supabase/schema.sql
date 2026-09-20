@@ -12,11 +12,19 @@ drop table if exists public.case_victims cascade;
 drop table if exists public.case_criminals cascade;
 drop table if exists public.criminals cascade;
 drop table if exists public.firs cascade;
+drop table if exists public.hearings cascade;
+drop table if exists public.court_cases cascade;
+drop table if exists public.statements cascade;
+drop table if exists public.case_sections cascade;
 drop table if exists public.cases cascade;
 drop table if exists public.victims cascade;
 drop table if exists public.officers cascade;
 drop table if exists public.police_stations cascade;
 drop table if exists public.profiles cascade;
+drop table if exists public.legal_sections cascade;
+drop table if exists public.acts cascade;
+drop table if exists public.data_sources cascade;
+drop trigger if exists on_auth_user_created on auth.users;
 
 -- 1. Profiles Table (Linked to Supabase Auth users)
 create table public.profiles (
@@ -30,7 +38,7 @@ create table public.profiles (
 
 -- 2. Police Stations Table
 create table public.police_stations (
-    id uuid default gen_random_uuid() primary key,
+    id text primary key default gen_random_uuid()::text,
     name text not null,
     station_code text not null unique,
     district text not null,
@@ -41,11 +49,11 @@ create table public.police_stations (
 
 -- 3. Officers Table
 create table public.officers (
-    id uuid default gen_random_uuid() primary key,
+    id text primary key default gen_random_uuid()::text,
     profile_id uuid references public.profiles(id) on delete cascade unique,
     badge_number text not null unique,
     rank text not null,
-    station_id uuid references public.police_stations(id) on delete set null,
+    station_id text references public.police_stations(id) on delete set null,
     phone text,
     joining_date date not null default current_date,
     status text not null default 'active' check (status in ('active', 'inactive', 'suspended', 'on_leave')),
@@ -54,7 +62,7 @@ create table public.officers (
 
 -- 4. Victims / Complainants Table
 create table public.victims (
-    id uuid default gen_random_uuid() primary key,
+    id text primary key default gen_random_uuid()::text,
     full_name text not null,
     contact text,
     address text,
@@ -64,15 +72,15 @@ create table public.victims (
 
 -- 5. Cases Table
 create table public.cases (
-    id uuid default gen_random_uuid() primary key,
+    id text primary key default gen_random_uuid()::text,
     case_number text not null unique,
     crime_type text not null,
     description text,
     incident_date date not null,
     incident_time time without time zone,
     location text not null,
-    station_id uuid references public.police_stations(id) on delete set null,
-    assigned_officer_id uuid references public.officers(id) on delete set null,
+    station_id text references public.police_stations(id) on delete set null,
+    assigned_officer_id text references public.officers(id) on delete set null,
     priority text not null default 'medium' check (priority in ('low', 'medium', 'high', 'critical')),
     status text not null default 'registered' check (status in ('registered', 'under_investigation', 'suspect_identified', 'chargesheet_filed', 'solved', 'closed')),
     created_at timestamp with time zone default timezone('utc'::text, now()) not null,
@@ -81,18 +89,18 @@ create table public.cases (
 
 -- 6. FIRs (First Information Reports) Table
 create table public.firs (
-    id uuid default gen_random_uuid() primary key,
+    id text primary key default gen_random_uuid()::text,
     fir_number text not null unique,
-    case_id uuid references public.cases(id) on delete set null,
+    case_id text references public.cases(id) on delete set null,
     complaint_date date not null default current_date,
     complaint_description text not null,
-    complainant_id uuid references public.victims(id) on delete set null,
+    complainant_id text references public.victims(id) on delete set null,
     created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
 -- 7. Criminal Records Table
 create table public.criminals (
-    id uuid default gen_random_uuid() primary key,
+    id text primary key default gen_random_uuid()::text,
     full_name text not null,
     alias text,
     date_of_birth date,
@@ -107,24 +115,24 @@ create table public.criminals (
 
 -- 8. Case Criminals (Many-to-Many Join)
 create table public.case_criminals (
-    case_id uuid references public.cases(id) on delete cascade,
-    criminal_id uuid references public.criminals(id) on delete cascade,
+    case_id text references public.cases(id) on delete cascade,
+    criminal_id text references public.criminals(id) on delete cascade,
     relationship_status text not null default 'suspect' check (relationship_status in ('suspect', 'accused', 'convicted', 'acquitted')),
     primary key (case_id, criminal_id)
 );
 
 -- 9. Case Victims (Many-to-Many Join)
 create table public.case_victims (
-    case_id uuid references public.cases(id) on delete cascade,
-    victim_id uuid references public.victims(id) on delete cascade,
+    case_id text references public.cases(id) on delete cascade,
+    victim_id text references public.victims(id) on delete cascade,
     primary key (case_id, victim_id)
 );
 
 -- 10. Investigations (Detailed investigator logs)
 create table public.investigations (
-    id uuid default gen_random_uuid() primary key,
-    case_id uuid references public.cases(id) on delete cascade not null,
-    officer_id uuid references public.officers(id) on delete set null,
+    id text primary key default gen_random_uuid()::text,
+    case_id text references public.cases(id) on delete cascade not null,
+    officer_id text references public.officers(id) on delete set null,
     update_type text not null check (update_type in ('Initial Investigation', 'Witness Interview', 'Evidence Collection', 'Suspect Identification', 'Interrogation', 'Document Verification', 'Field Investigation', 'Final Review')),
     notes text not null,
     next_action text,
@@ -133,12 +141,12 @@ create table public.investigations (
 
 -- 11. Evidence Records Table
 create table public.evidence (
-    id uuid default gen_random_uuid() primary key,
-    case_id uuid references public.cases(id) on delete cascade not null,
+    id text primary key default gen_random_uuid()::text,
+    case_id text references public.cases(id) on delete cascade not null,
     evidence_type text not null check (evidence_type in ('Document', 'Photograph', 'Video', 'Physical Evidence', 'Digital Evidence', 'Other')),
     description text,
     collected_date date not null default current_date,
-    collected_by uuid references public.officers(id) on delete set null,
+    collected_by text references public.officers(id) on delete set null,
     storage_location text,
     file_url text,
     status text not null default 'collected' check (status in ('collected', 'analyzing', 'verified', 'disposed')),
@@ -147,8 +155,8 @@ create table public.evidence (
 
 -- 12. Case Audit / System Updates Table
 create table public.case_updates (
-    id uuid default gen_random_uuid() primary key,
-    case_id uuid references public.cases(id) on delete cascade not null,
+    id text primary key default gen_random_uuid()::text,
+    case_id text references public.cases(id) on delete cascade not null,
     user_id uuid references public.profiles(id) on delete set null,
     title text not null,
     description text,
@@ -177,15 +185,15 @@ create table public.legal_sections (
 );
 
 create table public.case_sections (
-    case_id uuid references public.cases(id) on delete cascade,
+    case_id text references public.cases(id) on delete cascade,
     section_id text references public.legal_sections(id) on delete cascade,
     primary key (case_id, section_id)
 );
 
 -- 14. Court Tracker
 create table public.court_cases (
-    id uuid default gen_random_uuid() primary key,
-    case_id uuid references public.cases(id) on delete cascade not null unique,
+    id text primary key default gen_random_uuid()::text,
+    case_id text references public.cases(id) on delete cascade not null unique,
     court_complex text not null,
     cnr_number text,
     judge_name text,
@@ -195,8 +203,8 @@ create table public.court_cases (
 );
 
 create table public.hearings (
-    id uuid default gen_random_uuid() primary key,
-    court_case_id uuid references public.court_cases(id) on delete cascade not null,
+    id text primary key default gen_random_uuid()::text,
+    court_case_id text references public.court_cases(id) on delete cascade not null,
     hearing_date date not null,
     purpose text not null,
     order_summary text,
@@ -205,8 +213,8 @@ create table public.hearings (
 
 -- 15. Statement Intelligence
 create table public.statements (
-    id uuid default gen_random_uuid() primary key,
-    case_id uuid references public.cases(id) on delete cascade not null,
+    id text primary key default gen_random_uuid()::text,
+    case_id text references public.cases(id) on delete cascade not null,
     witness_name text not null,
     statement_text text not null,
     recorded_date date not null default current_date,
@@ -300,7 +308,7 @@ alter table public.case_updates enable row level security;
 -- given station_id. Replaces the old `using (true)` policies below, which let
 -- any authenticated user (any role, any station) read every case/criminal/
 -- evidence row system-wide regardless of district or assignment.
-create or replace function public.can_access_station(target_station_id uuid)
+create or replace function public.can_access_station(target_station_id text)
 returns boolean as $$
   select exists (
     select 1 from public.profiles p

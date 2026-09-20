@@ -9,6 +9,7 @@ interface TopHeaderProps {
     full_name: string;
     email: string;
     role: 'admin' | 'officer' | 'viewer';
+    avatar_url?: string;
   } | null;
   onMobileMenuToggle: () => void;
 }
@@ -30,51 +31,57 @@ export default function TopHeader({ user, onMobileMenuToggle }: TopHeaderProps) 
   }, []);
 
   return (
-    <header className="bg-white border-b border-stone-200 h-16 px-4 flex items-center justify-between sticky top-0 z-30">
-      
-      {/* Left side: Mobile Toggle & Breadcrumbs */}
-      <div className="flex items-center space-x-3">
-        <button
-          onClick={onMobileMenuToggle}
-          className="text-stone-500 hover:text-stone-800 p-1.5 rounded-lg hover:bg-stone-100 md:hidden"
-        >
-          <Menu className="w-5 h-5" />
-        </button>
-        
-        <div className="flex items-center space-x-2 text-xs font-semibold text-stone-500">
-          <Link href="/dashboard" className="hover:text-stone-800">
-            Caseline
-          </Link>
-          <span>/</span>
-          <span className="text-stone-800 font-bold">Workspace</span>
-        </div>
-      </div>
+    <header className="bg-white sticky top-0 z-30">
+      <div className="h-16 px-4 flex items-center justify-between">
 
-      {/* Right side: Date and User badge */}
-      <div className="flex items-center space-x-4">
-        
-        {/* Date Display */}
-        <div className="hidden sm:flex items-center space-x-1.5 text-xs text-stone-500 font-medium bg-stone-50 border border-stone-100 rounded-lg py-1.5 px-3">
-          <Calendar className="w-3.5 h-3.5 text-stone-400" />
-          <span>{formattedDate || 'Loading date...'}</span>
-        </div>
+        {/* Left side: Mobile Toggle & Breadcrumbs */}
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={onMobileMenuToggle}
+            className="text-[var(--color-ink-soft)] hover:text-[var(--color-ink)] p-1.5 rounded-lg hover:bg-[var(--color-lavender)] md:hidden"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
 
-        {/* User profile dropdown badge */}
-        {user && (
-          <div className="flex items-center space-x-2.5">
-            <div className="text-right hidden md:block">
-              <div className="text-xs font-bold text-stone-800 leading-3">{user.full_name}</div>
-              <span className="text-[9px] font-bold text-stone-400 uppercase tracking-wider">
-                {user.role} Account
-              </span>
-            </div>
-            <div className="w-8.5 h-8.5 rounded-lg bg-stone-900 border border-stone-800 text-white flex items-center justify-center font-bold text-xs">
-              {user.full_name.charAt(0)}
-            </div>
+          <div className="flex items-center space-x-2 text-xs font-semibold text-[var(--color-ink-soft)]">
+            <Link href="/dashboard" className="hover:text-[var(--color-ink)]">
+              Caseline
+            </Link>
+            <span>/</span>
+            <span className="text-[var(--color-ink)] font-bold">Workspace</span>
           </div>
-        )}
-      </div>
+        </div>
 
+        {/* Right side: Date and User badge */}
+        <div className="flex items-center space-x-4">
+
+          {/* Date Display */}
+          <div className="hidden sm:flex items-center space-x-1.5 text-xs text-[var(--color-ink-soft)] font-medium bg-[var(--color-lavender)] rounded-full py-1.5 px-3.5">
+            <Calendar className="w-3.5 h-3.5" />
+            <span>{formattedDate || 'Loading date...'}</span>
+          </div>
+
+          {/* User profile dropdown badge */}
+          {user && (
+            <div className="flex items-center space-x-2.5">
+              <div className="text-right hidden md:block">
+                <div className="text-xs font-bold text-[var(--color-ink)] leading-3">{user.full_name}</div>
+                <span className="text-[9px] font-bold text-[var(--color-ink-soft)] uppercase tracking-wider">
+                  {user.role} Account
+                </span>
+              </div>
+              <div className="w-8.5 h-8.5 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center font-bold text-xs overflow-hidden">
+                {user.avatar_url ? (
+                  <img src={user.avatar_url} alt={user.full_name} className="w-full h-full object-cover" />
+                ) : (
+                  user.full_name.charAt(0)
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="tricolor-hairline" />
     </header>
   );
 }

@@ -63,14 +63,19 @@ export default function CriminalsClient({ criminals, search, user }: { criminals
         ) : (
           criminals.map((c: any) => (
             <div key={c.id} className="bg-white border border-stone-200 rounded-xl p-4 shadow-sm flex flex-col justify-between space-y-4">
-              <div className="flex justify-between items-start">
-                <div>
+              <div className="flex justify-between items-start space-x-3">
+                <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-stone-100">
+                  {c.photograph_url && (
+                    <img src={c.photograph_url} alt={c.full_name} className="w-full h-full object-cover" />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
                   <h3 className="text-xs font-extrabold text-stone-800">{c.full_name}</h3>
                   {c.alias && (
                     <span className="text-[10px] font-semibold text-stone-450 italic">Alias: "{c.alias}"</span>
                   )}
                 </div>
-                <span className={`text-[8px] font-bold uppercase px-2 py-0.5 rounded-full border ${getStatusColor(c.status)}`}>
+                <span className={`text-[8px] font-bold uppercase px-2 py-0.5 rounded-full border shrink-0 ${getStatusColor(c.status)}`}>
                   {c.status}
                 </span>
               </div>

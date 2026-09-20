@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { loginAction, toggleDatabaseSlateAction, getDatabaseSlateModeAction } from './actions';
-import { Shield, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, AlertCircle } from 'lucide-react';
 
 export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
@@ -48,35 +48,33 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[var(--background)] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center">
-        <div className="w-12 h-12 bg-amber-600 rounded-lg flex items-center justify-center shadow-md">
-          <Shield className="w-6 h-6 text-white" />
-        </div>
-        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-stone-900 font-sans">
-          CASELINE
+        <img src="/hero/login-hero.jpg" alt="" className="w-20 h-20 rounded-full shadow-md object-cover" />
+        <h2 className="mt-6 text-center font-display text-3xl font-semibold tracking-tight text-[var(--color-ink)]">
+          CaseLine
         </h2>
-        <p className="mt-2 text-center text-sm text-stone-500">
-          Crime & Case Management System
+        <p className="mt-2 text-center text-sm text-[var(--color-ink-soft)]">
+          Delhi Police Case Management System
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 border border-stone-200 shadow-sm sm:rounded-xl sm:px-10 space-y-6">
-          
+        <div className="bg-white py-8 px-4 border border-[var(--color-lavender-border)] shadow-sm sm:rounded-2xl sm:px-10 space-y-6">
+
           {/* Database slate switcher */}
           <div className="space-y-1">
-            <span className="block text-[10px] font-bold uppercase tracking-wider text-stone-400">
+            <span className="block text-[10px] font-bold uppercase tracking-wider text-[var(--color-ink-soft)]/70">
               Database Configuration
             </span>
             <div className="grid grid-cols-2 gap-2 mt-1">
               <button
                 type="button"
                 onClick={() => handleSlateToggle('seeded')}
-                className={`py-2 px-3 border rounded-lg text-xs font-extrabold transition-all text-center ${
+                className={`py-2 px-3 border rounded-full text-xs font-extrabold transition-all text-center ${
                   dbSlate === 'seeded'
-                    ? 'bg-stone-900 border-stone-900 text-white shadow-sm'
-                    : 'bg-stone-50 border-stone-200 text-stone-600 hover:bg-stone-100'
+                    ? 'bg-[var(--color-primary)] border-[var(--color-primary)] text-white shadow-sm'
+                    : 'bg-[var(--color-lavender)] border-[var(--color-lavender-border)] text-[var(--color-ink-soft)] hover:bg-[var(--color-lavender)]/70'
                 }`}
               >
                 Standard Database
@@ -84,10 +82,10 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => handleSlateToggle('empty')}
-                className={`py-2 px-3 border rounded-lg text-xs font-extrabold transition-all text-center ${
+                className={`py-2 px-3 border rounded-full text-xs font-extrabold transition-all text-center ${
                   dbSlate === 'empty'
-                    ? 'bg-stone-900 border-stone-900 text-white shadow-sm'
-                    : 'bg-stone-50 border-stone-200 text-stone-600 hover:bg-stone-100'
+                    ? 'bg-[var(--color-primary)] border-[var(--color-primary)] text-white shadow-sm'
+                    : 'bg-[var(--color-lavender)] border-[var(--color-lavender-border)] text-[var(--color-ink-soft)] hover:bg-[var(--color-lavender)]/70'
                 }`}
               >
                 Blank Database
@@ -97,14 +95,14 @@ export default function LoginPage() {
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="rounded-md bg-red-50 p-4 border border-red-200 flex items-start space-x-3">
-                <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-                <span className="text-sm text-red-700 font-medium">{error}</span>
+              <div className="rounded-xl bg-red-50 p-4 border border-red-200 flex items-start space-x-3">
+                <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                <span className="text-sm text-red-800 font-medium">{error}</span>
               </div>
             )}
 
             <div>
-              <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-stone-500">
+              <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-soft)]">
                 Email Address
               </label>
               <div className="mt-1">
@@ -116,14 +114,14 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-lg border border-stone-200 px-4 py-2.5 text-stone-900 shadow-sm placeholder:text-stone-400 focus:border-amber-600 focus:ring-1 focus:ring-amber-600 focus:outline-none sm:text-sm"
+                  className="block w-full rounded-lg border border-[var(--color-lavender-border)] px-4 py-2.5 text-[var(--color-ink)] shadow-sm placeholder:text-[var(--color-ink-soft)]/50 focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] focus:outline-none sm:text-sm"
                   placeholder="name@caseline.gov"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-xs font-semibold uppercase tracking-wider text-stone-500">
+              <label htmlFor="password" className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-soft)]">
                 Password
               </label>
               <div className="mt-1 relative">
@@ -135,13 +133,13 @@ export default function LoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-lg border border-stone-200 px-4 py-2.5 text-stone-900 shadow-sm placeholder:text-stone-400 focus:border-amber-600 focus:ring-1 focus:ring-amber-600 focus:outline-none sm:text-sm"
+                  className="block w-full rounded-lg border border-[var(--color-lavender-border)] px-4 py-2.5 text-[var(--color-ink)] shadow-sm placeholder:text-[var(--color-ink-soft)]/50 focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] focus:outline-none sm:text-sm"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-stone-400 hover:text-stone-600"
+                  className="absolute right-3 top-3 text-[var(--color-ink-soft)]/60 hover:text-[var(--color-ink-soft)]"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -155,9 +153,9 @@ export default function LoginPage() {
                   name="remember-me"
                   type="checkbox"
                   defaultChecked
-                  className="h-4 w-4 rounded border-stone-300 text-amber-600 focus:ring-amber-600 cursor-pointer"
+                  className="h-4 w-4 rounded border-[var(--color-lavender-border)] text-[var(--color-primary)] accent-[var(--color-primary)] focus:ring-[var(--color-primary)] cursor-pointer"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-stone-600 cursor-pointer select-none">
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-[var(--color-ink-soft)] cursor-pointer select-none">
                   Remember session
                 </label>
               </div>
@@ -167,7 +165,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-white bg-stone-900 hover:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-full shadow-sm text-sm font-semibold text-white bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
                 {loading ? 'Authenticating...' : 'Sign In'}
               </button>

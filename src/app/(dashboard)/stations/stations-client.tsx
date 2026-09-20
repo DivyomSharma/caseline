@@ -8,37 +8,45 @@ import { groupByRangeAndDistrict } from '@/lib/delhi-org';
 
 function StationCard({ st, officerCount }: { st: any; officerCount: number }) {
   return (
-    <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm space-y-4 flex flex-col justify-between">
-      <div>
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-[9px] bg-stone-900 text-white font-extrabold px-2 py-0.5 rounded uppercase tracking-wider font-mono">
-            {st.station_code}
-          </span>
-          <div className="w-8 h-8 bg-stone-50 border border-stone-100 rounded-lg flex items-center justify-center">
-            <Building2 className="w-4 h-4 text-stone-500" />
+    <div className="bg-white border border-stone-200 rounded-xl shadow-sm flex flex-col justify-between overflow-hidden">
+      <img
+        src={`/stations/${st.station_code}.jpg`}
+        alt={st.name}
+        className="w-full h-28 object-cover"
+        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+      />
+      <div className="p-5 space-y-4 flex-1 flex flex-col justify-between">
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[9px] bg-stone-900 text-white font-extrabold px-2 py-0.5 rounded uppercase tracking-wider font-mono">
+              {st.station_code}
+            </span>
+            <div className="w-8 h-8 bg-stone-50 border border-stone-100 rounded-lg flex items-center justify-center">
+              <Building2 className="w-4 h-4 text-stone-500" />
+            </div>
+          </div>
+          <h3 className="text-xs font-bold text-stone-800 leading-4">{st.name}</h3>
+          <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider mt-0.5">{st.district}</p>
+        </div>
+
+        <div className="space-y-2.5 text-xs border-t border-stone-100 pt-3">
+          <div className="flex items-start space-x-2 text-stone-600">
+            <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0 mt-0.5" />
+            <span className="font-semibold leading-4">{st.address}</span>
+          </div>
+          <div className="flex items-center space-x-2 text-stone-600">
+            <Phone className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+            <span className="font-semibold font-mono">{st.contact}</span>
           </div>
         </div>
-        <h3 className="text-xs font-bold text-stone-800 leading-4">{st.name}</h3>
-        <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider mt-0.5">{st.district}</p>
-      </div>
 
-      <div className="space-y-2.5 text-xs border-t border-stone-100 pt-3">
-        <div className="flex items-start space-x-2 text-stone-600">
-          <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0 mt-0.5" />
-          <span className="font-semibold leading-4">{st.address}</span>
+        <div className="border-t border-stone-100 pt-3 flex justify-between items-center text-[10px] font-bold text-stone-500 uppercase tracking-wide">
+          <div className="flex items-center space-x-1">
+            <Users className="w-4.5 h-4.5 text-stone-400" />
+            <span>Officers count</span>
+          </div>
+          <span className="text-stone-800 text-xs font-extrabold">{officerCount} staff</span>
         </div>
-        <div className="flex items-center space-x-2 text-stone-600">
-          <Phone className="w-3.5 h-3.5 text-stone-400 shrink-0" />
-          <span className="font-semibold font-mono">{st.contact}</span>
-        </div>
-      </div>
-
-      <div className="border-t border-stone-100 pt-3 flex justify-between items-center text-[10px] font-bold text-stone-500 uppercase tracking-wide">
-        <div className="flex items-center space-x-1">
-          <Users className="w-4.5 h-4.5 text-stone-400" />
-          <span>Officers count</span>
-        </div>
-        <span className="text-stone-800 text-xs font-extrabold">{officerCount} staff</span>
       </div>
     </div>
   );

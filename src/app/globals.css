@@ -1,8 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafaf9;
-  --foreground: #1c1917;
+  --background: #f7f6fb;
+  --foreground: #17153a;
+
+  /* Civic identity tokens (UIDAI-derived) */
+  --color-ink: #17153a;
+  --color-ink-soft: #423f6b;
+  --color-primary: #241f52;
+  --color-primary-hover: #171341;
+  --color-lavender: #eeecf9;
+  --color-lavender-border: #ddd9f0;
+  --color-saffron: #ff9933;
+  --color-civic-green: #138808;
+  --color-card: #ffffff;
 }
 
 @theme inline {
@@ -10,17 +21,31 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-lora);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Tricolor hairline — signature institutional accent, used under the
+   sidebar brand mark and the top header. */
+.tricolor-hairline {
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--color-saffron) 0%,
+    var(--color-saffron) 33%,
+    #ffffff 33%,
+    #ffffff 67%,
+    var(--color-civic-green) 67%,
+    var(--color-civic-green) 100%
+  );
+}
+
+::selection {
+  background: var(--color-lavender-border);
+  color: var(--color-ink);
 }

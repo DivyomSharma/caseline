@@ -48,7 +48,11 @@ export default function CriminalProfileClient({ criminal, user }: { criminal: an
         <div className="space-y-6">
           <div className="bg-white border border-stone-200 p-5 rounded-xl shadow-sm text-center space-y-4">
             <div className="w-32 h-32 rounded-xl bg-stone-100 mx-auto flex items-center justify-center border border-stone-200 overflow-hidden relative">
-              <User className="w-16 h-16 text-stone-350" />
+              {criminal.photograph_url ? (
+                <img src={criminal.photograph_url} alt={criminal.full_name} className="w-full h-full object-cover" />
+              ) : (
+                <User className="w-16 h-16 text-stone-350" />
+              )}
             </div>
             
             <div>
