@@ -285,8 +285,8 @@ export const PROFILES: Profile[] = [
   },
   {
     id: "user-officer-11",
-    full_name: "Sub-Inspector Sanjay Dutt",
-    email: "sanjay.dutt@caseline.gov",
+    full_name: "Sub-Inspector Sanjay Tiwari",
+    email: "sanjay.tiwari@caseline.gov",
     role: "officer",
     avatar_url: "/avatars/officer-11.jpg",
     created_at: "2024-01-12T11:30:00Z"
@@ -519,10 +519,10 @@ export const OFFICERS: Officer[] = [
 export const VICTIMS: Victim[] = Array.from({ length: 25 }).map((_, index) => {
   const names = [
     "Rahul Sharma", "Anjali Gupta", "Rohan Verma", "Preeti Kapoor", "Suresh Kumar",
-    "Divya Singh", "Anoop Nair", "Kriti Sanon", "Manish Malhotra", "Pooja Hegde",
-    "Gaurav Chopra", "Sunita Rao", "Karan Johar", "Aditi Rao Hydari", "Rishi Kapoor",
-    "Shalini Pandey", "Amitabh Bachchan", "Deepika Padukone", "Ranveer Singh", "Alia Bhatt",
-    "Sidharth Malhotra", "Kiara Advani", "Varun Dhawan", "Shraddha Kapoor", "Kartik Aaryan"
+    "Divya Singh", "Anoop Nair", "Meera Iyer", "Manish Malhotra", "Neha Bhatia",
+    "Gaurav Chopra", "Sunita Rao", "Vivek Mehta", "Priyanka Das", "Arvind Menon",
+    "Shalini Pandey", "Ramesh Chandra", "Nisha Reddy", "Sanjeev Bansal", "Ritu Saxena",
+    "Deepak Bhalla", "Swati Mishra", "Tarun Ahluwalia", "Poonam Dixit", "Ashok Tiwari"
   ];
   const locations = [
     "Sector 15, Dwarka", "Connaught Place", "Bandra West, Mumbai", "Indiranagar, Bangalore", "Salt Lake, Kolkata",
@@ -543,19 +543,19 @@ export const VICTIMS: Victim[] = Array.from({ length: 25 }).map((_, index) => {
 
 export const CRIMINALS: Criminal[] = Array.from({ length: 30 }).map((_, index) => {
   const firstNames = [
-    "Vijay", "Ramesh", "Sanjay", "Vikram", "Ajay", "Rajesh", "anil", "Sunil", "Karan", "Arjun",
-    "Chhota", "Bada", "Bunty", "Babli", "Jaggu", "Raju", "Shera", "Kalia", "Gabbar", "Mogambo",
-    "Munna", "Circuit", "Pappu", "Kanti", "Billa", "Lallan", "Mangal", "Sardar", "Goli", "Sunder"
+    "Vijay", "Ramesh", "Sanjay", "Vikram", "Ajay", "Rajesh", "Anil", "Sunil", "Karan", "Arjun",
+    "Raju", "Ashok", "Deepak", "Suresh", "Naresh", "Harish", "Yogesh", "Prakash", "Mahesh", "Dinesh",
+    "Nitin", "Rakesh", "Sandeep", "Manoj", "Bhola", "Lallan", "Mangesh", "Sardar", "Gopal", "Sunder"
   ];
   const lastNames = [
-    "Mallya", "Kumar", "Dutt", "Singh", "Sharma", "Yadav", "Kapoor", "Joshi", "Verma", "Rathore",
-    "Rajan", "Shakeel", "Chor", "Singh", "Dada", "Srivastava", "Khan", "Pathan", "Gujjar", "Bhai",
-    "Bhaiya", "Bhai", "Yadav", "Shah", "Pandey", "Prasad", "Pandey", "Khan", "Sena", "Soni"
+    "Rawat", "Kumar", "Dutta", "Singh", "Sharma", "Yadav", "Kapoor", "Joshi", "Verma", "Rathore",
+    "Malik", "Tripathi", "Nair", "Bisht", "Negi", "Srivastava", "Khan", "Pathan", "Gujjar", "Tomar",
+    "Chauhan", "Bhaduri", "Yadav", "Shah", "Pandey", "Prasad", "Pandit", "Bhullar", "Sena", "Soni"
   ];
   const aliases = [
-    "The Baron", "Laddoo", "Sanju Baba", "Ranger", "Silent Thief", "Anna", "Computer", "Speedy", "Don", "Falcon",
-    "Chhota Rajan", "Bada Shakeel", "Slick Bunty", "Smart Babli", "Jaggu Dada", "Raju Guide", "Sher Khan", "Kalia", "Gabbar", "Mogambo",
-    "Munna Bhai", "Circuit", "Pappu Can't Dance", "Kanti Shah", "Billa", "Lallan Daku", "Mangal Pandey", "Sardar Khan", "Goli", "Sunder Bhai"
+    "The Baron", "Laddoo", "Munshi", "Ranger", "Silent Thief", "Anna", "Computer", "Speedy", "Don", "Falcon",
+    "Guide", "Tiger", "Slick", "Sharpshooter", "Ghost", "Fox", "Sher Khan", "Kaali", "Toofan", "Baaz",
+    "Wolf", "Circuit", "Chikna", "Kaanta", "Billa", "Lallan Daku", "Chaubeyji", "Sardar", "Goli", "Sunder Bhai"
   ];
   const gender = index === 13 ? "female" : "male";
   const statuses: Criminal['status'][] = ["suspect", "accused", "convicted", "wanted", "acquitted"];

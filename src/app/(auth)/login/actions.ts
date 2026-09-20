@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { PROFILES } from '@/lib/supabase/seedData';
-import { setDatabaseSlateMode, getDatabaseSlateMode, resetEmptySlate, getCurrentUser } from '@/lib/supabase/db';
+import { getCurrentUser } from '@/lib/supabase/db';
 import { signSession } from '@/lib/supabase/session';
 
 // Demo-only shared password for the offline mock-auth mode. Never used when
@@ -83,17 +83,6 @@ export async function logoutAction() {
   }
 
   redirect('/login');
-}
-
-export async function toggleDatabaseSlateAction(mode: 'seeded' | 'empty') {
-  await setDatabaseSlateMode(mode);
-  if (mode === 'empty') {
-    await resetEmptySlate();
-  }
-}
-
-export async function getDatabaseSlateModeAction() {
-  return await getDatabaseSlateMode();
 }
 
 export async function getCurrentUserAction() {

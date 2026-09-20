@@ -1,39 +1,22 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Shield, Server, Database, Check, RefreshCw } from 'lucide-react';
-import { toggleDatabaseSlateAction, getDatabaseSlateModeAction, getCurrentUserAction } from '@/app/(auth)/login/actions';
-import { useRouter } from 'next/navigation';
+import { Shield, Server, Database, Check } from 'lucide-react';
+import { getCurrentUserAction } from '@/app/(auth)/login/actions';
 
 export default function SettingsPage() {
-  const router = useRouter();
   const [user, setUser] = useState<any>(null);
-  const [dbSlate, setDbSlate] = useState<'seeded' | 'empty'>('seeded');
   const [isSupabase, setIsSupabase] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Dynamic config checks
     setIsSupabase(!!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY));
-    
-    // Load active profile and slate
+
     async function loadData() {
       const u = await getCurrentUserAction();
       setUser(u);
-      
-      const mode = await getDatabaseSlateModeAction();
-      setDbSlate(mode);
     }
     loadData();
   }, []);
-
-  const handleSlateToggle = async (mode: 'seeded' | 'empty') => {
-    setLoading(true);
-    await toggleDatabaseSlateAction(mode);
-    setDbSlate(mode);
-    setLoading(false);
-    router.refresh();
-  };
 
   return (
     <div className="space-y-6">
@@ -79,43 +62,10 @@ export default function SettingsPage() {
         <div className="bg-white border border-[var(--color-lavender-border)] p-5 rounded-2xl shadow-sm space-y-4 lg:col-span-2">
           <h3 className="text-xs font-bold text-[var(--color-ink)] uppercase tracking-widest border-b border-[var(--color-lavender-border)] pb-3 flex items-center space-x-2">
             <Server className="w-4 h-4 text-[var(--color-ink-soft)]" />
-            <span>Database Adapter & Slate Engine</span>
+            <span>Database Adapter</span>
           </h3>
 
           <div className="space-y-4">
-
-            {/* Slate Toggle Card */}
-            <div className="p-4 rounded-2xl border border-[var(--color-lavender-border)] bg-[var(--color-lavender)]/50 space-y-3">
-              <div className="text-xs font-bold text-[var(--color-ink)]">Database Configuration</div>
-              <p className="text-[11px] text-[var(--color-ink-soft)] leading-relaxed font-medium">
-                Toggling to <b>Blank Database</b> will clear the local database cache (except for Divyom and Samar's administrator accounts) to reset the system for verification.
-              </p>
-
-              <div className="flex items-center space-x-3 pt-1">
-                <button
-                  onClick={() => handleSlateToggle('seeded')}
-                  disabled={loading}
-                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all border ${
-                    dbSlate === 'seeded'
-                      ? 'bg-[var(--color-primary)] border-[var(--color-primary)] text-white'
-                      : 'bg-white border-[var(--color-lavender-border)] text-[var(--color-ink-soft)] hover:bg-[var(--color-lavender)]'
-                  }`}
-                >
-                  Standard Database
-                </button>
-                <button
-                  onClick={() => handleSlateToggle('empty')}
-                  disabled={loading}
-                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all border ${
-                    dbSlate === 'empty'
-                      ? 'bg-[var(--color-primary)] border-[var(--color-primary)] text-white'
-                      : 'bg-white border-[var(--color-lavender-border)] text-[var(--color-ink-soft)] hover:bg-[var(--color-lavender)]'
-                  }`}
-                >
-                  Blank Database
-                </button>
-              </div>
-            </div>
 
             {/* Mode Banner */}
             <div className={`p-4 rounded-lg border text-xs ${
@@ -132,7 +82,7 @@ export default function SettingsPage() {
                   <p className="mt-1 leading-5 font-medium text-[var(--color-ink-soft)]">
                     {isSupabase
                       ? 'The application is reading and writing records in real-time from the Supabase PostgreSQL cluster.'
-                      : `Supabase environment configurations are not set. Running in local fallback database mode with ${dbSlate === 'seeded' ? 'Standard Seed Data' : 'Blank Database configuration'}.`
+                      : 'Supabase environment configurations are not set. Running in local fallback database mode with seeded data.'
                     }
                   </p>
                 </div>

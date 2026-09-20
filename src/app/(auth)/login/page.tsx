@@ -1,25 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { loginAction, toggleDatabaseSlateAction, getDatabaseSlateModeAction } from './actions';
+import React, { useState } from 'react';
+import { loginAction } from './actions';
 import { Eye, EyeOff, AlertCircle } from 'lucide-react';
 
 export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [dbSlate, setDbSlate] = useState<'seeded' | 'empty'>('seeded');
-
-  useEffect(() => {
-    async function loadSlate() {
-      const mode = await getDatabaseSlateModeAction();
-      setDbSlate(mode);
-    }
-    loadSlate();
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,11 +33,6 @@ export default function LoginPage() {
     }
   };
 
-  const handleSlateToggle = async (mode: 'seeded' | 'empty') => {
-    setDbSlate(mode);
-    await toggleDatabaseSlateAction(mode);
-  };
-
   return (
     <div className="min-h-screen bg-[var(--background)] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center">
@@ -61,37 +47,6 @@ export default function LoginPage() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 border border-[var(--color-lavender-border)] shadow-sm sm:rounded-2xl sm:px-10 space-y-6">
-
-          {/* Database slate switcher */}
-          <div className="space-y-1">
-            <span className="block text-[10px] font-bold uppercase tracking-wider text-[var(--color-ink-soft)]/70">
-              Database Configuration
-            </span>
-            <div className="grid grid-cols-2 gap-2 mt-1">
-              <button
-                type="button"
-                onClick={() => handleSlateToggle('seeded')}
-                className={`py-2 px-3 border rounded-full text-xs font-extrabold transition-all text-center ${
-                  dbSlate === 'seeded'
-                    ? 'bg-[var(--color-primary)] border-[var(--color-primary)] text-white shadow-sm'
-                    : 'bg-[var(--color-lavender)] border-[var(--color-lavender-border)] text-[var(--color-ink-soft)] hover:bg-[var(--color-lavender)]/70'
-                }`}
-              >
-                Standard Database
-              </button>
-              <button
-                type="button"
-                onClick={() => handleSlateToggle('empty')}
-                className={`py-2 px-3 border rounded-full text-xs font-extrabold transition-all text-center ${
-                  dbSlate === 'empty'
-                    ? 'bg-[var(--color-primary)] border-[var(--color-primary)] text-white shadow-sm'
-                    : 'bg-[var(--color-lavender)] border-[var(--color-lavender-border)] text-[var(--color-ink-soft)] hover:bg-[var(--color-lavender)]/70'
-                }`}
-              >
-                Blank Database
-              </button>
-            </div>
-          </div>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (

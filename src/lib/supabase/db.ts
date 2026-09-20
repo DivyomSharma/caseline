@@ -39,102 +39,7 @@ if (!globalStore.mockDb) {
   };
 }
 
-export async function getDatabaseSlateMode(): Promise<'seeded' | 'empty'> {
-  if (typeof window === 'undefined') {
-    try {
-      const { cookies } = await import('next/headers');
-      const cookieStore = await cookies();
-      const mode = cookieStore.get('caseline_db_slate')?.value || 'seeded';
-      globalStore.mockDbMode = mode;
-      return mode as 'seeded' | 'empty';
-    } catch {
-      return (globalStore.mockDbMode || 'seeded') as 'seeded' | 'empty';
-    }
-  } else {
-    const match = document.cookie.match(new RegExp('(^| )caseline_db_slate=([^;]*)'));
-    const mode = (match ? decodeURIComponent(match[2]) : 'seeded') as 'seeded' | 'empty';
-    globalStore.mockDbMode = mode;
-    return mode;
-  }
-}
-
-export async function setDatabaseSlateMode(mode: 'seeded' | 'empty') {
-  globalStore.mockDbMode = mode;
-  if (typeof window === 'undefined') {
-    try {
-      const { cookies } = await import('next/headers');
-      const cookieStore = await cookies();
-      cookieStore.set('caseline_db_slate', mode, { path: '/' });
-    } catch (e) {
-      console.error("Failed to set slate mode cookie:", e);
-    }
-  } else {
-    document.cookie = `caseline_db_slate=${mode}; path=/; max-age=${60 * 60 * 24 * 365}`;
-  }
-}
-
-export async function resetEmptySlate() {
-  globalStore.mockDbEmpty = null;
-}
-
-const mockDb = new Proxy({} as any, {
-  get(target, prop) {
-    const mode = globalStore.mockDbMode || 'seeded';
-    if (mode === 'empty') {
-      if (!globalStore.mockDbEmpty) {
-        globalStore.mockDbEmpty = {
-          stations: [],
-          profiles: JSON.parse(JSON.stringify(seedData.PROFILES)),
-          officers: JSON.parse(JSON.stringify(seedData.OFFICERS.filter((o: any) => o.profile_id === 'user-divyom' || o.profile_id === 'user-samar'))),
-          victims: [],
-          cases: [],
-          firs: [],
-          criminals: [],
-          case_criminals: [],
-          case_victims: [],
-          investigations: [],
-          evidence: [],
-          case_updates: [],
-          case_sections: [],
-          court_cases: [],
-          hearings: [],
-          statements: []
-        };
-      }
-      return globalStore.mockDbEmpty[prop];
-    }
-    return globalStore.mockDb[prop];
-  },
-  set(target, prop, value) {
-    const mode = globalStore.mockDbMode || 'seeded';
-    if (mode === 'empty') {
-      if (!globalStore.mockDbEmpty) {
-        globalStore.mockDbEmpty = {
-          stations: [],
-          profiles: JSON.parse(JSON.stringify(seedData.PROFILES)),
-          officers: JSON.parse(JSON.stringify(seedData.OFFICERS.filter((o: any) => o.profile_id === 'user-divyom' || o.profile_id === 'user-samar'))),
-          victims: [],
-          cases: [],
-          firs: [],
-          criminals: [],
-          case_criminals: [],
-          case_victims: [],
-          investigations: [],
-          evidence: [],
-          case_updates: [],
-          case_sections: [],
-          court_cases: [],
-          hearings: [],
-          statements: []
-        };
-      }
-      globalStore.mockDbEmpty[prop] = value;
-      return true;
-    }
-    globalStore.mockDb[prop] = value;
-    return true;
-  }
-});
+const mockDb = globalStore.mockDb;
 
 // Helper to get cookies in server actions/components safely
 const getSessionCookie = async () => {
@@ -159,7 +64,6 @@ const getSessionCookie = async () => {
 // -------------------------------------------------------------------------
 
 export async function getCurrentUser() {
-  await getDatabaseSlateMode();
   if (!isSupabaseConfigured()) {
     const sessionEmail = await getSessionCookie();
     if (!sessionEmail) return null;
