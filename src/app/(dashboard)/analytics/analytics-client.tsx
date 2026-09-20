@@ -52,8 +52,8 @@ export default function AnalyticsClient({ stats }: AnalyticsProps) {
       
       {/* Header */}
       <div>
-        <h1 className="text-xl font-extrabold text-stone-900 tracking-tight">Statistical Crime Analytics</h1>
-        <p className="text-stone-500 text-[11px] mt-0.5">
+        <h1 className="text-xl font-extrabold text-[var(--color-ink)] tracking-tight">Statistical Crime Analytics</h1>
+        <p className="text-[var(--color-ink-soft)] text-[11px] mt-0.5">
           District crime indexes, caseload parameters, and resolution trends.
         </p>
       </div>
@@ -66,21 +66,21 @@ export default function AnalyticsClient({ stats }: AnalyticsProps) {
           { label: "Solvency Metrics", value: stats.solvedCases, desc: "Successfully resolved folders" },
           { label: "District Case Count", value: stats.totalCases, desc: "Grand total records registered" }
         ].map((item, idx) => (
-          <div key={idx} className="bg-white border border-stone-200 p-4.5 rounded-xl shadow-sm">
-            <span className="text-[9px] font-bold text-stone-400 uppercase tracking-wider block">{item.label}</span>
-            <span className="text-xl font-black text-stone-800 tracking-tight mt-1.5 block">{item.value}</span>
-            <span className="text-[9px] text-stone-500 block mt-1.5 font-medium">{item.desc}</span>
+          <div key={idx} className="bg-white border border-[var(--color-lavender-border)] p-4.5 rounded-2xl shadow-sm">
+            <span className="text-[9px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wider block">{item.label}</span>
+            <span className="text-xl font-black text-[var(--color-ink)] tracking-tight mt-1.5 block">{item.value}</span>
+            <span className="text-[9px] text-[var(--color-ink-soft)] block mt-1.5 font-medium">{item.desc}</span>
           </div>
         ))}
       </div>
 
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
+
         {/* Crime Trend over Time */}
-        <div className="bg-white border border-stone-200 p-5 rounded-xl shadow-sm flex flex-col h-[380px]">
-          <h3 className="text-xs font-bold text-stone-800 uppercase tracking-widest mb-4 flex items-center space-x-1.5">
-            <Activity className="w-4 h-4 text-stone-400" />
+        <div className="bg-white border border-[var(--color-lavender-border)] p-5 rounded-2xl shadow-sm flex flex-col h-[380px]">
+          <h3 className="text-xs font-bold text-[var(--color-ink)] uppercase tracking-widest mb-4 flex items-center space-x-1.5">
+            <Activity className="w-4 h-4 text-[var(--color-ink-soft)]/60" />
             <span>Monthly Registration & Resolution trends</span>
           </h3>
           
@@ -100,9 +100,9 @@ export default function AnalyticsClient({ stats }: AnalyticsProps) {
         </div>
 
         {/* Crime Category distribution */}
-        <div className="bg-white border border-stone-200 p-5 rounded-xl shadow-sm flex flex-col h-[380px]">
-          <h3 className="text-xs font-bold text-stone-800 uppercase tracking-widest mb-4 flex items-center space-x-1.5">
-            <FileBarChart2 className="w-4 h-4 text-stone-400" />
+        <div className="bg-white border border-[var(--color-lavender-border)] p-5 rounded-2xl shadow-sm flex flex-col h-[380px]">
+          <h3 className="text-xs font-bold text-[var(--color-ink)] uppercase tracking-widest mb-4 flex items-center space-x-1.5">
+            <FileBarChart2 className="w-4 h-4 text-[var(--color-ink-soft)]/60" />
             <span>Cases Share by Crime Categories</span>
           </h3>
           
@@ -124,8 +124,8 @@ export default function AnalyticsClient({ stats }: AnalyticsProps) {
         </div>
 
         {/* Status Breakdown */}
-        <div className="bg-white border border-stone-200 p-5 rounded-xl shadow-sm flex flex-col h-[380px]">
-          <h3 className="text-xs font-bold text-stone-800 uppercase tracking-widest mb-4">
+        <div className="bg-white border border-[var(--color-lavender-border)] p-5 rounded-2xl shadow-sm flex flex-col h-[380px]">
+          <h3 className="text-xs font-bold text-[var(--color-ink)] uppercase tracking-widest mb-4">
             Case Status Distribution share
           </h3>
           <div className="flex-1 min-h-0 flex items-center justify-center relative">
@@ -151,7 +151,7 @@ export default function AnalyticsClient({ stats }: AnalyticsProps) {
               {stats.charts.casesByStatus.map((entry, index) => (
                 <div key={entry.name} className="flex items-center space-x-1">
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: CHART_COLORS[index % CHART_COLORS.length] }} />
-                  <span className="text-[9px] font-semibold text-stone-500">{entry.name} ({entry.value})</span>
+                  <span className="text-[9px] font-semibold text-[var(--color-ink-soft)]">{entry.name} ({entry.value})</span>
                 </div>
               ))}
             </div>
@@ -159,8 +159,8 @@ export default function AnalyticsClient({ stats }: AnalyticsProps) {
         </div>
 
         {/* Precinct Caseloads */}
-        <div className="bg-white border border-stone-200 p-5 rounded-xl shadow-sm flex flex-col h-[380px]">
-          <h3 className="text-xs font-bold text-stone-800 uppercase tracking-widest mb-4">
+        <div className="bg-white border border-[var(--color-lavender-border)] p-5 rounded-2xl shadow-sm flex flex-col h-[380px]">
+          <h3 className="text-xs font-bold text-[var(--color-ink)] uppercase tracking-widest mb-4">
             Precinct Jurisdictions Load Comparison
           </h3>
           

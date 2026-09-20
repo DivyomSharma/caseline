@@ -24,8 +24,8 @@ export default function MapClient({ cases, stations }: { cases: any[]; stations:
 
   const heatClass = (count: number) => {
     const intensity = count / maxCount;
-    if (intensity === 0) return 'bg-stone-50 text-stone-400 border-stone-200';
-    if (intensity < 0.34) return 'bg-amber-50 text-amber-700 border-amber-200';
+    if (intensity === 0) return 'bg-[var(--color-lavender)] text-[var(--color-ink-soft)] border-[var(--color-lavender-border)]';
+    if (intensity < 0.34) return 'bg-[var(--color-saffron)]/10 text-[var(--color-saffron)] border-[var(--color-saffron)]/30';
     if (intensity < 0.67) return 'bg-orange-100 text-orange-700 border-orange-300';
     return 'bg-red-100 text-red-700 border-red-300';
   };
@@ -34,32 +34,32 @@ export default function MapClient({ cases, stations }: { cases: any[]; stations:
     <div className="space-y-6">
       <div>
         <div className="flex items-center gap-2">
-          <h1 className="text-xl font-extrabold text-stone-900 tracking-tight">Delhi Crime Map</h1>
+          <h1 className="text-xl font-extrabold text-[var(--color-ink)] tracking-tight">Delhi Crime Map</h1>
           <ProvenanceBadge variant="government" source="Delhi Police districts" />
         </div>
-        <p className="text-stone-500 text-[11px] mt-0.5">
+        <p className="text-[var(--color-ink-soft)] text-[11px] mt-0.5">
           District cartogram — tile intensity reflects registered case count per district (demo case data on real district boundaries).
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Layers panel */}
-        <div className="bg-white border border-stone-200 rounded-xl p-4 space-y-3 h-fit">
-          <h3 className="text-[10px] font-extrabold text-stone-500 uppercase tracking-wider">Layers</h3>
-          <label className="flex items-center gap-2 text-xs font-semibold text-stone-700">
-            <input type="checkbox" checked={layers.stations} onChange={(e) => setLayers({ ...layers, stations: e.target.checked })} />
-            <MapPin className="w-3.5 h-3.5 text-stone-400" /> Police Stations
+        <div className="bg-white border border-[var(--color-lavender-border)] rounded-2xl p-4 space-y-3 h-fit">
+          <h3 className="text-[10px] font-extrabold text-[var(--color-ink-soft)] uppercase tracking-wider">Layers</h3>
+          <label className="flex items-center gap-2 text-xs font-semibold text-[var(--color-ink)]">
+            <input type="checkbox" checked={layers.stations} onChange={(e) => setLayers({ ...layers, stations: e.target.checked })} className="accent-[var(--color-primary)]" />
+            <MapPin className="w-3.5 h-3.5 text-[var(--color-ink-soft)]" /> Police Stations
           </label>
-          <label className="flex items-center gap-2 text-xs font-semibold text-stone-700">
-            <input type="checkbox" checked={layers.cases} onChange={(e) => setLayers({ ...layers, cases: e.target.checked })} />
-            <MapPin className="w-3.5 h-3.5 text-stone-400" /> Case Density
+          <label className="flex items-center gap-2 text-xs font-semibold text-[var(--color-ink)]">
+            <input type="checkbox" checked={layers.cases} onChange={(e) => setLayers({ ...layers, cases: e.target.checked })} className="accent-[var(--color-primary)]" />
+            <MapPin className="w-3.5 h-3.5 text-[var(--color-ink-soft)]" /> Case Density
           </label>
-          <div className="border-t border-stone-100 pt-3 space-y-2">
-            <p className="text-[9px] font-bold text-stone-400 uppercase tracking-wide">Government layers (not configured)</p>
-            <div className="flex items-center gap-2 text-xs font-semibold text-stone-400" title="Requires ISRO Bhuvan API credentials — not configured in this deployment">
+          <div className="border-t border-[var(--color-lavender-border)] pt-3 space-y-2">
+            <p className="text-[9px] font-bold text-[var(--color-ink-soft)] uppercase tracking-wide">Government layers (not configured)</p>
+            <div className="flex items-center gap-2 text-xs font-semibold text-[var(--color-ink-soft)]" title="Requires ISRO Bhuvan API credentials — not configured in this deployment">
               <Lock className="w-3 h-3" /> <Satellite className="w-3.5 h-3.5" /> Bhuvan Satellite
             </div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-stone-400" title="Requires CPCB / data.gov.in API key — not configured in this deployment">
+            <div className="flex items-center gap-2 text-xs font-semibold text-[var(--color-ink-soft)]" title="Requires CPCB / data.gov.in API key — not configured in this deployment">
               <Lock className="w-3 h-3" /> <Wind className="w-3.5 h-3.5" /> CPCB Air Quality
             </div>
           </div>
@@ -68,8 +68,8 @@ export default function MapClient({ cases, stations }: { cases: any[]; stations:
         {/* Cartogram */}
         <div className="lg:col-span-3 space-y-4">
           {hierarchy.map(({ range, districts }) => (
-            <div key={range} className="bg-white border border-stone-200 rounded-xl p-4">
-              <h4 className="text-[10px] font-extrabold text-stone-500 uppercase tracking-wider mb-3">{range}</h4>
+            <div key={range} className="bg-white border border-[var(--color-lavender-border)] rounded-2xl p-4">
+              <h4 className="text-[10px] font-extrabold text-[var(--color-ink-soft)] uppercase tracking-wider mb-3">{range}</h4>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {districts.map(({ district }) => {
                   const count = districtCaseCounts.get(district) || 0;
@@ -86,7 +86,7 @@ export default function MapClient({ cases, stations }: { cases: any[]; stations:
             </div>
           ))}
           {hierarchy.length === 0 && (
-            <div className="text-center py-12 text-xs text-stone-400 font-medium bg-white border border-stone-200 rounded-xl p-8">
+            <div className="text-center py-12 text-xs text-[var(--color-ink-soft)] font-medium bg-white border border-[var(--color-lavender-border)] rounded-2xl p-8">
               No stations registered yet.
             </div>
           )}

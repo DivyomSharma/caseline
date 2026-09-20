@@ -82,7 +82,7 @@ export default function CaseNetworkGraph({
 
       <div className="flex flex-wrap gap-3 justify-center mt-2">
         {(['officer', 'criminal', 'victim', 'evidence'] as NodeType[]).map((type) => (
-          <div key={type} className="flex items-center gap-1.5 text-[9px] font-bold text-stone-500 uppercase tracking-wide">
+          <div key={type} className="flex items-center gap-1.5 text-[9px] font-bold text-[var(--color-ink-soft)] uppercase tracking-wide">
             <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: COLORS[type] }} />
             {type}
           </div>
@@ -96,7 +96,7 @@ export default function CaseNetworkGraph({
             <Link
               key={`link-${n.id}`}
               href={n.href!}
-              className="text-[10px] font-bold text-stone-500 hover:text-stone-800 underline"
+              className="text-[10px] font-bold text-[var(--color-ink-soft)] hover:text-[var(--color-ink)] underline"
             >
               {n.label}
             </Link>

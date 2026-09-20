@@ -48,21 +48,23 @@ reference world.
   `shadow-sm`. No colored left-borders.
 - Icons: lucide-react, single stroke weight, unchanged library.
 
-## Surfaces covered in this pass
+## Surfaces covered
 
 `src/app/layout.tsx`, `src/app/globals.css`, `src/components/layout/Sidebar.tsx`,
 `src/components/layout/TopHeader.tsx`, `src/app/(dashboard)/layout-client.tsx`,
 `src/app/(dashboard)/dashboard/dashboard-client.tsx`,
-`src/app/(auth)/login/page.tsx`.
+`src/app/(auth)/login/page.tsx`, and every remaining CRUD page (cases,
+case detail + network graph, criminals + profile, FIRs + new-FIR form,
+victims, officers, stations, investigations, evidence, courts, laws, map,
+reports, analytics, settings). Sitewide rollout complete — no stone/amber
+Tailwind classes remain anywhere in `src/app`.
 
 ## Not yet covered
 
-Individual CRUD pages (cases, criminals, FIRs, victims, officers, stations,
-investigations, evidence, courts, laws, map, reports, analytics, settings)
-still carry the old stone/amber Tailwind classes. They inherit the shell
-(sidebar, header, page background, fonts) but their internal cards/badges/
-buttons have not been retokenized. Apply the same `--color-*` tokens and
-pill language there in a follow-up pass.
+Nothing outstanding from this pass. Data-intensity signals (map choropleth
+tiers, status badges like convicted/accused/on-leave) were deliberately kept
+distinct from brand chrome — hue swapped to the saffron accent rather than
+removed, since they encode real state, not decoration.
 
 ## Process note
 

@@ -2,16 +2,16 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { 
-  Search, 
-  Filter, 
-  SlidersHorizontal, 
-  ChevronDown, 
-  ChevronUp, 
-  Eye, 
-  PlusCircle, 
-  Calendar, 
-  AlertCircle 
+import {
+  Search,
+  Filter,
+  SlidersHorizontal,
+  ChevronDown,
+  ChevronUp,
+  Eye,
+  PlusCircle,
+  Calendar,
+  AlertCircle
 } from 'lucide-react';
 
 interface CaseListProps {
@@ -22,7 +22,7 @@ interface CaseListProps {
 
 export default function CasesClient({ initialCases, stations, officers }: CaseListProps) {
   const [cases, setCases] = useState(initialCases);
-  
+
   // Filter states
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('');
@@ -44,7 +44,7 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
 
     if (search) {
       const s = search.toLowerCase();
-      result = result.filter(c => 
+      result = result.filter(c =>
         c.case_number.toLowerCase().includes(s) ||
         c.crime_type.toLowerCase().includes(s) ||
         c.location.toLowerCase().includes(s) ||
@@ -127,7 +127,7 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
       case 'registered':
         return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-100">{label}</span>;
       case 'under_investigation':
-        return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-100">{label}</span>;
+        return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[var(--color-saffron)]/10 text-[var(--color-saffron)] border border-[var(--color-saffron)]/30">{label}</span>;
       case 'suspect_identified':
         return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-50 text-orange-700 border border-orange-100">{label}</span>;
       case 'chargesheet_filed':
@@ -135,14 +135,14 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
       case 'solved':
         return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">{label}</span>;
       default:
-        return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-stone-100 text-stone-700 border border-stone-200">{label}</span>;
+        return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[var(--color-lavender)] text-[var(--color-ink-soft)] border border-[var(--color-lavender-border)]">{label}</span>;
     }
   };
 
   const getPriorityBadge = (p: string) => {
     switch (p) {
       case 'low':
-        return <span className="inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-bold bg-stone-50 text-stone-600 border border-stone-100">Low</span>;
+        return <span className="inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-bold bg-[var(--color-lavender)] text-[var(--color-ink-soft)] border border-[var(--color-lavender-border)]">Low</span>;
       case 'medium':
         return <span className="inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-bold bg-blue-50 text-blue-600 border border-blue-100">Med</span>;
       case 'high':
@@ -154,18 +154,18 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
 
   return (
     <div className="space-y-6">
-      
+
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
         <div>
-          <h1 className="text-xl font-extrabold text-stone-900 tracking-tight">Cases Directory</h1>
-          <p className="text-stone-500 text-[11px] mt-0.5">
+          <h1 className="text-xl font-extrabold text-[var(--color-ink)] tracking-tight">Cases Directory</h1>
+          <p className="text-[var(--color-ink-soft)] text-[11px] mt-0.5">
             Overview of active, pending, and closed criminal case registers.
           </p>
         </div>
         <Link
           href="/fir/new"
-          className="inline-flex items-center space-x-2 bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs px-4 py-2.5 rounded-lg shadow-sm self-start transition-all"
+          className="inline-flex items-center space-x-2 bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white font-bold text-xs px-4 py-2.5 rounded-full shadow-sm self-start transition-all"
         >
           <PlusCircle className="w-4 h-4" />
           <span>Register New Case/FIR</span>
@@ -173,24 +173,24 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
       </div>
 
       {/* Filter Box */}
-      <div className="bg-white border border-stone-200 rounded-xl p-4 shadow-sm space-y-4">
-        
+      <div className="bg-white border border-[var(--color-lavender-border)] rounded-2xl p-4 shadow-sm space-y-4">
+
         {/* Row 1: Search & Reset */}
         <div className="flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-3.5 w-4 h-4 text-stone-400" />
+            <Search className="absolute left-3 top-3.5 w-4 h-4 text-[var(--color-ink-soft)]/60" />
             <input
               type="text"
               value={search}
               onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
               placeholder="Search by case #, FIR #, crime type, officer name..."
-              className="w-full bg-stone-50 border border-stone-200 rounded-lg pl-9 pr-4 py-2.5 text-xs text-stone-800 placeholder:text-stone-400 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+              className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg pl-9 pr-4 py-2.5 text-xs text-[var(--color-ink)] placeholder:text-[var(--color-ink-soft)]/50 focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)]"
             />
           </div>
           {(search || status || priority || stationId || officerId) && (
             <button
               onClick={handleResetFilters}
-              className="text-xs text-stone-500 hover:text-stone-800 font-bold px-3 py-2 border border-stone-200 rounded-lg hover:bg-stone-50"
+              className="text-xs text-[var(--color-ink-soft)] hover:text-[var(--color-ink)] font-bold px-3 py-2 border border-[var(--color-lavender-border)] rounded-full hover:bg-[var(--color-lavender)]"
             >
               Reset Filters
             </button>
@@ -199,16 +199,16 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
 
         {/* Row 2: Select Filters */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          
+
           {/* Status filter */}
           <div>
-            <label className="block text-[9px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+            <label className="block text-[9px] font-bold text-[var(--color-ink-soft)]/70 uppercase tracking-wide mb-1">
               Case Status
             </label>
             <select
               value={status}
               onChange={(e) => { setStatus(e.target.value); setCurrentPage(1); }}
-              className="w-full bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+              className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-2.5 py-2 text-xs text-[var(--color-ink)] focus:outline-none focus:border-[var(--color-primary)]"
             >
               <option value="">All Statuses</option>
               <option value="registered">Registered</option>
@@ -222,13 +222,13 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
 
           {/* Priority filter */}
           <div>
-            <label className="block text-[9px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+            <label className="block text-[9px] font-bold text-[var(--color-ink-soft)]/70 uppercase tracking-wide mb-1">
               Priority
             </label>
             <select
               value={priority}
               onChange={(e) => { setPriority(e.target.value); setCurrentPage(1); }}
-              className="w-full bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+              className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-2.5 py-2 text-xs text-[var(--color-ink)] focus:outline-none focus:border-[var(--color-primary)]"
             >
               <option value="">All Priorities</option>
               <option value="low">Low</option>
@@ -240,13 +240,13 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
 
           {/* Station Filter */}
           <div>
-            <label className="block text-[9px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+            <label className="block text-[9px] font-bold text-[var(--color-ink-soft)]/70 uppercase tracking-wide mb-1">
               Police Station
             </label>
             <select
               value={stationId}
               onChange={(e) => { setStationId(e.target.value); setCurrentPage(1); }}
-              className="w-full bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+              className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-2.5 py-2 text-xs text-[var(--color-ink)] focus:outline-none focus:border-[var(--color-primary)]"
             >
               <option value="">All Stations</option>
               {stations.map(st => (
@@ -257,13 +257,13 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
 
           {/* Assigned Officer Filter */}
           <div>
-            <label className="block text-[9px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+            <label className="block text-[9px] font-bold text-[var(--color-ink-soft)]/70 uppercase tracking-wide mb-1">
               Assigned Investigator
             </label>
             <select
               value={officerId}
               onChange={(e) => { setOfficerId(e.target.value); setCurrentPage(1); }}
-              className="w-full bg-stone-50 border border-stone-200 rounded-lg px-2.5 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+              className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-2.5 py-2 text-xs text-[var(--color-ink)] focus:outline-none focus:border-[var(--color-primary)]"
             >
               <option value="">All Officers</option>
               {officers.map(o => (
@@ -277,54 +277,54 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
       </div>
 
       {/* Cases Table */}
-      <div className="bg-white border border-stone-200 rounded-xl shadow-sm overflow-hidden">
+      <div className="bg-white border border-[var(--color-lavender-border)] rounded-2xl shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-stone-50/70 border-b border-stone-200 text-[10px] font-bold uppercase tracking-wider text-stone-400">
-                <th className="py-3 px-4 cursor-pointer hover:bg-stone-100" onClick={() => handleSort('case_number')}>
+              <tr className="bg-[var(--color-lavender)]/70 border-b border-[var(--color-lavender-border)] text-[10px] font-bold uppercase tracking-wider text-[var(--color-ink-soft)]/70">
+                <th className="py-3 px-4 cursor-pointer hover:bg-[var(--color-lavender)]" onClick={() => handleSort('case_number')}>
                   <div className="flex items-center space-x-1">
                     <span>Case #</span>
                     {sortField === 'case_number' && (sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}
                   </div>
                 </th>
-                <th className="py-3 px-4 cursor-pointer hover:bg-stone-100" onClick={() => handleSort('fir')}>
+                <th className="py-3 px-4 cursor-pointer hover:bg-[var(--color-lavender)]" onClick={() => handleSort('fir')}>
                   <div className="flex items-center space-x-1">
                     <span>Linked FIR #</span>
                     {sortField === 'fir' && (sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}
                   </div>
                 </th>
-                <th className="py-3 px-4 cursor-pointer hover:bg-stone-100" onClick={() => handleSort('crime_type')}>
+                <th className="py-3 px-4 cursor-pointer hover:bg-[var(--color-lavender)]" onClick={() => handleSort('crime_type')}>
                   <div className="flex items-center space-x-1">
                     <span>Crime Category</span>
                     {sortField === 'crime_type' && (sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}
                   </div>
                 </th>
-                <th className="py-3 px-4 cursor-pointer hover:bg-stone-100" onClick={() => handleSort('incident_date')}>
+                <th className="py-3 px-4 cursor-pointer hover:bg-[var(--color-lavender)]" onClick={() => handleSort('incident_date')}>
                   <div className="flex items-center space-x-1">
                     <span>Incident Date</span>
                     {sortField === 'incident_date' && (sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}
                   </div>
                 </th>
-                <th className="py-3 px-4 cursor-pointer hover:bg-stone-100" onClick={() => handleSort('station')}>
+                <th className="py-3 px-4 cursor-pointer hover:bg-[var(--color-lavender)]" onClick={() => handleSort('station')}>
                   <div className="flex items-center space-x-1">
                     <span>Precinct Code</span>
                     {sortField === 'station' && (sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}
                   </div>
                 </th>
-                <th className="py-3 px-4 cursor-pointer hover:bg-stone-100" onClick={() => handleSort('officer')}>
+                <th className="py-3 px-4 cursor-pointer hover:bg-[var(--color-lavender)]" onClick={() => handleSort('officer')}>
                   <div className="flex items-center space-x-1">
                     <span>Assigned Officer</span>
                     {sortField === 'officer' && (sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}
                   </div>
                 </th>
-                <th className="py-3 px-4 text-center cursor-pointer hover:bg-stone-100" onClick={() => handleSort('priority')}>
+                <th className="py-3 px-4 text-center cursor-pointer hover:bg-[var(--color-lavender)]" onClick={() => handleSort('priority')}>
                   <div className="flex items-center justify-center space-x-1">
                     <span>Priority</span>
                     {sortField === 'priority' && (sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}
                   </div>
                 </th>
-                <th className="py-3 px-4 cursor-pointer hover:bg-stone-100" onClick={() => handleSort('status')}>
+                <th className="py-3 px-4 cursor-pointer hover:bg-[var(--color-lavender)]" onClick={() => handleSort('status')}>
                   <div className="flex items-center space-x-1">
                     <span>Case Status</span>
                     {sortField === 'status' && (sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}
@@ -333,40 +333,40 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
                 <th className="py-3 px-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-stone-100 text-xs">
+            <tbody className="divide-y divide-[var(--color-lavender-border)]/60 text-xs">
               {paginatedCases.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="py-8 text-center text-stone-400 font-medium">
+                  <td colSpan={9} className="py-8 text-center text-[var(--color-ink-soft)]/60 font-medium">
                     <div className="flex flex-col items-center justify-center space-y-2">
-                      <AlertCircle className="w-6 h-6 text-stone-300" />
+                      <AlertCircle className="w-6 h-6 text-[var(--color-ink-soft)]/40" />
                       <span>No cases matched the search parameters.</span>
                     </div>
                   </td>
                 </tr>
               ) : (
                 paginatedCases.map((c) => (
-                  <tr key={c.id} className="hover:bg-stone-50/60 transition-all">
-                    <td className="py-3.5 px-4 font-bold text-stone-800 tracking-tight font-mono">
+                  <tr key={c.id} className="hover:bg-[var(--color-lavender)]/40 transition-all">
+                    <td className="py-3.5 px-4 font-bold text-[var(--color-ink)] tracking-tight font-mono">
                       {c.case_number}
                     </td>
-                    <td className="py-3.5 px-4 text-stone-500 font-semibold font-mono">
+                    <td className="py-3.5 px-4 text-[var(--color-ink-soft)] font-semibold font-mono">
                       {c.firs?.[0]?.fir_number || 'Awaiting FIR'}
                     </td>
-                    <td className="py-3.5 px-4 font-bold text-stone-800">
+                    <td className="py-3.5 px-4 font-bold text-[var(--color-ink)]">
                       {c.crime_type}
                     </td>
-                    <td className="py-3.5 px-4 text-stone-500 font-medium flex items-center space-x-1">
-                      <Calendar className="w-3.5 h-3.5 text-stone-400" />
+                    <td className="py-3.5 px-4 text-[var(--color-ink-soft)] font-medium flex items-center space-x-1">
+                      <Calendar className="w-3.5 h-3.5 text-[var(--color-ink-soft)]/60" />
                       <span>{new Date(c.incident_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                     </td>
-                    <td className="py-3.5 px-4 text-stone-500 font-bold uppercase">
+                    <td className="py-3.5 px-4 text-[var(--color-ink-soft)] font-bold uppercase">
                       {c.police_stations?.station_code || 'N/A'}
                     </td>
-                    <td className="py-3.5 px-4 text-stone-600 font-semibold">
+                    <td className="py-3.5 px-4 text-[var(--color-ink-soft)] font-semibold">
                       {c.officers?.profiles?.full_name ? (
                         <span>{c.officers.rank} {c.officers.profiles.full_name.split(' ').slice(1).join(' ')}</span>
                       ) : (
-                        <span className="text-stone-400 italic font-normal">Unassigned</span>
+                        <span className="text-[var(--color-ink-soft)]/60 italic font-normal">Unassigned</span>
                       )}
                     </td>
                     <td className="py-3.5 px-4 text-center">
@@ -378,7 +378,7 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
                     <td className="py-3.5 px-4 text-center">
                       <Link
                         href={`/cases/${c.id}`}
-                        className="inline-flex items-center space-x-1 border border-stone-200 hover:border-stone-300 hover:bg-stone-50 text-stone-700 font-bold px-2.5 py-1.5 rounded-lg shadow-sm transition-all"
+                        className="inline-flex items-center space-x-1 border border-[var(--color-lavender-border)] hover:border-[var(--color-primary)]/40 hover:bg-[var(--color-lavender)] text-[var(--color-ink)] font-bold px-2.5 py-1.5 rounded-full shadow-sm transition-all"
                       >
                         <Eye className="w-3.5 h-3.5" />
                         <span className="text-[10px]">Open File</span>
@@ -393,22 +393,22 @@ export default function CasesClient({ initialCases, stations, officers }: CaseLi
 
         {/* Pagination footer */}
         {filteredCases.length > 0 && (
-          <div className="bg-stone-50/50 border-t border-stone-100 p-4 flex items-center justify-between">
-            <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">
+          <div className="bg-[var(--color-lavender)]/50 border-t border-[var(--color-lavender-border)] p-4 flex items-center justify-between">
+            <span className="text-[10px] text-[var(--color-ink-soft)]/70 font-bold uppercase tracking-wider">
               Showing {Math.min(filteredCases.length, (currentPage - 1) * itemsPerPage + 1)}-{Math.min(filteredCases.length, currentPage * itemsPerPage)} of {filteredCases.length} cases
             </span>
             <div className="flex space-x-1.5">
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage(currentPage - 1)}
-                className="px-3 py-1.5 text-[10px] font-bold text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 disabled:opacity-50 disabled:cursor-not-allowed select-none"
+                className="px-3 py-1.5 text-[10px] font-bold text-[var(--color-ink-soft)] bg-white border border-[var(--color-lavender-border)] rounded-full hover:bg-[var(--color-lavender)] disabled:opacity-50 disabled:cursor-not-allowed select-none"
               >
                 Previous
               </button>
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage(currentPage + 1)}
-                className="px-3 py-1.5 text-[10px] font-bold text-stone-600 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 disabled:opacity-50 disabled:cursor-not-allowed select-none"
+                className="px-3 py-1.5 text-[10px] font-bold text-[var(--color-ink-soft)] bg-white border border-[var(--color-lavender-border)] rounded-full hover:bg-[var(--color-lavender)] disabled:opacity-50 disabled:cursor-not-allowed select-none"
               >
                 Next
               </button>

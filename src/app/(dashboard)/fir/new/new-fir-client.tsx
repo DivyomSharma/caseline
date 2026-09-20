@@ -49,8 +49,8 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
       
       {/* Page Header */}
       <div>
-        <h1 className="text-xl font-extrabold text-stone-900 tracking-tight">FIR Registry</h1>
-        <p className="text-stone-500 text-[11px] mt-0.5">
+        <h1 className="text-xl font-extrabold text-[var(--color-ink)] tracking-tight">FIR Registry</h1>
+        <p className="text-[var(--color-ink-soft)]/80 text-[11px] mt-0.5">
           First Information Report logging wizard. Generates case files & initiates investigative logs.
         </p>
       </div>
@@ -69,15 +69,15 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
           <div className="lg:col-span-2 space-y-6">
             
             {/* Section A: FIR Identification */}
-            <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm space-y-4">
-              <h3 className="text-xs font-bold text-stone-800 uppercase tracking-widest flex items-center space-x-2 border-b border-stone-100 pb-3">
-                <FileText className="w-4 h-4 text-stone-400" />
+            <div className="bg-white border border-[var(--color-lavender-border)] rounded-xl p-5 shadow-sm space-y-4">
+              <h3 className="text-xs font-bold text-[var(--color-ink)] uppercase tracking-widest flex items-center space-x-2 border-b border-[var(--color-lavender-border)] pb-3">
+                <FileText className="w-4 h-4 text-[var(--color-ink-soft)]/60" />
                 <span>1. Incident Classification & ID</span>
               </h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+                  <label className="block text-[10px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wide mb-1">
                     FIR Registry ID *
                   </label>
                   <input
@@ -85,19 +85,19 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
                     required
                     value={firNumber}
                     onChange={(e) => setFirNumber(e.target.value)}
-                    className="w-full bg-stone-50 border border-stone-200 rounded-lg px-3 py-2 text-xs font-bold text-stone-700 focus:outline-none focus:border-amber-500"
+                    className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-3 py-2 text-xs font-bold text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-primary)]"
                   />
-                  <span className="text-[9px] text-stone-400 mt-1 block">Autocreated code template. Override if manual docket matches.</span>
+                  <span className="text-[9px] text-[var(--color-ink-soft)]/60 mt-1 block">Autocreated code template. Override if manual docket matches.</span>
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+                  <label className="block text-[10px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wide mb-1">
                     Crime Category *
                   </label>
                   <select
                     name="crime_type"
                     required
-                    className="w-full bg-stone-50 border border-stone-200 rounded-lg px-3 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+                    className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-primary)]"
                   >
                     <option value="">Select Category</option>
                     <option value="Theft">Theft</option>
@@ -114,7 +114,7 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+                  <label className="block text-[10px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wide mb-1">
                     Date of Occurrence *
                   </label>
                   <input
@@ -122,11 +122,11 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
                     name="incident_date"
                     required
                     defaultValue={new Date().toISOString().split('T')[0]}
-                    className="w-full bg-stone-50 border border-stone-200 rounded-lg px-3 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+                    className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+                  <label className="block text-[10px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wide mb-1">
                     Time of Occurrence *
                   </label>
                   <input
@@ -134,11 +134,11 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
                     name="incident_time"
                     required
                     defaultValue="12:00"
-                    className="w-full bg-stone-50 border border-stone-200 rounded-lg px-3 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+                    className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-primary)]"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+                  <label className="block text-[10px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wide mb-1">
                     Occurrence Coordinates / Location *
                   </label>
                   <input
@@ -146,20 +146,20 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
                     name="location"
                     required
                     placeholder="e.g. Sector 18 Market area"
-                    className="w-full bg-stone-50 border border-stone-200 rounded-lg px-3 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+                    className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-primary)]"
                   />
                 </div>
               </div>
             </div>
 
             {/* Section B: Complaint narrative */}
-            <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm space-y-4">
-              <h3 className="text-xs font-bold text-stone-800 uppercase tracking-widest flex items-center space-x-2 border-b border-stone-100 pb-3">
-                <Clock className="w-4 h-4 text-stone-400" />
+            <div className="bg-white border border-[var(--color-lavender-border)] rounded-xl p-5 shadow-sm space-y-4">
+              <h3 className="text-xs font-bold text-[var(--color-ink)] uppercase tracking-widest flex items-center space-x-2 border-b border-[var(--color-lavender-border)] pb-3">
+                <Clock className="w-4 h-4 text-[var(--color-ink-soft)]/60" />
                 <span>2. Statement & Narrative details</span>
               </h3>
               <div>
-                <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+                <label className="block text-[10px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wide mb-1">
                   Verbatim Complaint Description *
                 </label>
                 <textarea
@@ -167,7 +167,7 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
                   required
                   rows={6}
                   placeholder="Record the official description of the incident, specifying dates, names, property details, and chronology..."
-                  className="w-full bg-stone-50 border border-stone-200 rounded-lg px-3 py-2.5 text-xs text-stone-700 focus:outline-none focus:border-amber-500 placeholder:text-stone-400"
+                  className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-3 py-2.5 text-xs text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-primary)] placeholder:text-[var(--color-ink-soft)]/60"
                 />
               </div>
             </div>
@@ -178,15 +178,15 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
           <div className="space-y-6">
             
             {/* Section C: Complainant Details */}
-            <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm space-y-4">
-              <h3 className="text-xs font-bold text-stone-800 uppercase tracking-widest flex items-center space-x-2 border-b border-stone-100 pb-3">
-                <User className="w-4 h-4 text-stone-400" />
+            <div className="bg-white border border-[var(--color-lavender-border)] rounded-xl p-5 shadow-sm space-y-4">
+              <h3 className="text-xs font-bold text-[var(--color-ink)] uppercase tracking-widest flex items-center space-x-2 border-b border-[var(--color-lavender-border)] pb-3">
+                <User className="w-4 h-4 text-[var(--color-ink-soft)]/60" />
                 <span>3. Complainant Profile</span>
               </h3>
               
               <div className="space-y-3">
                 <div>
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+                  <label className="block text-[10px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wide mb-1">
                     Full Name *
                   </label>
                   <input
@@ -194,12 +194,12 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
                     name="complainant_name"
                     required
                     placeholder="e.g. Ramesh Kumar"
-                    className="w-full bg-stone-50 border border-stone-200 rounded-lg px-3 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+                    className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-primary)]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+                  <label className="block text-[10px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wide mb-1">
                     Contact Phone *
                   </label>
                   <input
@@ -207,12 +207,12 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
                     name="complainant_contact"
                     required
                     placeholder="e.g. +91-9988776655"
-                    className="w-full bg-stone-50 border border-stone-200 rounded-lg px-3 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+                    className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-primary)]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+                  <label className="block text-[10px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wide mb-1">
                     Residential Address *
                   </label>
                   <textarea
@@ -220,28 +220,28 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
                     required
                     rows={3}
                     placeholder="Residential address details..."
-                    className="w-full bg-stone-50 border border-stone-200 rounded-lg px-3 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+                    className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-primary)]"
                   />
                 </div>
               </div>
             </div>
 
             {/* Section D: Assignment & Station */}
-            <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm space-y-4">
-              <h3 className="text-xs font-bold text-stone-800 uppercase tracking-widest flex items-center space-x-2 border-b border-stone-100 pb-3">
-                <Shield className="w-4 h-4 text-stone-400" />
+            <div className="bg-white border border-[var(--color-lavender-border)] rounded-xl p-5 shadow-sm space-y-4">
+              <h3 className="text-xs font-bold text-[var(--color-ink)] uppercase tracking-widest flex items-center space-x-2 border-b border-[var(--color-lavender-border)] pb-3">
+                <Shield className="w-4 h-4 text-[var(--color-ink-soft)]/60" />
                 <span>4. Case Routing & Priority</span>
               </h3>
               
               <div className="space-y-3">
                 <div>
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+                  <label className="block text-[10px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wide mb-1">
                     Police Station Precinct *
                   </label>
                   <select
                     name="station_id"
                     required
-                    className="w-full bg-stone-50 border border-stone-200 rounded-lg px-3 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+                    className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-primary)]"
                   >
                     <option value="">Select Station</option>
                     {stations.map(st => (
@@ -251,13 +251,13 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+                  <label className="block text-[10px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wide mb-1">
                     Assigned Officer *
                   </label>
                   <select
                     name="assigned_officer_id"
                     required
-                    className="w-full bg-stone-50 border border-stone-200 rounded-lg px-3 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+                    className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-primary)]"
                   >
                     <option value="">Select Officer</option>
                     {officers.map(o => (
@@ -267,13 +267,13 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wide mb-1">
+                  <label className="block text-[10px] font-bold text-[var(--color-ink-soft)]/60 uppercase tracking-wide mb-1">
                     Case Threat Priority *
                   </label>
                   <select
                     name="priority"
                     required
-                    className="w-full bg-stone-50 border border-stone-200 rounded-lg px-3 py-2 text-xs text-stone-700 focus:outline-none focus:border-amber-500"
+                    className="w-full bg-[var(--color-lavender)] border border-[var(--color-lavender-border)] rounded-lg px-3 py-2 text-xs text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-primary)]"
                   >
                     <option value="low">Low Priority</option>
                     <option value="medium">Medium Priority</option>
@@ -288,14 +288,14 @@ export default function NewFirClient({ stations, officers }: NewFirClientProps) 
             <div className="flex space-x-3">
               <Link
                 href="/cases"
-                className="w-1/3 flex justify-center items-center py-2.5 px-4 border border-stone-200 rounded-lg text-xs font-bold text-stone-500 hover:bg-stone-50 bg-white"
+                className="w-1/3 flex justify-center items-center py-2.5 px-4 border border-[var(--color-lavender-border)] rounded-full text-xs font-bold text-[var(--color-ink-soft)]/80 hover:bg-[var(--color-lavender)] bg-white"
               >
                 Cancel
               </Link>
               <button
                 type="submit"
                 disabled={loading}
-                className="w-2/3 flex justify-center items-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-xs font-bold text-white bg-stone-900 hover:bg-stone-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="w-2/3 flex justify-center items-center py-2.5 px-4 border border-transparent rounded-full shadow-sm text-xs font-bold text-white bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
                 {loading ? 'Registering...' : (
                   <div className="flex items-center space-x-2">
